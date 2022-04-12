@@ -1,4 +1,4 @@
-package model.land;
+package model.gameModels.land;
 
 public abstract class Land {
     private int food;
