@@ -1,46 +1,47 @@
 package model.resources;
 
 import model.Progress;
-
-import java.util.ArrayList;
+import model.Technology;
 
 public enum ResourceType {
     //score resources:
-    BANANA(1, 0, 0, null),
-    COW(1, 0, 0, null),
-    GAZELLE(1, 0, 0, null),
-    SHEEP(1, 0, 0, null),
-    WHEAT(1, 0, 0, null),
+    BANANA(1, 0, 0, Progress.FARMING, null),
+    COW(1, 0, 0, Progress.PASTURE, null),
+    GAZELLE(1, 0, 0, Progress.CAMP, null),
+    SHEEP(1, 0, 0, Progress.PASTURE, null),
+    WHEAT(1, 0, 0, Progress.FARM, null),
 
     //luxury resources:
-    COTTON(0, 0, 2, null),
-    COLOR(0, 0, 2, null),
-    FUR(0, 0, 2, null),
-    VALUABLE_STONE(0, 0, 3, null),
-    GOLD(0, 0, 2, null),
-    INCENSE(0, 0, 2, null),
-    IVORY(0, 0, 2, null),
-    MARBLE(0, 0, 2, null),
-    SILK(0, 0, 2, null),
-    SILVER(0, 0, 2, null),
-    SUGAR(0, 0, 2, null),
+    COTTON(0, 0, 2, Progress.FARMING, null),
+    COLOR(0, 0, 2, Progress.FARMING, null),
+    FUR(0, 0, 2, Progress.CAMP, null),
+    VALUABLE_STONE(0, 0, 3, Progress.MINE, null),
+    GOLD(0, 0, 2, Progress.MINE, null),
+    INCENSE(0, 0, 2, Progress.FARMING, null),
+    IVORY(0, 0, 2, Progress.CAMP, null),
+    MARBLE(0, 0, 2, Progress.STONE_MINE, null),
+    SILK(0, 0, 2, Progress.FARMING, null),
+    SILVER(0, 0, 2, Progress.MINE, null),
+    SUGAR(0, 0, 2, Progress.FARMING, null),
 
     //strategic resources:
-    COAL(0, 1, 0, null),
-    HOURSE(0, 1, 0, null),
-    IRON(0, 1, 0, null);
+    COAL(0, 1, 0, Progress.MINE, Technology.THEORY),
+    HOURSE(0, 1, 0, Progress.PASTURE, Technology.LIVESTOCK),
+    IRON(0, 1, 0, Progress.MINE, Technology.IRON_WORK);
 
 
     private final int food;
     private final int production;
     private final int gold;
-    private final ArrayList<Progress> requiredProgress;
+    private final Progress requiredProgress;
+    private final Technology requiredTechnology;
 
-    ResourceType(int food, int production, int gold, ArrayList<Progress> requiredProgress) {
+    ResourceType(int food, int production, int gold, Progress requiredProgress, Technology requiredTechnology) {
         this.food = food;
         this.production = production;
         this.gold = gold;
         this.requiredProgress = requiredProgress;
+        this.requiredTechnology = requiredTechnology;
     }
 
     public int getFood() {
@@ -55,7 +56,11 @@ public enum ResourceType {
         return gold;
     }
 
-    public ArrayList<Progress> getRequiredProgress() {
+    public Progress getRequiredProgress() {
         return requiredProgress;
+    }
+
+    public Technology getRequiredTechnology() {
+        return requiredTechnology;
     }
 }

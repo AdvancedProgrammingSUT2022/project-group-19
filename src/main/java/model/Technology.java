@@ -1,9 +1,7 @@
 package model;
 
-import java.util.ArrayList;
-
-public class Technology {
-    private ArrayList <String> allOfTechnology;
-    private ArrayList <String> availableTechnology;
-    // todo
+public enum Technology {
+    THEORY,
+    LIVESTOCK,
+    IRON_WORK,
 }
