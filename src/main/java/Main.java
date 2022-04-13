@@ -5,6 +5,5 @@ public class Main {
             please configure your java version to 17
             good luck :)
             """);
-        System.out.println("salam ali tayyeb");
     }
 }
