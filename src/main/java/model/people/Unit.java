@@ -2,13 +2,13 @@ package model.people;
 
 public class Unit {
     private int speed;
-    private int MilitaryPower;
+    private int power;
     // todo ( ertegha ?? )
 
 
     public Unit(int speed, int militaryPower) {
         this.speed = speed;
-        MilitaryPower = militaryPower;
+        power = militaryPower;
     }
 
     public int getSpeed() {
@@ -19,11 +19,32 @@ public class Unit {
         this.speed = speed;
     }
 
-    public int getMilitaryPower() {
-        return MilitaryPower;
+    public int getPower() {
+        return power;
     }
 
-    public void setMilitaryPower(int militaryPower) {
-        MilitaryPower = militaryPower;
+    public void setPower(int power) {
+        this.power = power;
     }
+
+    public void move(){}
+
+    public void sleep(){}
+
+    public void standby(){}
+
+    public void reinforcement(){}
+
+    public void fullReinforcement(){}
+
+    public void settle(){}
+
+    public void plunder(){}
+
+    public void cancel(){}
+
+    public void wakeUp(){}
+
+    public void removeUnit(){}
+
 }
