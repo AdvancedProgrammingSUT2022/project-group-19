@@ -1,4 +1,4 @@
-package model.resources.pointsources;
+package temp.pointsources;
 
 public class Deer extends PointSource{
     public Deer(String name, int food, int production, int gold) {

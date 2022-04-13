@@ -1,12 +1,12 @@
-package model.resources.strategicsources;
+package temp.strategicsources;
 
 import model.Building;
 import model.people.MilitaryPersonnel;
-import model.resources.Source;
+
 
 import java.util.ArrayList;
 
-public class StrategicSource extends Source {
+public class StrategicSource extends Resource {
     private String technologyLevel;
     private ArrayList<MilitaryPersonnel> militaryPersons;
     private ArrayList<Building> buildings;

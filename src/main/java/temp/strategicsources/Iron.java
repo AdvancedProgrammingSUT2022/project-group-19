@@ -1,4 +1,4 @@
-package model.resources.strategicsources;
+package temp.strategicsources;
 
 public class Iron extends StrategicSource{
     public Iron(String name, int food, int production, int gold, String technologyLevel) {
