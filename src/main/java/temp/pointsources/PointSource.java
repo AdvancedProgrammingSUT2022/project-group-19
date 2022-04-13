@@ -1,8 +1,8 @@
-package model.resources.pointsources;
+package temp.pointsources;
 
-import model.resources.Source;
+import model.resources.Resource;
 
-public class PointSource extends Source {
+public class PointSource extends Resource {
     // todo
     public PointSource(String name, int food, int production, int gold) {
         super(name, food, production, gold);

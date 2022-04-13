@@ -6,8 +6,12 @@ public class Land {
     private final int gold;
     private final int fightChanges;
     private final int movePoint;
+    private final LandType type;
+    private final LandType feature;
 
-    public Land(LandType type,LandFeature feature){
+    public Land(LandType type, LandType feature) {
+        this.type = type;
+        this.feature = feature;
         this.food = type.getFood() + feature.getFood();
         this.gold = type.getGold() + feature.getGold();
         this.movePoint = type.getMovePoint() + feature.getMovePoint();

@@ -1,4 +1,4 @@
-package model.resources.luxurysources;
+package temp.luxurysources;
 
 public class Silver extends LuxurySource{
     public Silver(String name, int food, int production, int gold) {
