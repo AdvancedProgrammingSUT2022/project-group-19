@@ -1,18 +1,25 @@
 package model.lands;
 
-public class Land {
+public enum LandFeature {
+    JOLGE(2,0,0,-33,1),
+    JUNGEL(1,1,0,25,2),
+    ICE(0,0,0,0,9999),
+    DARK_JUNGLE(1,-1,0,25,2),
+    SWAMP(-1,0,0,-33,2),
+    OASIS(3, 0, 1, -33, 1),
+    ;
     private final int food;
     private final int production;
     private final int gold;
     private final int fightChanges;
     private final int movePoint;
 
-    public Land(LandType type,LandFeature feature){
-        this.food = type.getFood() + feature.getFood();
-        this.gold = type.getGold() + feature.getGold();
-        this.movePoint = type.getMovePoint() + feature.getMovePoint();
-        this.production = type.getProduction() + feature.getProduction();
-        this.fightChanges = type.getFightChanges() + feature.getFightChanges();
+    LandFeature(int food, int production, int gold, int fightChanges, int movePoint) {
+        this.food = food;
+        this.production = production;
+        this.gold = gold;
+        this.fightChanges = fightChanges;
+        this.movePoint = movePoint;
     }
 
     public int getFood() {
