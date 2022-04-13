@@ -1,20 +1,28 @@
-package model.lands;
+package model.gameModels.land;
 
-public abstract class Land {
+public class Land {
+    private String name;
     private int food;
     private int production;
     private int gold;
     private int fightChanges;
     private int movePoint;
-    private boolean isBlock;
 
-    public Land( int food, int production, int gold, int fightChanges, int movePoint, boolean isBlock) {
+    public Land(String name, int food, int production, int gold, int fightChanges, int movePoint) {
+        this.name = name;
         this.food = food;
         this.production = production;
         this.gold = gold;
         this.fightChanges = fightChanges;
         this.movePoint = movePoint;
-        this.isBlock = isBlock;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getFood() {
@@ -54,6 +62,7 @@ public abstract class Land {
     }
 
     public void setMovePoint(int movePoint) {
-        this.movePoint = movePoint;
-    }
+            this.movePoint = movePoint;
+        }
+
 }
