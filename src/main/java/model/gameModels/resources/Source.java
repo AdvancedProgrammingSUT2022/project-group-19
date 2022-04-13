@@ -1,20 +1,21 @@
-package model.gameModels.ground.lands;
+package model.gameModels.resources;
 
-public abstract class Land {
+import java.util.ArrayList;
+
+public class Source {
     private String name;
     private int food;
     private int production;
     private int gold;
-    private int fightChanges;
-    private int movePoint;
+    private ArrayList<String> allowableLands;
+    // todo ( pishraft lazam baray bahrebardary ??)
 
-    public Land(String name, int food, int production, int gold, int fightChanges, int movePoint) {
+    public Source(String name, int food, int production, int gold) {
         this.name = name;
         this.food = food;
         this.production = production;
         this.gold = gold;
-        this.fightChanges = fightChanges;
-        this.movePoint = movePoint;
+        this.allowableLands = new ArrayList<>();
     }
 
     public String getName() {
@@ -49,19 +50,16 @@ public abstract class Land {
         this.gold = gold;
     }
 
-    public int getFightChanges() {
-        return fightChanges;
+    public ArrayList<String> getAllowableLands() {
+        return allowableLands;
     }
 
-    public void setFightChanges(int fightChanges) {
-        this.fightChanges = fightChanges;
+    public void setAllowableLands(ArrayList<String> allowableLands) {
+        this.allowableLands = allowableLands;
     }
 
-    public int getMovePoint() {
-        return movePoint;
+    public void addAllowableLands(String nameOfLand){
+        this.allowableLands.add(nameOfLand);
     }
 
-    public void setMovePoint(int movePoint) {
-        this.movePoint = movePoint;
-    }
 }
