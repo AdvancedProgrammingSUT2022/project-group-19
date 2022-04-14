@@ -1,6 +1,5 @@
 package model.game;
 
-import model.people.MilitaryPersonnel;
 import model.people.Unit;
 
 public class Tile {

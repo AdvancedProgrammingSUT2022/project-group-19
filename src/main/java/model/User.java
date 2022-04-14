@@ -1,6 +1,6 @@
 package model;
 
-import model.Civilization;
+import model.civilizations.Civilization;
 
 import java.util.ArrayList;
 
