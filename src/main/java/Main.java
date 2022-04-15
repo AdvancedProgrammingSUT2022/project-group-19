@@ -3,6 +3,6 @@ public class Main {
         System.out.println(
             "Hello Sky Stars! This is an empty project.\n" +
                 "please configure your java version to 17\n" +
-                "good luck :)");
+                "good luck :)" + " hi ");
     }
 }
