@@ -13,12 +13,14 @@ public enum Technology {
     THE_WHEEL(55, new Technology[]{ANIMAL_HUSBANDRY}),
     TRAPPING(55, new Technology[]{ANIMAL_HUSBANDRY}),
     WRITING(55, new Technology[]{POTTERY}),
+
     //Classical Era
     CONSTRUCTION(100, new Technology[]{MASONRY}),
     HORSE_BACK_RIDING(100, new Technology[]{THE_WHEEL}),
     IRON_WORKING(150, new Technology[]{BRONZE_WORKING}),
     MATHEMATICS(100, new Technology[]{THE_WHEEL, ARCHERY}),
     PHILOSOPHY(100, new Technology[]{WRITING}),
+
     //Medieval Era
     CIVIL_SERVICE(400, new Technology[]{PHILOSOPHY, TRAPPING}),
     CURRENCY(250, new Technology[]{MATHEMATICS}),
@@ -30,6 +32,7 @@ public enum Technology {
     STEEL(440, new Technology[]{METAL_CASTING}),
     THEOLOGY(250, new Technology[]{CALENDER, PHILOSOPHY}),
     EDUCATION(440, new Technology[]{THEOLOGY}),
+
     //Renaissance Era
     ACOUSTICS(650, new Technology[]{EDUCATION}),
     ARCHAEOLOGY(1300, new Technology[]{ACOUSTICS}),
@@ -43,6 +46,7 @@ public enum Technology {
     MILITARY_SCIENCE(1300, new Technology[]{ECONOMICS, CHEMISTRY}),
     RIFLING(1425, new Technology[]{METALLURGY}),
     SCIENTIFIC_THEORY(1300, new Technology[]{ACOUSTICS}),
+
     //Industrial Era
     BIOLOGY(1680, new Technology[]{ARCHAEOLOGY, SCIENTIFIC_THEORY}),
     DYNAMITE(1900, new Technology[]{FERTILIZER, RIFLING}),
