@@ -1,8 +1,7 @@
 package model.technology;
 
 public enum Technology {
-   //Ancient Era
-
+    //Ancient Era
     AGRICULTURE(20, null),
     ANIMAL_HUSBANDRY(35, new Technology[]{AGRICULTURE}),
     ARCHERY(35, new Technology[]{AGRICULTURE}),
@@ -57,9 +56,10 @@ public enum Technology {
 
     private int cost;
     private Technology[] prerequisiteTechs;
+
     Technology(int cost, Technology[] prerequisiteTechs) {
-    this.cost = cost;
-    this.prerequisiteTechs = prerequisiteTechs;
+        this.cost = cost;
+        this.prerequisiteTechs = prerequisiteTechs;
     }
 
     public int getCost() {

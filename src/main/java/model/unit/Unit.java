@@ -1,7 +1,7 @@
-package model.people;
+package model.unit;
 
 import model.technology.Technology;
-import model.resources.ResourceType;
+import model.resource.ResourceType;
 
 public class Unit {
     private final UnitType type;

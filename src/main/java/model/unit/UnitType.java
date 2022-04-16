@@ -1,12 +1,12 @@
-package model.people;
+package model.unit;
 
 import model.technology.Technology;
-import model.resources.ResourceType;
+import model.resource.ResourceType;
 
 public enum UnitType {
     //Ancient era units:
     ARCHER(70, 4, 6, 2, 2, null, Technology.ARCHERY),
-    CHARIOT_ARCHER(60, 3, 6, 2, 4, ResourceType.HOURSE, Technology.THE_WHEEL),
+    CHARIOT_ARCHER(60, 3, 6, 2, 4, ResourceType.HORSE, Technology.THE_WHEEL),
     SCOUT(25, 4, 0, 0, 2, null, null),
     SETTLER(89, 0, 0, 0, 2, null, null),
     SPEARMAN(50, 7, 0, 0, 2, null, Technology.BRONZE_WORKING),
@@ -15,20 +15,20 @@ public enum UnitType {
 
     //Classical era units:
     CATAPULT(100,4,14,2,2,ResourceType.IRON,Technology.MATHEMATICS),
-    HORSE_MAN(80,12,0,0,4,ResourceType.HOURSE,Technology.HORSE_BACK_RIDING),
+    HORSE_MAN(80,12,0,0,4,ResourceType.HORSE,Technology.HORSE_BACK_RIDING),
     SWORDS_MAN(80,11,0,0,2,ResourceType.IRON,Technology.IRON_WORKING),
 
     //medieval era units:
     CROSSBOW_MAN(120,6,12,2,2,null,Technology.MACHINERY),
-    KNIGHT(150,18,0,0,3,ResourceType.HOURSE,Technology.CHIVALRY),
+    KNIGHT(150,18,0,0,3,ResourceType.HORSE,Technology.CHIVALRY),
     LONGSWRDS_MAN(150,18,0,0,3,ResourceType.IRON,Technology.STEEL),
     PIKE_MAN(100,10,0,0,2,null,Technology.CIVIL_SERVICE),
     TREBUCHET(170,6,20,2,2,ResourceType.IRON,Technology.PHYSICS),
 
     //Renaissance era units:
     CANON(250,10,26,2,2,null,Technology.CHEMISTRY),
-    CAVALRY(260,25,0,0,3,ResourceType.HOURSE,Technology.MILITARY_SCIENCE),
-    LANCER(220,22,0,0,4,ResourceType.HOURSE,Technology.METALLURGY),
+    CAVALRY(260,25,0,0,3,ResourceType.HORSE,Technology.MILITARY_SCIENCE),
+    LANCER(220,22,0,0,4,ResourceType.HORSE,Technology.METALLURGY),
     MUSKET_MAN(120,16,0,0,2,null,Technology.GUNPOWDER),
     RIFLE_MAN(200,25,0,0,2,null,Technology.RIFLING),
 
