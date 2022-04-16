@@ -1,7 +1,7 @@
 package model.resources;
 
 import model.Progress;
-import model.Technology;
+import model.technology.Technology;
 
 public class Resource {
     private ResourceType type;

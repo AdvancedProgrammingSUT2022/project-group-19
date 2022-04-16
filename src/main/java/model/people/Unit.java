@@ -1,6 +1,6 @@
 package model.people;
 
-import model.Technology;
+import model.technology.Technology;
 import model.resources.ResourceType;
 
 public class Unit {

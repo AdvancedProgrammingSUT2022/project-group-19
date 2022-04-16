@@ -1,7 +1,7 @@
-package views;
+package view;
 
 public class GameMenu extends Menu{
-    protected boolean checker(String command) {
+    public boolean checker(String command) {
         return false;
     }
 }

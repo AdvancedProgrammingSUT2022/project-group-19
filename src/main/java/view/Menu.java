@@ -1,7 +1,6 @@
-package views;
+package view;
 
 import java.util.Scanner;
-import java.util.regex.Matcher;
 
 public class Menu {
     protected static final Scanner scanner = new Scanner(System.in);
@@ -11,7 +10,7 @@ public class Menu {
 
     }
 
-    protected boolean checker(String command) {
+    public boolean checker(String command) {
         return false;
     }
 }

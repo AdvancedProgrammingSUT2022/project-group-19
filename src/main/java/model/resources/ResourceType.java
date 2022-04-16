@@ -1,7 +1,7 @@
 package model.resources;
 
 import model.Progress;
-import model.Technology;
+import model.technology.Technology;
 
 public enum ResourceType {
     //score resources:
@@ -25,9 +25,9 @@ public enum ResourceType {
     SUGAR(0, 0, 2, Progress.FARMING, null),
 
     //strategic resources:
-    COAL(0, 1, 0, Progress.MINE, Technology.THEORY),
-    HOURSE(0, 1, 0, Progress.PASTURE, Technology.LIVESTOCK),
-    IRON(0, 1, 0, Progress.MINE, Technology.IRON_WORK);
+    COAL(0, 1, 0, Progress.MINE, Technology.SCIENTIFIC_THEORY),
+    HOURSE(0, 1, 0, Progress.PASTURE, Technology.ANIMAL_HUSBANDRY),
+    IRON(0, 1, 0, Progress.MINE, Technology.IRON_WORKING);
 
 
     private final int food;
