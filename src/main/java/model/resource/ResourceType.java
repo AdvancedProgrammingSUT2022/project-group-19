@@ -5,7 +5,9 @@ import model.technology.Technology;
 
 public enum ResourceType {
 
-    //TODO: can be found on?
+    //   It does not matter where the resources may be found
+    //   What matters is what resources each land may have
+    //   So In LandType class we implement that
 
     //Bounce resources:
     BANANA(1, 0, 0, Improvement.FARMING, null),

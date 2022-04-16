@@ -15,7 +15,7 @@ public enum LandType {
 
     //features:
     JOLGE(2, 0, 0, -0.33, 1),
-    JUNGEL(1, 1, 0, 0.25, 2),
+    JUNGLE(1, 1, 0, 0.25, 2),
     ICE(0, 0, 0, 0, 9999),
     DARK_JUNGLE(1, -1, 0, 0.25, 2),
     SWAMP(-1, 0, 0, -0.33, 2),

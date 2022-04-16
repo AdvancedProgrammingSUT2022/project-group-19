@@ -14,7 +14,6 @@ public class Unit {
     private int movePoint;
     private final ResourceType requiredResource;
     private final Technology requiredTechnology;
-    // todo ( ertegha ?? )
 
 
     public Unit(UnitType type) {
