@@ -1,5 +1,7 @@
 package model.land;
 
+import model.resource.ResourceType;
+
 public class Land {
     private boolean fogOfWar = true;
     private boolean inSight = false;
@@ -10,6 +12,7 @@ public class Land {
     private final double fightChanges;
     private final LandType type;
     private final LandType feature;
+    private ResourceType[] resources;
 
     public Land(LandType type, LandType feature) {
         this.type = type;
@@ -19,6 +22,9 @@ public class Land {
         this.movePoint = type.getMovePoint() + feature.getMovePoint();
         this.production = type.getProduction() + feature.getProduction();
         this.fightChanges = type.getFightChanges() + feature.getFightChanges();
+        this.resources = null;
+        //TODO: a function to choose random resources form
+        // type.getPossibleResources() and put them into this.resources
     }
 
     public void updateInSight() {

@@ -4,25 +4,25 @@ import model.resource.ResourceType;
 
 public enum LandType {
     //features:
-    JOLGE(2, 0, 0, -0.33, 1,null,
-        new ResourceType[]{ResourceType.WHEAT,ResourceType.SUGAR}),
+    JOLGE(2, 0, 0, -0.33, 1, null,
+        new ResourceType[]{ResourceType.WHEAT, ResourceType.SUGAR}),
 
-    JUNGLE(1, 1, 0, 0.25, 2,null,
-        new ResourceType[]{ResourceType.GAZELLE,ResourceType.COLOR,ResourceType.SILK}),
+    JUNGLE(1, 1, 0, 0.25, 2, null,
+        new ResourceType[]{ResourceType.GAZELLE, ResourceType.COLOR, ResourceType.SILK}),
 
-    ICE(0, 0, 0, 0, 9999,null,
+    ICE(0, 0, 0, 0, 9999, null,
         new ResourceType[]{}),
 
-    DARK_JUNGLE(1, -1, 0, 0.25, 2,null,
-        new ResourceType[]{ResourceType.BANANA,ResourceType.COLOR}),
+    DARK_JUNGLE(1, -1, 0, 0.25, 2, null,
+        new ResourceType[]{ResourceType.BANANA, ResourceType.COLOR}),
 
-    SWAMP(-1, 0, 0, -0.33, 2,null,
+    SWAMP(-1, 0, 0, -0.33, 2, null,
         new ResourceType[]{ResourceType.SUGAR}),
 
-    OASIS(3, 0, 1, -0.33, 1,null,
+    OASIS(3, 0, 1, -0.33, 1, null,
         new ResourceType[]{}),
 
-    RIVER(0, 0, 1, 0, 0,null,
+    RIVER(0, 0, 1, 0, 0, null,
         new ResourceType[]{}),
 
 
@@ -52,7 +52,7 @@ public enum LandType {
 
     PLAIN(1, 1, 0, -0.33, 1,
         new LandType[]{JUNGLE, DARK_JUNGLE},
-        new ResourceType[]{ResourceType.IRON, ResourceType.HORSE, ResourceType.COAL, ResourceType.WHEAT,ResourceType.GOLD,
+        new ResourceType[]{ResourceType.IRON, ResourceType.HORSE, ResourceType.COAL, ResourceType.WHEAT, ResourceType.GOLD,
             ResourceType.MARBLE, ResourceType.IVORY, ResourceType.COTTON, ResourceType.INCENSE, ResourceType.SHEEP}),
 
     SNOW(0, 0, 0, -0.33, 1,
@@ -61,7 +61,7 @@ public enum LandType {
 
     TUNDRA(1, 0, 0, -0.33, 1,
         new LandType[]{JUNGLE},
-        new ResourceType[]{ResourceType.IRON,ResourceType.HORSE,ResourceType.GAZELLE,ResourceType.SILVER, ResourceType.MARBLE});
+        new ResourceType[]{ResourceType.IRON, ResourceType.HORSE, ResourceType.GAZELLE, ResourceType.SILVER, ResourceType.MARBLE});
 
 
     private final int food;
@@ -69,6 +69,8 @@ public enum LandType {
     private final int movePoint;
     private final int production;
     private final double fightChanges;
+    private final LandType[] possibleFeatures;
+    private final ResourceType[] possibleResources;
 
     LandType(int food, int production, int gold, double fightChanges, int movePoint, LandType[] possibleFeatures, ResourceType[] possibleResources) {
         this.food = food;
@@ -76,6 +78,8 @@ public enum LandType {
         this.movePoint = movePoint;
         this.production = production;
         this.fightChanges = fightChanges;
+        this.possibleFeatures = possibleFeatures;
+        this.possibleResources = possibleResources;
     }
 
     public int getFood() {
@@ -96,5 +100,13 @@ public enum LandType {
 
     public int getMovePoint() {
         return movePoint;
+    }
+
+    public LandType[] getPossibleFeatures() {
+        return possibleFeatures;
+    }
+
+    public ResourceType[] getPossibleResources() {
+        return possibleResources;
     }
 }
