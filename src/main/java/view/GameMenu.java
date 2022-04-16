@@ -1,7 +1,13 @@
 package view;
 
-public class GameMenu extends Menu{
-    public boolean checker(String command) {
-        return false;
+import java.util.Scanner;
+
+public class GameMenu extends LoginMenu {
+
+    public void run(Scanner scanner){
+        while (true){
+            command = scanner.nextLine();
+
+        }
     }
 }
