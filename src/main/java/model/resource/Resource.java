@@ -8,7 +8,7 @@ public class Resource {
     private int gold;
     private int production;
     private ResourceType type;
-    private Improvement requiredProgress;
+    private Improvement requiredImprovement;
     private Technology requiredTechnology;
 
 
@@ -17,7 +17,11 @@ public class Resource {
         this.food = type.getFood();
         this.gold = type.getGold();
         this.production = type.getProduction();
-        this.requiredProgress = type.getRequiredProgress();
+        this.requiredImprovement = type.getRequiredImprovement();
         this.requiredTechnology = type.getRequiredTechnology();
+    }
+
+    public ResourceType getType() {
+        return type;
     }
 }

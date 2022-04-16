@@ -1,15 +1,17 @@
 package model.unit;
 
+import model.land.Land;
+import model.land.LandType;
 import model.technology.Technology;
 import model.resource.ResourceType;
 
 public class Unit {
     private final UnitType type;
     private final int cost;
-    private final int power;
-    private final int rangedPower;
+    private int power;
+    private int rangedPower;
     private final int range;
-    private final int move;
+    private int movePoint;
     private final ResourceType requiredResource;
     private final Technology requiredTechnology;
     // todo ( ertegha ?? )
@@ -21,49 +23,39 @@ public class Unit {
         this.power = type.getPower();
         this.rangedPower = type.getRangedPower();
         this.range = type.getRange();
-        this.move = type.getMove();
+        this.movePoint = type.getMovePoint();
         this.requiredResource = type.getRequiredResource();
         this.requiredTechnology = type.getRequiredTechnology();
     }
 
-    public UnitType getType() {
-        return type;
+
+    public void move(Land destination) {
+        //Calculate the distance of the destination
+        int distance = 1;
+        movePoint -= distance;
+        if (movePoint >= 0) {
+            if (destination.getType().equals(LandType.RIVER))
+                movePoint = 0;
+            //move the unit
+        }
     }
 
-    public int getRangedPower() {
-        return rangedPower;
-    }
+    public void sleep() {}
 
-    public int getRange() {
-        return range;
-    }
+    public void standby() {}
 
-    public int getMove() {
-        return move;
-    }
+    public void reinforcement() {}
 
-    public int getPower() {
-        return power;
-    }
+    public void fullReinforcement() {}
 
-    public void move(){}
+    public void settle() {}
 
-    public void sleep(){}
+    public void plunder() {}
 
-    public void standby(){}
+    public void cancel() {}
 
-    public void reinforcement(){}
+    public void wakeUp() {}
 
-    public void fullReinforcement(){}
-
-    public void settle(){}
-
-    public void plunder(){}
-
-    public void cancel(){}
-
-    public void wakeUp(){}
-
-    public void removeUnit(){}
+    public void removeUnit() {}
 
 }

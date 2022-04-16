@@ -44,16 +44,16 @@ public enum UnitType {
     private final int power;
     private final int rangedPower;
     private final int range;
-    private final int move;
+    private final int movePoint;
     private final ResourceType requiredResource;
     private final Technology requiredTechnology;
 
-    UnitType(int cost, int power, int rangedPower, int range, int move, ResourceType requiredResource, Technology requiredTechnology) {
+    UnitType(int cost, int power, int rangedPower, int range, int movePoint, ResourceType requiredResource, Technology requiredTechnology) {
         this.cost = cost;
         this.power = power;
         this.rangedPower = rangedPower;
         this.range = range;
-        this.move = move;
+        this.movePoint = movePoint;
         this.requiredResource = requiredResource;
         this.requiredTechnology = requiredTechnology;
     }
@@ -74,8 +74,8 @@ public enum UnitType {
         return range;
     }
 
-    public int getMove() {
-        return move;
+    public int getMovePoint() {
+        return movePoint;
     }
 
     public ResourceType getRequiredResource() {

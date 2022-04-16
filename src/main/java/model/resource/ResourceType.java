@@ -4,14 +4,17 @@ import model.Improvement;
 import model.technology.Technology;
 
 public enum ResourceType {
-    //score resources:
+
+    //TODO: can be found on?
+
+    //Bounce resources:
     BANANA(1, 0, 0, Improvement.FARMING, null),
     COW(1, 0, 0, Improvement.PASTURE, null),
     GAZELLE(1, 0, 0, Improvement.CAMP, null),
     SHEEP(1, 0, 0, Improvement.PASTURE, null),
     WHEAT(1, 0, 0, Improvement.FARM, null),
 
-    //luxury resources:
+    //Luxury resources:
     COTTON(0, 0, 2, Improvement.FARMING, null),
     COLOR(0, 0, 2, Improvement.FARMING, null),
     FUR(0, 0, 2, Improvement.CAMP, null),
@@ -24,7 +27,7 @@ public enum ResourceType {
     SILVER(0, 0, 2, Improvement.MINE, null),
     SUGAR(0, 0, 2, Improvement.FARMING, null),
 
-    //strategic resources:
+    //Strategic resources:
     COAL(0, 1, 0, Improvement.MINE, Technology.SCIENTIFIC_THEORY),
     HORSE(0, 1, 0, Improvement.PASTURE, Technology.ANIMAL_HUSBANDRY),
     IRON(0, 1, 0, Improvement.MINE, Technology.IRON_WORKING);
@@ -33,14 +36,14 @@ public enum ResourceType {
     private final int food;
     private final int production;
     private final int gold;
-    private final Improvement requiredProgress;
+    private final Improvement requiredImprovement;
     private final Technology requiredTechnology;
 
-    ResourceType(int food, int production, int gold, Improvement requiredProgress, Technology requiredTechnology) {
+    ResourceType(int food, int production, int gold, Improvement requiredImprovement, Technology requiredTechnology) {
         this.food = food;
         this.production = production;
         this.gold = gold;
-        this.requiredProgress = requiredProgress;
+        this.requiredImprovement = requiredImprovement;
         this.requiredTechnology = requiredTechnology;
     }
 
@@ -56,8 +59,8 @@ public enum ResourceType {
         return gold;
     }
 
-    public Improvement getRequiredProgress() {
-        return requiredProgress;
+    public Improvement getRequiredImprovement() {
+        return requiredImprovement;
     }
 
     public Technology getRequiredTechnology() {

@@ -1,6 +1,8 @@
 package model.land;
 
 public class Land {
+    private boolean fogOfWar = true;
+    private boolean inSight = false;
     private final int food;
     private final int production;
     private final int gold;
@@ -19,31 +21,14 @@ public class Land {
         this.fightChanges = type.getFightChanges() + feature.getFightChanges();
     }
 
+    public void updateInSight() {
+        //algorithm goes here...
+        //update inSight field
+        if (inSight == fogOfWar)
+            fogOfWar = false;
+    }
+
     public LandType getType() {
         return type;
-    }
-
-    public LandType getFeature() {
-        return feature;
-    }
-
-    public int getFood() {
-        return food;
-    }
-
-    public int getProduction() {
-        return production;
-    }
-
-    public int getGold() {
-        return gold;
-    }
-
-    public int getMovePoint() {
-        return movePoint;
-    }
-
-    public double getFightChanges() {
-        return fightChanges;
     }
 }
