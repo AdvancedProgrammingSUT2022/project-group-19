@@ -14,30 +14,30 @@ public enum UnitType {
     WORKER(70, 0, 0, 0, 2, null, null),
 
     //Classical era units:
-    CATAPULT(100,4,14,2,2,ResourceType.IRON,Technology.MATHEMATICS),
-    HORSE_MAN(80,12,0,0,4,ResourceType.HOURSE,Technology.HORSE_BACK_RIDING),
-    SWORDS_MAN(80,11,0,0,2,ResourceType.IRON,Technology.IRON_WORKING),
+    CATAPULT(100, 4, 14, 2, 2, ResourceType.IRON, Technology.MATHEMATICS),
+    HORSE_MAN(80, 12, 0, 0, 4, ResourceType.HOURSE, Technology.HORSE_BACK_RIDING),
+    SWORDS_MAN(80, 11, 0, 0, 2, ResourceType.IRON, Technology.IRON_WORKING),
 
     //medieval era units:
-    CROSSBOW_MAN(120,6,12,2,2,null,Technology.MACHINERY),
-    KNIGHT(150,18,0,0,3,ResourceType.HOURSE,Technology.CHIVALRY),
-    LONGSWRDS_MAN(150,18,0,0,3,ResourceType.IRON,Technology.STEEL),
-    PIKE_MAN(100,10,0,0,2,null,Technology.CIVIL_SERVICE),
-    TREBUCHET(170,6,20,2,2,ResourceType.IRON,Technology.PHYSICS),
+    CROSSBOW_MAN(120, 6, 12, 2, 2, null, Technology.MACHINERY),
+    KNIGHT(150, 18, 0, 0, 3, ResourceType.HOURSE, Technology.CHIVALRY),
+    LONGSWRDS_MAN(150, 18, 0, 0, 3, ResourceType.IRON, Technology.STEEL),
+    PIKE_MAN(100, 10, 0, 0, 2, null, Technology.CIVIL_SERVICE),
+    TREBUCHET(170, 6, 20, 2, 2, ResourceType.IRON, Technology.PHYSICS),
 
     //Renaissance era units:
-    CANON(250,10,26,2,2,null,Technology.CHEMISTRY),
-    CAVALRY(260,25,0,0,3,ResourceType.HOURSE,Technology.MILITARY_SCIENCE),
-    LANCER(220,22,0,0,4,ResourceType.HOURSE,Technology.METALLURGY),
-    MUSKET_MAN(120,16,0,0,2,null,Technology.GUNPOWDER),
-    RIFLE_MAN(200,25,0,0,2,null,Technology.RIFLING),
+    CANON(250, 10, 26, 2, 2, null, Technology.CHEMISTRY),
+    CAVALRY(260, 25, 0, 0, 3, ResourceType.HOURSE, Technology.MILITARY_SCIENCE),
+    LANCER(220, 22, 0, 0, 4, ResourceType.HOURSE, Technology.METALLURGY),
+    MUSKET_MAN(120, 16, 0, 0, 2, null, Technology.GUNPOWDER),
+    RIFLE_MAN(200, 25, 0, 0, 2, null, Technology.RIFLING),
 
     //Industrial era units:
-    ANTI_TANK_GUN(300,32,0,0,2,null,Technology.REPLACEABLE_PARTS),
-    ARTILLERY(420,16,32,3,2,null,Technology.DYNAMITE),
-    INFANTRY(300,36,0,0,2,null,Technology.REPLACEABLE_PARTS),
-    PANZER(450,60,0,0,5,null,Technology.COMBUSTION),
-    TANK(450,50,0,0,4,null,Technology.COMBUSTION),
+    ANTI_TANK_GUN(300, 32, 0, 0, 2, null, Technology.REPLACEABLE_PARTS),
+    ARTILLERY(420, 16, 32, 3, 2, null, Technology.DYNAMITE),
+    INFANTRY(300, 36, 0, 0, 2, null, Technology.REPLACEABLE_PARTS),
+    PANZER(450, 60, 0, 0, 5, null, Technology.COMBUSTION),
+    TANK(450, 50, 0, 0, 4, null, Technology.COMBUSTION),
 
     ;
     private final int cost;

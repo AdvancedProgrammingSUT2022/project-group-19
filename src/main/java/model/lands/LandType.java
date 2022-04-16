@@ -12,11 +12,11 @@ public enum LandType {
     TUNDRA(1, 0, 0, -33, 1),
 
     //features:
-    JOLGE(2,0,0,-33,1),
-    JUNGEL(1,1,0,25,2),
-    ICE(0,0,0,0,9999),
-    DARK_JUNGLE(1,-1,0,25,2),
-    SWAMP(-1,0,0,-33,2),
+    JOLGE(2, 0, 0, -33, 1),
+    JUNGEL(1, 1, 0, 25, 2),
+    ICE(0, 0, 0, 0, 9999),
+    DARK_JUNGLE(1, -1, 0, 25, 2),
+    SWAMP(-1, 0, 0, -33, 2),
     OASIS(3, 0, 1, -33, 1);
 
     private final int food;

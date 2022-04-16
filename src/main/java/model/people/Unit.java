@@ -46,24 +46,34 @@ public class Unit {
         return power;
     }
 
-    public void move(){}
+    public void move() {
+    }
 
-    public void sleep(){}
+    public void sleep() {
+    }
 
-    public void standby(){}
+    public void standby() {
+    }
 
-    public void reinforcement(){}
+    public void reinforcement() {
+    }
 
-    public void fullReinforcement(){}
+    public void fullReinforcement() {
+    }
 
-    public void settle(){}
+    public void settle() {
+    }
 
-    public void plunder(){}
+    public void plunder() {
+    }
 
-    public void cancel(){}
+    public void cancel() {
+    }
 
-    public void wakeUp(){}
+    public void wakeUp() {
+    }
 
-    public void removeUnit(){}
+    public void removeUnit() {
+    }
 
 }
