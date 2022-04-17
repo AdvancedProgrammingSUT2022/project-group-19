@@ -12,6 +12,7 @@ public class City {
     private boolean isCapital;
     private int food;
     private int production;
+    private int population;
     private ArrayList<Unit> units;
     private ArrayList<Tile> tiles;
     private ArrayList<Building> buildings;

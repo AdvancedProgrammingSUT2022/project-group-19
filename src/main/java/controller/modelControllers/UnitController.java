@@ -52,6 +52,10 @@ public class UnitController {
     public void removeUnit() {
     }
 
+    public void checkIfOnRuin(){
+
+    }
+
     //combat
     public void AttackOtherUnits(Unit enemyUnit) {
 
