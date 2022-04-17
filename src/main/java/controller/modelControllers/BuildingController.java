@@ -29,15 +29,15 @@ public class BuildingController {
     }
 
     public int castleGoldProduction(Civilization civilization){
-
+        return 0;
     }
 
     public int castleScienceProduction(Civilization civilization){
-
+        return 0;
     }
 
     public int castleProduction(Civilization civilization){
-
+        return 0;
     }
 
     public void payBuildingMaintenance(Building building){
@@ -53,7 +53,7 @@ public class BuildingController {
     }
 
     public int growthRateCity(){
-
+        return 0;
     }
 
     public void buildBuilding(){
