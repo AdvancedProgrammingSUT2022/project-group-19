@@ -1,6 +1,7 @@
 package model.land;
 
 import model.resource.ResourceType;
+import model.unit.Unit;
 
 public class Land {
     private boolean fogOfWar = true;
@@ -13,6 +14,9 @@ public class Land {
     private final LandType type;
     private final LandType feature;
     private ResourceType[] resources;
+    private Unit militaryUnit;
+    private Unit civilianUnit;
+
 
     public Land(LandType type, LandType feature) {
         this.type = type;

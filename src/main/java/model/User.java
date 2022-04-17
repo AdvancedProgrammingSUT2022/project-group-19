@@ -1,14 +1,11 @@
 package model;
 
-import model.civilizations.Civilization;
-
-import java.util.ArrayList;
-
 public class User {
-    String username;
-    String password;
-    String nickname;
-    private static ArrayList<User> users;
+    private String username;
+    private String password;
+    private String nickname;
+    private int score;
+
 
     public User(String username, String password, String nickname) {
         this.username = username;
