@@ -14,6 +14,10 @@ public class UnitController {
         this.unit = unit;
     }
 
+    public void makeNewCity(){
+
+    }
+
     public void move(Land destination) {
         //Calculate the distance of the destination
 //        int distance = 1;
