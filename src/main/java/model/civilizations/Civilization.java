@@ -33,14 +33,6 @@ public class Civilization {
         this.leaderName = leaderName;
     }
 
-    public City getCapital() {
-        return capital;
-    }
-
-    public void setCapital(City capital) {
-        this.capital = capital;
-    }
-
     public ArrayList<City> getCities() {
         return cities;
     }
