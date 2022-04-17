@@ -1,9 +1,11 @@
 package controller.modelControllers;
 
+import model.civilizations.City;
+import model.game.Tile;
 import model.land.Land;
-import model.land.LandType;
-import model.technology.Technology;
 import model.unit.Unit;
+
+import java.util.ArrayList;
 
 public class UnitController {
     private Unit unit;
@@ -51,17 +53,45 @@ public class UnitController {
     }
 
     //combat
-    public void AttackOtherUnits(Unit enemyUnit){
+    public void AttackOtherUnits(Unit enemyUnit) {
 
     }
-    public boolean checkIfInWar(Unit enemyUnit){
+
+    public boolean checkIfInWar(Unit enemyUnit) {
         return false;
     }
-    public void coldWeaponAttack(Unit enemyUnit){
+
+    public void coldWeaponAttackToUnit(Unit enemyUnit) {
 
     }
-    public void rangedAttack(Unit enemyUnit){
+
+    public void rangedAttackToUnit(Unit enemyUnit) {
 
     }
 
+    public void coldWeaponAttackToCity(City enemyCity) {
+
+    }
+
+    public void rangedAttackToCity(City enemyCity) {
+
+    }
+
+    public ArrayList<Tile> visibleArea() {
+        return null;
+    }
+
+    public void giveBattleReward() {
+
+    }
+
+    public void alert() {
+
+    }
+    public void fortify(){
+
+    }
+    public void SiegePreAttack(){
+
+    }
 }

@@ -8,4 +8,11 @@ public class CityController {
     public CityController(City city) {
         this.city = city;
     }
+
+    public void repairInjury(){
+
+    }
+    public void captureCity(){
+
+    }
 }
