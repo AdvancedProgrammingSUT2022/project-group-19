@@ -9,29 +9,78 @@ public class CityController {
     public CityController(City city) {
         this.city = city;
     }
-    public String ShowCityBanner(){
-        return "";
-    }
-    public String showCityOutPut(){
-        return "";
-    }
-    // TODO: 4/18/2022 assign a citizen to a work
 
-    public String unEmployedCitizens(){
-        return "";
-    }
-    public String ShowBuildings(){
-        return "";
-    }
-    public void buyTile(){
+    //city banner
+    public void CityBanner() {
 
     }
-    //about war
-    public void repairInjury(){
+
+    public String showCityOutPut() {
+        return "";
+    }
+
+    public String ShowBuildings() {
+        return "";
+    }
+
+    public void removeCitizenFromBuilding() {
 
     }
-    public void captureCity(Unit unit){
+
+    public void buyTile() {
 
     }
+
+    //production menu
+    public void changeProduction() {
+    }
+
+    public void chooseProduction() {
+
+    }
+
+    public String productionEndedAlert() {
+        return "";
+    }
+    //citizens
+    public void allocateCitizensToWork() {
+    }
+
+    public void allocateExpertToBuildings() {
+
+    }
+
+    public void improveGround(Unit unit) {
+
+    }
+    public void citizensProduction(){
+
+    }
+
+    //purchase
+    public void purchaseProduction() {
+
+    }
+
+    //production per turn
+    public void productionPerTurn() {
+
+    }
+
+
+    //construction
+
+    //about combat
+    public void repairInjury() {
+
+    }
+    public void garrisonInCity(Unit unit){
+
+    }
+
+    public void captureCityAndWhatToDoWith(Unit unit) {
+
+    }
+    // TODO: 4/18/2022 جزییات تصرف یک شهر
 
 }

@@ -11,7 +11,7 @@ public class Civilization {
     private ArrayList<Technology> reachedTechs;
     private ArrayList<Technology> InStudyTechs;
     private int Gold;
-    private int production;
+    //private int production;
     private int happinessIndex;
     private int scienceIndex;
     private int population;
@@ -65,13 +65,13 @@ public class Civilization {
         Gold = gold;
     }
 
-    public int getProduction() {
-        return production;
-    }
+//    public int getProduction() {
+//        return production;
+//    }
 
-    public void setProduction(int production) {
-        this.production = production;
-    }
+//    public void setProduction(int production) {
+//        this.production = production;
+//    }
 
     public int getHappinessIndex() {
         return happinessIndex;

@@ -11,9 +11,12 @@ public class City {
     private int defensivePower;
     private boolean isCapital;
     private int food;
-    private int production;
+    private Production production;
+    private int citizens;
     private int population;
     private ArrayList<Unit> units;
     private ArrayList<Tile> tiles;
     private ArrayList<Building> buildings;
+    private Unit militarySettledUnit;
+    private Unit civilianSettledUnit;
 }
