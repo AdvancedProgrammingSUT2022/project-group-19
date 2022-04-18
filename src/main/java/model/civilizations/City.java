@@ -20,4 +20,12 @@ public class City {
     private Unit militarySettledUnit;
     private Unit civilianSettledUnit;
     private boolean containSettler; //if a city have a settler => food field must not increase (Game doc, page 38)
+
+    public void purchaseTile() {
+        //decrease gold after purchasing
+    }
+
+    public void decreaseGoldAfterCityLoss() {
+
+    }
 }
