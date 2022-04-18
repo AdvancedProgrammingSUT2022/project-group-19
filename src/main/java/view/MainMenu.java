@@ -1,10 +1,9 @@
 package view;
 
-import java.util.Scanner;
 
-public class MainMenu extends Menu {
+public class MainMenu extends LoginMenu {
 
-    public void run(Scanner scanner) {
+    public void run() {
         while (true) {
             command = scanner.nextLine();
 
