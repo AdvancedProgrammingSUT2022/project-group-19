@@ -7,8 +7,13 @@ import java.util.ArrayList;
 
 public class Ruin {
     ArrayList<Technology> technologies;
-    boolean populationGrowth;
-    // TODO: 4/18/2022 box of gold
-    Unit settler;
-    Unit worker;
+    Unit settler = null;
+    Unit worker = null;
+    int gold;
+    boolean FogOfWarRemover = false;
+    boolean haveOnePerson = false;
+
+    public Ruin() {
+        //generate a ruin with random initialized fields
+    }
 }
