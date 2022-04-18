@@ -1,19 +1,18 @@
 package model;
 
-import model.civilizations.Civilization;
 import model.land.Land;
 
 import java.util.ArrayList;
 
 
-public class DataBase {
+public class Database {
     private static final int mapLength = 10;
     private static final int mapWidth = 5;
     private static ArrayList<User> users; //all registered users
     private static ArrayList<Player> players = new ArrayList<>();  //players in game
     private static Land[][] map = new Land[mapLength][mapWidth];
 
-    public DataBase() {
+    public Database() {
         //read the data from file at first.
         users = null;
         map = null;
@@ -39,7 +38,7 @@ public class DataBase {
     }
 
     public static void setUsers(ArrayList<User> users) {
-        DataBase.users = users;
+        Database.users = users;
     }
 
     public static ArrayList<Player> getPlayers() {
@@ -47,7 +46,7 @@ public class DataBase {
     }
 
     public static void setPlayers(ArrayList<Player> players) {
-        DataBase.players = players;
+        Database.players = players;
     }
 
     public static Land[][] getMap() {
@@ -55,6 +54,6 @@ public class DataBase {
     }
 
     public static void setMap(Land[][] map) {
-        DataBase.map = map;
+        Database.map = map;
     }
 }

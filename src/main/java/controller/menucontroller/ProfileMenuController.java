@@ -1,4 +1,4 @@
-package controller.menuControllers;
+package controller.menucontroller;
 
 import model.User;
 

@@ -1,4 +1,4 @@
-package controller.modelControllers;
+package controller.modelcontroller;
 
 import model.building.Building;
 import model.civilizations.City;
