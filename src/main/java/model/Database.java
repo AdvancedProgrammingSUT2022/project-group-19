@@ -3,19 +3,16 @@ package model;
 import model.land.Land;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Database {
-    private static final int mapLength = 10;
-    private static final int mapWidth = 5;
-    private static ArrayList<User> users; //all registered users
-    private static ArrayList<Player> players = new ArrayList<>();  //players in game
-    private static Land[][] map = new Land[mapLength][mapWidth];
+    private List<User> users; //all registered users
+    private List<Player> players = new ArrayList<>();  //players in game
 
     public Database() {
         //read the data from file at first.
         users = null;
-        map = null;
         players = null;
     }
 
@@ -24,36 +21,19 @@ public class Database {
         //this method should always be called
     }
 
-    public void generateMap() {
-        //generate a random map
-        //generate ruins
-        //generate cities
-        //generate ...
-        Land[][] newMap = new Land[mapLength][mapWidth];
-        map = newMap;
-    }
-
-    public static ArrayList<User> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public static void setUsers(ArrayList<User> users) {
-        Database.users = users;
+    public void setUsers(ArrayList<User> users) {
+        this.users = users;
     }
 
-    public static ArrayList<Player> getPlayers() {
+    public List<Player> getPlayers() {
         return players;
     }
 
-    public static void setPlayers(ArrayList<Player> players) {
-        Database.players = players;
-    }
-
-    public static Land[][] getMap() {
-        return map;
-    }
-
-    public static void setMap(Land[][] map) {
-        Database.map = map;
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
     }
 }

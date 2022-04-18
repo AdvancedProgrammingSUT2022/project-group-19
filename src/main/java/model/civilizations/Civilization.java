@@ -4,13 +4,14 @@ import model.technology.Technology;
 import model.unit.Unit;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Civilization {
     private String leaderName;
-    private ArrayList<Unit> units;
-    private ArrayList<City> cities;
-    private ArrayList<Technology> reachedTechs;
-    private ArrayList<Technology> InStudyTechs;
+    private List<Unit> units;
+    private List<City> cities;
+    private List<Technology> reachedTechs;
+    private List<Technology> InStudyTechs;
     private int Gold;
     private int production;
     private int happinessIndex;
@@ -37,7 +38,7 @@ public class Civilization {
 
 
 
-    public ArrayList<Technology> getReachedTechs() {
+    public List<Technology> getReachedTechs() {
         return reachedTechs;
     }
 
