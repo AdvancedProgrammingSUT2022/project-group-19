@@ -85,5 +85,8 @@ public class CityController {
         //controls food, gold and science to be made per turn
         //and decreases used food per turn
     }
+    public void cityGrowth(){
+
+    }
 
 }
