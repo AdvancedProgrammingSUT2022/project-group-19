@@ -1,6 +1,9 @@
 package controller.menuControllers;
 
-public class gameMenuController {
+import model.civilizations.Civilization;
+import model.technology.Technology;
+
+public class GameMenuController {
 
     private String extractResearchInfo() {
         return null;
@@ -45,4 +48,14 @@ public class gameMenuController {
     private String extractDealsInfo() {
         return null;
     }
+
+    public String showTechTree(Civilization civilization) {
+        return null;
+    }
+
+    public void changeStudy(Civilization civilization, Technology lastTech, Technology newTech) {
+
+    }
+
+
 }
