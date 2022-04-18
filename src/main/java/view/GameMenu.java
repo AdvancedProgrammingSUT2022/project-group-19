@@ -9,4 +9,9 @@ public class GameMenu extends MainMenu {
 
         }
     }
+
+    public void printMap(){
+
+    }
+
 }
