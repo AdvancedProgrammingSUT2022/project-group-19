@@ -62,15 +62,12 @@ public class CityController {
 
     }
 
-    //production per turn
-    public void productionPerTurn() {
-
-    }
-
-
     //construction
 
     //about combat
+    public void defenciveAttackOnEnemies(Unit enemyUnit){
+
+    }
     public void repairInjury() {
 
     }
@@ -82,5 +79,11 @@ public class CityController {
 
     }
     // TODO: 4/18/2022 جزییات تصرف یک شهر
+
+    //food
+    public void productionPerTurn() {
+        //controls food, gold and science to be made per turn
+        //and decreases used food per turn
+    }
 
 }
