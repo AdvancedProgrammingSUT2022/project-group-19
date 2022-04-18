@@ -6,26 +6,19 @@ import model.unit.Unit;
 import java.util.ArrayList;
 
 public class Civilization {
-    private String name;
     private String leaderName;
+    private ArrayList<Unit> units;
     private ArrayList<City> cities;
     private ArrayList<Technology> reachedTechs;
     private ArrayList<Technology> InStudyTechs;
     private int Gold;
-    //private int production;
+    private int production;
     private int happinessIndex;
     private int scienceIndex;
     private int population;
     private int cups;
-    private ArrayList<Unit> units = new ArrayList<>();
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void resetMPofAllUnits(){}
 
     public String getLeaderName() {
         return leaderName;
@@ -67,14 +60,14 @@ public class Civilization {
         Gold = gold;
     }
 
+    public int getProduction() {
+        return production;
+    }
 
-//    public int getProduction() {
-//        return production;
-//    }
+    public void setProduction(int production) {
+        this.production = production;
+    }
 
-    //    public void setProduction(int production) {
-//        this.production = production;
-//    }
     public int getHappinessIndex() {
         return happinessIndex;
     }
