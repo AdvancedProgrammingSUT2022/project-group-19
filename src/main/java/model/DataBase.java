@@ -27,6 +27,9 @@ public class DataBase {
 
     public void generateMap() {
         //generate a random map
+        //generate ruins
+        //generate cities
+        //generate ...
         Land[][] newMap = new Land[mapLength][mapWidth];
         map = newMap;
     }
