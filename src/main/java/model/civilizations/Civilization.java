@@ -22,9 +22,17 @@ public class Civilization {
     /*
      * This method must be called at the beginning of each turn.
      */
-    public void resetMPofAllUnits() {
+    public void turnStart() {
+        //prepare units
         for (Unit unit : units)
             unit.resetMP();
+
+
+        //spend gold each turn
+        //buildings
+        //roads
+        //units
+        //
     }
 
 
