@@ -38,9 +38,8 @@ public enum UnitType {
     ARTILLERY(420, 16, 32, 3, 2, null, Technology.DYNAMITE),
     INFANTRY(300, 36, 0, 0, 2, null, Technology.REPLACEABLE_PARTS),
     PANZER(450, 60, 0, 0, 5, null, Technology.COMBUSTION),
-    TANK(450, 50, 0, 0, 4, null, Technology.COMBUSTION),
+    TANK(450, 50, 0, 0, 4, null, Technology.COMBUSTION);
 
-    ;
     private final int cost;
     private final int power;
     private final int rangedPower;

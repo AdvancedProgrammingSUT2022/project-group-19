@@ -48,9 +48,9 @@ public enum Building {
     MILITARY_BASE(450, 4, Technology.TELEGRAPH),
     STOCK_EXCHANGE(650, 0, Technology.ELECTRICITY);
 
-    private int cost;
-    private int maintenance;
-    private Technology technologyRequiredName;
+    private final int cost;
+    private final int maintenance;
+    private final Technology technologyRequiredName;
     private boolean isAvailableTechnologyRequired;
 
     Building(int cost, int maintenance, Technology technologyRequiredName) {
