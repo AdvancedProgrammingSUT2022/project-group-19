@@ -1,12 +1,13 @@
 package model.game;
 
+import model.User;
 import model.civilizations.Civilization;
+import model.land.Land;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Game {
-//    private ArrayList<User> allUsers;     //moved to DataBase class
-//    private ArrayList<User> players;
-//    private ArrayList<Civilization> civilizations;
-//    private ArrayList<Tile> tiles;        //what does this?
+    private HashMap<User, Civilization> playersInGame = new HashMap<>();
+    private Land[][] map = new Land[10][5];
 }

@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 public class LoginMenu {
     protected String command;
     protected Scanner scanner = new Scanner(System.in);
+    private Matcher matcher;
 
     public void run() {
     }
@@ -16,4 +17,12 @@ public class LoginMenu {
         return matcher.matches() ? matcher : null;
     }
 
+    protected void printMenuName() {
+    }
+
+    protected void enterMenu(Matcher matcher) {
+    }
+
+    private void addUser(Matcher matcher) {
+    }
 }

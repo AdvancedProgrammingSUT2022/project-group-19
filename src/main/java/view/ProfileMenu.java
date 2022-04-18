@@ -1,5 +1,6 @@
 package view;
 
+import java.util.regex.Matcher;
 
 public class ProfileMenu extends MainMenu {
 
@@ -8,5 +9,11 @@ public class ProfileMenu extends MainMenu {
             command = scanner.nextLine();
 
         }
+    }
+
+    private void changeNickname(Matcher matcher) {
+    }
+
+    private void changePassword(Matcher matcher) {
     }
 }
