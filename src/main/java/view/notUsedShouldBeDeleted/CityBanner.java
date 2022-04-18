@@ -1,4 +1,4 @@
-package view;
+package view.notUsedShouldBeDeleted;
 
 import java.util.Scanner;
 
