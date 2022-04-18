@@ -1,0 +1,758 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>D:/ALI/Computer/ap-project/project/src/main/java</OriginalElement>
+  <nodes>
+    <node x="4209.5" y="4681.0">model.building.Building</node>
+    <node x="1501.9999999999993" y="5284.22727272727">view.MainMenu</node>
+    <node x="1853.9999999999973" y="922.9999999999994">controller.generateGameBoard</node>
+    <node x="1354.9999999999998" y="4562.999999999999">controller.menuControllers.LoginMenuController</node>
+    <node x="3026.7500000000005" y="3565.5">model.civilizations.Civilization</node>
+    <node x="3347.0" y="1646.5">model.unit.Worker</node>
+    <node x="2277.75" y="2461.0">model.land.Land</node>
+    <node x="-15.0" y="-15.0">controller.modelControllers.GameController</node>
+    <node x="4567.0" y="1975.0">model.technology.InStudyTechs</node>
+    <node x="2472.0" y="4195.999999999999">model.Player</node>
+    <node x="4333.0" y="2543.5">model.Ruin</node>
+    <node x="2286.0" y="5616.156470536891">controller.menuControllers.ProfileMenuController</node>
+    <node x="4688.5" y="4681.0">model.civilizations.Production</node>
+    <node x="2683.4999999999995" y="1811.0">controller.modelControllers.TechnologyController</node>
+    <node x="1842.5" y="4776.499999999999">model.User</node>
+    <node x="2249.0" y="183.49999999999807">model.land.LandType</node>
+    <node x="4963.000000000001" y="3149.25">model.unit.Unit</node>
+    <node x="2200.5" y="4485.999999999999">controller.menuControllers.GameMenuController</node>
+    <node x="1414.0000000000005" y="1505.5">model.Improvement</node>
+    <node x="1177.227272727272" y="5308.72727272727">view.ProfileMenu</node>
+    <node x="5060.5" y="4681.0">controller.modelControllers.CityController</node>
+    <node x="4340.5" y="3036.5">model.unit.Settler</node>
+    <node x="4123.750000000001" y="818.4999999999978">model.resource.ResourceType</node>
+    <node x="1278.5" y="3308.0">controller.modelControllers.HappinessController</node>
+    <node x="1186.318181818181" y="5110.045454545452">view.GameMenu</node>
+    <node x="2942.5" y="4633.0">controller.modelControllers.BuildingController</node>
+    <node x="2293.0" y="5022.499999999999">model.DataBase</node>
+    <node x="1572.9545454545448" y="5605.156470536891">view.LoginMenu</node>
+    <node x="3277.9999999999973" y="646.499999999998">model.resource.Resource</node>
+    <node x="4853.500000000002" y="1556.0">model.unit.UnitType</node>
+    <node x="6167.5" y="57.0">Main</node>
+    <node x="3488.0" y="1978.5">model.technology.Technology</node>
+    <node x="4070.0" y="3946.0">model.civilizations.City</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="model.unit.Unit" target="model.land.Land" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.land.Land" target="model.unit.Unit" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.Ruin" target="model.technology.Technology" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.modelControllers.BuildingController" target="model.technology.Technology" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="3557.6044933084354" y="3596.279196171778" />
+      <point x="3563.288001269334" y="3578.6216160369536" />
+      <point x="3568.2597638579005" y="3560.55174255748" />
+      <point x="3571.9997154719185" y="3542.0032359868237" />
+      <point x="3574.53040464027" y="3523.3017849411276" />
+      <point x="3577.729856550366" y="3486.727469505417" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.Worker" target="model.technology.Technology" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.resource.ResourceType" target="model.technology.Technology" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.Ruin" target="model.unit.Unit" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="4865.046666435415" y="3260.8360674115975" />
+      <point x="4875.173850646805" y="3275.2596305678603" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.DataBase" target="model.land.Land" relationship="CREATE">
+      <point x="0.0" y="0.0" />
+      <point x="2604.3812707550615" y="4802.72300951213" />
+      <point x="2617.9182990749655" y="4772.322351968849" />
+      <point x="2623.879379828045" y="4756.400871776451" />
+      <point x="2628.8524670230963" y="4740.1294558714635" />
+      <point x="2632.6252267537498" y="4723.714593962475" />
+      <point x="2635.5212942466087" y="4707.2473070321485" />
+      <point x="2637.3273659537836" y="4690.606572997024" />
+      <point x="2638.3023259270008" y="4673.933187651655" />
+      <point x="2637.9632841160383" y="4657.450136105633" />
+      <point x="2636.677261320723" y="4640.919891767683" />
+      <point x="2634.38410783287" y="4624.313884987263" />
+      <point x="2631.1762419147494" y="4608.006241591544" />
+      <point x="2626.6139237354823" y="4591.854038664508" />
+      <point x="2621.444774255643" y="4576.467513371225" />
+      <point x="2615.0108718059696" y="4560.459915646334" />
+      <point x="2607.7000606290944" y="4545.419493518978" />
+      <point x="2575.0360141232795" y="4489.075515435348" />
+      <point x="2473.841963598696" y="4327.353612447535" />
+      <point x="2465.9481103929734" y="4313.301086839487" />
+      <point x="2458.378647659029" y="4298.291142033053" />
+      <point x="2452.272168597468" y="4282.385632288974" />
+      <point x="2448.203846251889" y="4265.752033700477" />
+      <point x="2446.0095878532857" y="4248.875512272499" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.DataBase" target="model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.land.Land" target="model.Ruin" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.resource.Resource" target="model.Improvement" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.Production" target="model.building.Building" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.Player" target="model.civilizations.Civilization" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.City" target="model.unit.UnitType" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.DataBase" target="model.User" relationship="TO_MANY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.UnitType" target="model.resource.ResourceType" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.UnitType" target="model.technology.Technology" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="4069.1475372202985" y="2411.0922006388596" />
+      <point x="4051.2450620574295" y="2417.541244995607" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="view.ProfileMenu" target="view.MainMenu" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.Civilization" target="model.civilizations.City" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.City" target="model.civilizations.Civilization" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.Worker" target="model.civilizations.Civilization" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="3447.3690423901817" y="1774.1356560794945" />
+      <point x="3121.861878868536" y="2173.2581151616587" />
+      <point x="3093.4577241315906" y="2211.4691912081335" />
+      <point x="3074.965212898549" y="2238.149653324155" />
+      <point x="3058.0291224135067" y="2265.6787953154785" />
+      <point x="3042.0208504345073" y="2294.562334129553" />
+      <point x="3027.328404134505" y="2324.391768967453" />
+      <point x="3020.612078432573" y="2339.5778805216346" />
+      <point x="3008.3462139647954" y="2370.397905573233" />
+      <point x="2997.6360152234083" y="2401.784587924168" />
+      <point x="2988.778621821095" y="2434.1344950397897" />
+      <point x="2984.7895144437616" y="2450.606267401277" />
+      <point x="2978.173945825629" y="2484.205180909382" />
+      <point x="2972.9827966560274" y="2518.826735920714" />
+      <point x="2970.396052266493" y="2553.1836704155717" />
+      <point x="2969.3213624291925" y="2588.3799328501113" />
+      <point x="2970.3673170020193" y="2624.274875087587" />
+      <point x="2971.5266677338373" y="2642.174244548851" />
+      <point x="2973.25712727652" y="2660.233758338663" />
+      <point x="2977.7527872532546" y="2696.7492919892293" />
+      <point x="2986.252989798346" y="2749.9741124852317" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.Unit" target="model.technology.Technology" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="4376.453955962995" y="3208.946293635012" />
+      <point x="4360.219827743648" y="3198.512353098235" />
+      <point x="4344.653050688365" y="3187.169218671019" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.DataBase" target="model.Player" relationship="TO_MANY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.Production" target="model.unit.Unit" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.modelControllers.BuildingController" target="model.civilizations.Civilization" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="3126.80741528709" y="4423.110935463569" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.Ruin" target="model.technology.Technology" relationship="TO_MANY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.menuControllers.ProfileMenuController" target="model.User" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.City" target="model.civilizations.Production" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.UnitType" target="model.resource.ResourceType" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.modelControllers.CityController" target="model.unit.Unit" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.Improvement" target="model.technology.Technology" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.land.LandType" target="model.resource.ResourceType" relationship="CREATE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.resource.ResourceType" target="model.technology.Technology" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.Worker" target="model.land.Land" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="3057.3930377248457" y="2222.7552464109667" />
+      <point x="3047.972217497616" y="2234.5198185137438" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.resource.ResourceType" target="model.Improvement" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.Production" target="model.building.Building" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="4763.0" y="5276.25" />
+      <point x="4362.5" y="5276.25" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.generateGameBoard" target="model.land.Land" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="2150.6399600746727" y="1210.703654882119" />
+      <point x="2159.5910474226703" y="1224.1381865554492" />
+      <point x="2348.8065959556357" y="1490.4669261988467" />
+      <point x="2367.7386423830894" y="1519.6308001912175" />
+      <point x="2376.661390376577" y="1534.9981373000155" />
+      <point x="2384.9012247523665" y="1550.8953880490822" />
+      <point x="2392.2740126247913" y="1567.1263492479882" />
+      <point x="2398.8344955654125" y="1583.9729083694176" />
+      <point x="2404.398187061966" y="1601.024873490004" />
+      <point x="2409.2195237293545" y="1618.5834310960595" />
+      <point x="2412.9062033965415" y="1636.3664487375097" />
+      <point x="2415.646447404374" y="1654.3944670182955" />
+      <point x="2417.5115704889336" y="1672.6070605820717" />
+      <point x="2419.505825616127" y="1708.7439523414666" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.Civilization" target="model.unit.Unit" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.Unit" target="model.civilizations.Civilization" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.City" target="model.unit.Unit" relationship="CREATE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.resource.Resource" target="model.technology.Technology" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="3628.8206439074" y="1652.1519570321832" />
+      <point x="3637.242433428241" y="1690.2249941965908" />
+      <point x="3640.9666825640456" y="1709.9419578595612" />
+      <point x="3643.406333541651" y="1730.1526664837772" />
+      <point x="3644.252772211757" y="1750.2269608307276" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.menuControllers.GameMenuController" target="model.technology.Technology" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="2373.5" y="3419.25" />
+      <point x="3607.5" y="3419.25" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.Unit" target="model.technology.Technology" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.DataBase" target="model.land.Land" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.Settler" target="model.unit.Unit" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="5027.808769980831" y="3547.9732916333382" />
+      <point x="5041.640703864933" y="3557.6851371639177" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.land.Land" target="model.Ruin" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="3432.043534629653" y="3212.045249770026" />
+      <point x="3466.6625499905763" y="3219.6287561929444" />
+      <point x="3501.334714190003" y="3225.8431311717086" />
+      <point x="3536.2269429785038" y="3230.6918012411206" />
+      <point x="3553.8169970366152" y="3232.253464360885" />
+      <point x="3606.4154669911068" y="3234.4963166836496" />
+      <point x="3623.670039332503" y="3234.372053680174" />
+      <point x="3674.265659406638" y="3230.9264291236245" />
+      <point x="3707.194638122184" y="3226.846741237735" />
+      <point x="3739.803796859032" y="3220.940586785998" />
+      <point x="3755.688608198139" y="3217.447107727339" />
+      <point x="3802.7966485081556" y="3204.4951747889163" />
+      <point x="3833.0845600926914" y="3194.076198838803" />
+      <point x="3877.4509472573295" y="3175.382297990738" />
+      <point x="3920.0503233610552" y="3153.626214519145" />
+      <point x="3933.9196395400754" y="3145.7434456293086" />
+      <point x="3961.207057553786" y="3128.5723708071446" />
+      <point x="3987.3199777107" y="3110.4195986732707" />
+      <point x="4024.8030846774463" y="3080.7641739803494" />
+      <point x="4059.3590743790714" y="3049.625786090335" />
+      <point x="4404.18725231507" y="2690.9778042301664" />
+      <point x="4414.7473388986755" y="2680.7989052910384" />
+      <point x="4424.711826827999" y="2670.1407672035166" />
+      <point x="4435.073443573934" y="2659.853861539139" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.Player" target="model.User" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.modelControllers.HappinessController" target="model.civilizations.Civilization" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.Unit" target="model.unit.UnitType" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="5059.022216376654" y="2927.0537413862066" />
+      <point x="5057.796743334036" y="2907.715524104572" />
+      <point x="5030.450710012961" y="2113.8150321845083" />
+      <point x="5029.275212053124" y="2094.21964960217" />
+      <point x="5028.933796140117" y="2074.944799657431" />
+      <point x="5027.849309701779" y="2055.3944470291276" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.resource.Resource" target="model.resource.ResourceType" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.City" target="model.building.Building" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="4182.0" y="4986.25" />
+      <point x="4362.5" y="4986.25" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.menuControllers.ProfileMenuController" target="model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.menuControllers.GameMenuController" target="model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.Production" target="model.unit.Unit" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.modelControllers.BuildingController" target="model.building.Building" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="3168.5270007789054" y="4825.71237723001" />
+      <point x="3183.9341607235338" y="4831.348897402324" />
+      <point x="3985.394657093955" y="5093.723689739443" />
+      <point x="4001.0009628343932" y="5099.382328712925" />
+      <point x="4220.67885373801" y="5171.5534482137045" />
+      <point x="4236.351441441041" y="5176.167170537302" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.modelControllers.TechnologyController" target="model.civilizations.Civilization" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="2985.799681146512" y="2753.366759417113" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.Unit" target="model.civilizations.Civilization" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="3951.44655323815" y="3672.6605470950267" />
+      <point x="3900.183147465263" y="3678.088984542427" />
+      <point x="3882.5841492358563" y="3679.073495205471" />
+      <point x="3661.0489873199886" y="3697.535432737206" />
+      <point x="3643.8515473011257" y="3698.4526057436265" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.Civilization" target="model.technology.Technology" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.building.Building" target="model.technology.Technology" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="view.MainMenu" target="model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.Improvement" target="model.land.LandType" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.Civilization" target="model.technology.Technology" relationship="TO_MANY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.land.Land" target="model.land.LandType" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="2436.5319459093007" y="2314.9134985866913" />
+      <point x="2437.164613516334" y="2296.3058670750906" />
+      <point x="2438.1787520689504" y="1957.3384531072563" />
+      <point x="2437.7272719256457" y="1938.596614153617" />
+      <point x="2438.325121201355" y="1919.9520448295318" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.menuControllers.LoginMenuController" target="model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="1710.0697185294407" y="4803.370745525841" />
+      <point x="1724.353208867015" y="4811.052938289723" />
+      <point x="1738.3756441445184" y="4820.118727635728" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.resource.Resource" target="model.technology.Technology" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.land.Land" target="model.Improvement" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.City" target="model.civilizations.Production" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.Settler" target="model.unit.UnitType" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.resource.ResourceType" target="model.Improvement" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.modelControllers.CityController" target="model.civilizations.City" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="4907.25" y="4930.0" />
+      <point x="4907.25" y="4162.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.modelControllers.BuildingController" target="model.civilizations.City" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="view.MainMenu" target="view.LoginMenu" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="1592.4999999999993" y="5603.070802190378" />
+      <point x="1717.9545454545448" y="5603.070802190378" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.land.Land" target="model.resource.ResourceType" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="3125.7133660301392" y="2169.8503580705046" />
+      <point x="3151.5420471692187" y="2142.803061522501" />
+      <point x="3178.9829111952977" y="2116.8198352653876" />
+      <point x="3193.1892224727026" y="2104.548270215911" />
+      <point x="3222.4583316358357" y="2081.1456472600257" />
+      <point x="3237.757019207377" y="2069.983323628655" />
+      <point x="3269.0860156533336" y="2049.058364376825" />
+      <point x="3300.7238226126015" y="2030.07933043217" />
+      <point x="3550.851857930357" y="1895.677461258816" />
+      <point x="3566.357072504279" y="1885.9763581764257" />
+      <point x="3581.2227193468943" y="1875.156130982743" />
+      <point x="3595.417055113843" y="1863.432672847306" />
+      <point x="4253.673891925734" y="1227.9426647083312" />
+      <point x="4265.559085796903" y="1215.6829888612672" />
+      <point x="4278.214497988112" y="1203.744422903042" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.resource.Resource" target="model.resource.ResourceType" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="3941.4735876255013" y="1019.6525053911406" />
+      <point x="3955.352874927954" y="1027.0134330267701" />
+      <point x="3969.33710693777" y="1033.4719058758185" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.Unit" target="model.unit.UnitType" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.resource.Resource" target="model.Improvement" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="3234.9937344490013" y="841.0438337008736" />
+      <point x="3219.1160459613116" y="850.6182960631565" />
+      <point x="2469.9988308463244" y="1264.2781299030325" />
+      <point x="2341.2310834782834" y="1338.032279025984" />
+      <point x="2324.6642728967417" y="1346.7593270535294" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.Unit" target="model.civilizations.City" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.City" target="model.building.Building" relationship="TO_MANY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.Ruin" target="model.unit.Unit" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.technology.InStudyTechs" target="model.technology.Technology" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.Worker" target="model.unit.UnitType" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="4563.833606264814" y="1945.8544204090897" />
+      <point x="4583.269994736576" y="1948.9448090405665" />
+      <point x="4680.976896065487" y="1966.502955175213" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.Unit" target="model.resource.ResourceType" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="4754.87140079302" y="2596.9244019062226" />
+      <point x="4748.044009284187" y="2578.314947186276" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.City" target="model.land.Land" relationship="TO_MANY">
+      <point x="0.0" y="0.0" />
+      <point x="3275.803239618914" y="3739.3373282459756" />
+      <point x="3241.3574198002325" y="3721.6222491480216" />
+      <point x="3223.8431877612375" y="3711.6594884417837" />
+      <point x="3206.9453287611195" y="3700.706166875902" />
+      <point x="3191.0021011950967" y="3688.6661940120634" />
+      <point x="3175.8182713830956" y="3675.841887130885" />
+      <point x="3146.9441795700945" y="3649.9486825406543" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.land.Land" target="model.civilizations.City" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.menuControllers.GameMenuController" target="model.civilizations.Civilization" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.Worker" target="model.land.LandType" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.Player" target="model.civilizations.Civilization" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.building.Building" target="model.technology.Technology" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="4362.5" y="4200.5" />
+      <point x="3607.5" y="4200.5" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="view.MainMenu" target="model.User" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="1807.027423740787" y="5090.369994486909" />
+      <point x="1818.5407567079912" y="5077.754727765346" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.City" target="model.unit.Unit" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.Civilization" target="model.unit.Unit" relationship="TO_MANY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.land.Land" target="model.land.LandType" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.land.Land" target="model.unit.Unit" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.Unit" target="model.land.Land" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="3417.0737597718366" y="3209.2185823463" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.Player" target="model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="2246.188766849167" y="4434.709011669859" />
+      <point x="2222.330393813135" y="4451.109962933863" />
+      <point x="2210.462857069774" y="4459.935793473817" />
+      <point x="2198.9234599330534" y="4469.680057705464" />
+      <point x="2187.8270328268713" y="4480.110396572965" />
+      <point x="2177.298416213788" y="4491.316465846447" />
+      <point x="2167.3847883551966" y="4502.941324302978" />
+      <point x="2157.8737054028024" y="4515.379118802611" />
+      <point x="2149.386362516839" y="4527.967860975191" />
+      <point x="2133.665842946781" y="4554.42143311013" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.modelControllers.CityController" target="model.civilizations.City" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="view.GameMenu" target="view.MainMenu" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.Settler" target="model.civilizations.Civilization" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.UnitType" target="model.technology.Technology" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.DataBase" target="model.Player" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.Unit" target="model.resource.ResourceType" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.land.Land" target="model.civilizations.City" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.City" target="model.land.Land" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.land.Land" target="model.Improvement" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.Improvement" target="model.technology.Technology" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="2125.75457211943" y="2017.3251228755441" />
+      <point x="2144.3159423531456" y="2024.9582279106714" />
+      <point x="2626.795813836383" y="2241.7089637569607" />
+      <point x="3293.2635706412657" y="2481.689320202687" />
+      <point x="3311.68375613415" y="2487.7783069201837" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.Civilization" target="model.civilizations.City" relationship="TO_MANY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.modelControllers.TechnologyController" target="model.technology.Technology" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.City" target="model.civilizations.Civilization" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.modelControllers.BuildingController" target="model.civilizations.Civilization" relationship="TO_MANY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.Improvement" target="model.land.LandType" relationship="CREATE">
+      <point x="0.0" y="0.0" />
+      <point x="2104.027890576824" y="1062.2479311576183" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.land.Land" target="model.resource.ResourceType" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.Worker" target="model.unit.Unit" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="3950.9907867226543" y="2051.209225762725" />
+      <point x="3994.3082780978857" y="2082.328755232054" />
+      <point x="4022.001070849928" y="2104.6032815298277" />
+      <point x="4035.3663456606864" y="2116.2005032757115" />
+      <point x="4048.4782653030047" y="2128.248765951526" />
+      <point x="4060.920851417873" y="2140.395251256759" />
+      <point x="4073.112514381494" y="2152.9971515239945" />
+      <point x="4096.521413761201" y="2179.12307759094" />
+      <point x="4107.748614831821" y="2192.622638143423" />
+      <point x="4128.590170016303" y="2220.149978795139" />
+      <point x="4138.579882603988" y="2234.275563319338" />
+      <point x="4157.104300702993" y="2263.1683085974846" />
+      <point x="4165.772281782057" y="2278.0698226358822" />
+      <point x="4181.969332978272" y="2308.9637505625187" />
+      <point x="4196.6302791482085" y="2340.726244828029" />
+      <point x="4209.71190759745" y="2373.051714243227" />
+      <point x="4225.849852476165" y="2423.0596047878353" />
+      <point x="4235.294919877403" y="2455.843019192654" />
+      <point x="4239.122010366257" y="2472.291211591962" />
+      <point x="4243.795557655272" y="2488.164823537274" />
+      <point x="4287.565959004755" y="2663.6881321685364" />
+      <point x="4292.514892634657" y="2680.0944901168896" />
+      <point x="4298.388960110748" y="2696.617695850108" />
+      <point x="4305.750860308225" y="2713.379726576955" />
+      <point x="4314.706941532556" y="2729.032696654502" />
+      <point x="4325.018402518637" y="2743.7582187384032" />
+      <point x="4335.77162036963" y="2757.7187396796867" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.civilizations.City" target="model.unit.Unit" relationship="TO_MANY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.unit.Worker" target="model.Improvement" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="2699.257805178908" y="1753.1343363075484" />
+      <point x="2679.4703390291716" y="1753.9205707386247" />
+      <point x="2520.5489125052522" y="1757.423239056764" />
+      <point x="2500.8017760449197" y="1757.0099489641398" />
+      <point x="2481.008707263887" y="1758.081437674128" />
+      <point x="1948.4287389832484" y="1764.9208839403354" />
+      <point x="1928.553997725701" y="1764.6714478630583" />
+      <point x="1652.216645497837" y="1766.99071977308" />
+      <point x="1632.1179494775317" y="1767.7990869851303" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.technology.InStudyTechs" target="model.technology.Technology" relationship="DEPENDENCY">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.land.LandType" target="model.resource.ResourceType" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="2455.6519157819794" y="563.0152492531074" />
+      <point x="2471.487596774355" y="569.9825482865095" />
+      <point x="3338.8057059238363" y="920.6535920868636" />
+      <point x="3356.0922840771564" y="926.413006570765" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Edge Bundled Organic" zoom="0.1" showDependencies="true" x="3286.0" y="2635.0" />
+  <SelectedNodes>
+    <node>controller.modelControllers.GameController</node>
+    <node>model.User</node>
+    <node>Main</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
