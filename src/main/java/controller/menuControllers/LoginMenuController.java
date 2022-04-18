@@ -1,31 +1,30 @@
 package controller.menuControllers;
 
-import view.LoginMenu;
+import model.User;
 
 public class LoginMenuController {
-    private LoginMenu loginMenu;
 
-    private boolean checkUniqueNickname(){
+    private boolean checkUniqueNickname(String nickname){
         return true;
     }
 
-    private boolean checkUniqueUsername(){
+    private boolean checkUniqueUsername(String username){
         return true;
     }
 
-    private boolean checkUniquePassword(){
+    private boolean checkUniquePassword(String password){
         return true;
     }
 
-    private void registerUser(){
+    private void registerUser(User user){
 
     }
 
-    private boolean isAvailableUser(){
+    private boolean isAvailableUser(User user){
         return true;
     }
 
-    private boolean checkPassword(){
+    private boolean isCorrectPassword(User user, String password){
         return true;
     }
 
