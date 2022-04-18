@@ -1,5 +1,6 @@
 package model.land;
 
+import model.Improvement;
 import model.resource.ResourceType;
 import model.unit.Unit;
 
@@ -16,6 +17,8 @@ public class Land {
     private ResourceType[] resources;
     private Unit militaryUnit;
     private Unit civilianUnit;
+    private Improvement improvement;
+    private int remainingTimeForBuildImprovement = 6;
 
 
     public Land(LandType type, LandType feature) {
@@ -40,5 +43,85 @@ public class Land {
 
     public LandType getType() {
         return type;
+    }
+
+    public boolean isFogOfWar() {
+        return fogOfWar;
+    }
+
+    public void setFogOfWar(boolean fogOfWar) {
+        this.fogOfWar = fogOfWar;
+    }
+
+    public boolean isInSight() {
+        return inSight;
+    }
+
+    public void setInSight(boolean inSight) {
+        this.inSight = inSight;
+    }
+
+    public int getFood() {
+        return food;
+    }
+
+    public int getProduction() {
+        return production;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public int getMovePoint() {
+        return movePoint;
+    }
+
+    public double getFightChanges() {
+        return fightChanges;
+    }
+
+    public LandType getFeature() {
+        return feature;
+    }
+
+    public ResourceType[] getResources() {
+        return resources;
+    }
+
+    public void setResources(ResourceType[] resources) {
+        this.resources = resources;
+    }
+
+    public Unit getMilitaryUnit() {
+        return militaryUnit;
+    }
+
+    public void setMilitaryUnit(Unit militaryUnit) {
+        this.militaryUnit = militaryUnit;
+    }
+
+    public Unit getCivilianUnit() {
+        return civilianUnit;
+    }
+
+    public void setCivilianUnit(Unit civilianUnit) {
+        this.civilianUnit = civilianUnit;
+    }
+
+    public Improvement getImprovement() {
+        return improvement;
+    }
+
+    public void setImprovement(Improvement improvement) {
+        this.improvement = improvement;
+    }
+
+    public int getRemainingTimeForBuildImprovement() {
+        return remainingTimeForBuildImprovement;
+    }
+
+    public void setRemainingTimeForBuildImprovement(int remainingTimeForBuildImprovement) {
+        this.remainingTimeForBuildImprovement = remainingTimeForBuildImprovement;
     }
 }

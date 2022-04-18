@@ -1,6 +1,7 @@
 package model.civilizations;
 
 import model.technology.Technology;
+import model.unit.Unit;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ public class Civilization {
     private int scienceIndex;
     private int population;
     private int cups;
+    private ArrayList<Unit> units = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -65,14 +67,14 @@ public class Civilization {
         Gold = gold;
     }
 
+
 //    public int getProduction() {
 //        return production;
 //    }
 
-//    public void setProduction(int production) {
+    //    public void setProduction(int production) {
 //        this.production = production;
 //    }
-
     public int getHappinessIndex() {
         return happinessIndex;
     }
@@ -103,5 +105,13 @@ public class Civilization {
 
     public void setCups(int cups) {
         this.cups = cups;
+    }
+
+    public ArrayList<Unit> getUnits() {
+        return units;
+    }
+
+    public void setUnits(ArrayList<Unit> units) {
+        this.units = units;
     }
 }

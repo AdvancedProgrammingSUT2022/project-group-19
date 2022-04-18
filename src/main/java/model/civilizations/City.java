@@ -1,7 +1,7 @@
 package model.civilizations;
 
 import model.building.Building;
-import model.game.Tile;
+import model.land.Land;
 import model.unit.Unit;
 
 import java.util.ArrayList;
@@ -15,8 +15,9 @@ public class City {
     private int citizens;
     private int population;
     private ArrayList<Unit> units;
-    private ArrayList<Tile> tiles;
+    private ArrayList<Land> tiles;
     private ArrayList<Building> buildings;
     private Unit militarySettledUnit;
     private Unit civilianSettledUnit;
+    private boolean containSettler; //if a city have a settler => food field must not increase (Game doc, page 38)
 }

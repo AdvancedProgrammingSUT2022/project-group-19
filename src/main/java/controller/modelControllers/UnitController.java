@@ -1,7 +1,6 @@
 package controller.modelControllers;
 
 import model.civilizations.City;
-import model.game.Tile;
 import model.land.Land;
 import model.unit.Unit;
 
@@ -85,7 +84,7 @@ public class UnitController {
 
     }
 
-    public ArrayList<Tile> visibleArea() {
+    public ArrayList<Land> visibleArea() {
         return null;
     }
 
