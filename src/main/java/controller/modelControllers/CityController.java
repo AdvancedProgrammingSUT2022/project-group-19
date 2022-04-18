@@ -78,7 +78,7 @@ public class CityController {
     public void captureCityAndWhatToDoWith(Unit unit) {
 
     }
-    // TODO: 4/18/2022 جزییات تصرف یک شهر
+    // TODO: 4/18/2022 جزییات تصرف یک شهر ممکن است به توابع بیشتری نیاز داشته باشد
 
     //food
     public void productionPerTurn() {

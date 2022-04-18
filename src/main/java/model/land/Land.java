@@ -6,6 +6,8 @@ import model.civilizations.City;
 import model.resource.ResourceType;
 import model.unit.Unit;
 
+import java.util.ArrayList;
+
 public class Land {
     private boolean fogOfWar = true;
     private boolean inSight = false;
@@ -23,6 +25,8 @@ public class Land {
     private int remainingTimeForBuildImprovement = 6;
     private Ruin ruin = null;
     private City city;
+    private Land[] isRiverOnBounds;
+    private ArrayList<Land> neighbors;
 
 
     public Land(LandType type, LandType feature) {
