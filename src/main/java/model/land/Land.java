@@ -2,6 +2,7 @@ package model.land;
 
 import model.Improvement;
 import model.Ruin;
+import model.civilizations.City;
 import model.resource.ResourceType;
 import model.unit.Unit;
 
@@ -21,6 +22,7 @@ public class Land {
     private Improvement improvement;
     private int remainingTimeForBuildImprovement = 6;
     private Ruin ruin = null;
+    private City city;
 
 
     public Land(LandType type, LandType feature) {

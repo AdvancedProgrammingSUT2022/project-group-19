@@ -3,6 +3,7 @@ package model.civilizations;
 import model.building.Building;
 import model.land.Land;
 import model.unit.Unit;
+import model.unit.UnitType;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,14 @@ public class City {
     private ArrayList<Building> buildings;
     private Unit militarySettledUnit;
     private Unit civilianSettledUnit;
+    private Civilization civilization;
     private boolean containSettler; //if a city have a settler => food field must not increase (Game doc, page 38)
+
+    public void makeUnit(UnitType type){
+        Unit newUnit = new Unit(type,civilization);
+        units.add(newUnit);
+    }
+
 
     public void purchaseTile() {
         //decrease gold after purchasing

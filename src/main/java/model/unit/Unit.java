@@ -1,9 +1,12 @@
 package model.unit;
 
+import model.civilizations.City;
 import model.civilizations.Civilization;
 import model.land.Land;
 import model.technology.Technology;
 import model.resource.ResourceType;
+
+import java.util.ArrayList;
 
 public class Unit {
     private final UnitType type;
@@ -33,7 +36,7 @@ public class Unit {
         this.civilization = belongTo;
     }
 
-    public void resetMP(){
+    public void resetMP() {
         remainMP = movePoint;
         assigned = false;
     }
@@ -61,6 +64,57 @@ public class Unit {
         assigned = true;
     }
 
+    public void readyAndAlter() {
+    }
+
+    public void reinforcement() {
+    }
+
+    public void fullReinforcement() {
+    }
+
+    public void settle() {
+    }
+
+    public void prepareRangedAttack() {
+
+    }
+
+    public void rangedAttack(Land land) {
+
+    }
+
+    public void coldWeaponAttackToCity(City enemyCity) {
+
+    }
+
+    public void plunder() { //غارت
+
+    }
+
+    public void cancel() {
+
+    }
+
+    public void removeUnit() {
+
+    }
+
+    public void Attack(Land land) {
+        //This method can be combined with move method
+    }
+
+    public ArrayList<Land> getVisibleArea() {
+        return null;
+    }
+
+    public void giveBattleReward() {
+
+    }
+
+    public void fortify() {
+
+    }
 
     public Civilization getCivilization() {
         return civilization;
