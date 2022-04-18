@@ -20,9 +20,5 @@ public class LoginMenu {
     protected void printMenuName() {
     }
 
-    protected void enterMenu(Matcher matcher) {
-    }
 
-    private void addUser(Matcher matcher) {
-    }
 }

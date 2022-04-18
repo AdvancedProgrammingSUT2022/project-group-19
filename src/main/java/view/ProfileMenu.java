@@ -11,9 +11,4 @@ public class ProfileMenu extends MainMenu {
         }
     }
 
-    private void changeNickname(Matcher matcher) {
-    }
-
-    private void changePassword(Matcher matcher) {
-    }
 }

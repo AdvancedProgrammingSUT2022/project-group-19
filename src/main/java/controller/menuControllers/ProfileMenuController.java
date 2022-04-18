@@ -25,6 +25,4 @@ public class ProfileMenuController {
         return true;
     }
 
-
-
 }

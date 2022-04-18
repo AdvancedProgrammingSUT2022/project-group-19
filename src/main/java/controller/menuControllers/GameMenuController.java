@@ -1,5 +1,6 @@
 package controller.menuControllers;
 
+import model.User;
 import model.civilizations.Civilization;
 import model.technology.Technology;
 
@@ -57,5 +58,8 @@ public class GameMenuController {
 
     }
 
+    private void addPlayer(User user, Civilization civilization){
+
+    }
 
 }

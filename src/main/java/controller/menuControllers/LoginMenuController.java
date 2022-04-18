@@ -2,6 +2,8 @@ package controller.menuControllers;
 
 import model.User;
 
+import java.util.regex.Matcher;
+
 public class LoginMenuController {
 
     private boolean checkUniqueNickname(String nickname){
@@ -28,4 +30,7 @@ public class LoginMenuController {
         return true;
     }
 
+    protected void enterMenu(Matcher matcher) {
+
+    }
 }
