@@ -27,6 +27,8 @@ public class Land {
     private City city;
     private Land[] isRiverOnBounds;
     private ArrayList<Land> neighbors;
+    private boolean haveRoad = false;
+    private boolean isRoadRailed = false;
 
 
     public Land(LandType type, LandType feature) {

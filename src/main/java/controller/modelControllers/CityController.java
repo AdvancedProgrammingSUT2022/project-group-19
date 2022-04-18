@@ -4,7 +4,7 @@ import model.civilizations.City;
 import model.unit.Unit;
 
 public class CityController {
-    City city;
+    private City city;
 
     public CityController(City city) {
         this.city = city;
