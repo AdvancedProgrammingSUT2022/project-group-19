@@ -1,7 +1,11 @@
 package view;
 
 
+import model.Player;
+
 public class GameMenu extends MainMenu {
+    Player playingPlayer;
+    //همزمان نوبت دو نفر نیست پس به یه همچین فیلدی نیاز بود
 
     public void run() {
         String infoResearchRegex = "";
