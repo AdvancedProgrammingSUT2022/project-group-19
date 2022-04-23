@@ -1,46 +1,33 @@
 package view;
 
-import controller.menucontroller.ProfileMenuController;
 import model.Function;
-import model.User;
 
 import java.util.HashMap;
-import java.util.Scanner;
 
-public class ProfileMenu extends Menu {
-    private ProfileMenuController profileMenuController;
-    private User user;
-
-    private final HashMap<String, Function> regexToFunction = new HashMap<>(){{
-        put("^menu enter (?<menuName>.+)$", () -> System.out.println("hello"));
-        put("^menu exit$", () -> System.out.println("hello"));
-        put("^menu show-current$", () -> System.out.println("hello"));
-        put("^profile change --nickname (?<nickname>.+)$", () -> System.out.println("hello"));
-        put("^profile change --password --current (?<currentPassword>.+) --new (?<newPassword>.+)$", () -> System.out.println("hello"));
-    }};
-
-    public ProfileMenu(User user){
-        this.user = user;
-        this.profileMenuController = new ProfileMenuController(user);
+public class ProfileMenu extends MainMenu {
+    private final HashMap<String, Function> functions = new HashMap<>();
+    public ProfileMenu() {
+        functions.putAll(basicFunctions);
+        functions.put("^profile change --nickname (?<nickname>.+)$", this::changeNickname);
+        functions.put("^profile change --password --current (?<currentPassword>.+) --new (?<newPassword>.+)$", this::changePassword);
     }
 
-    public void run(Scanner scanner) {
-        String showMenuRegex = "";
-        String changeNicknameRegex = "";
-        String changePasswordRegex = "";
-        String exitMenuRegex = "";
-        while (true) {
-            command = scanner.nextLine();
-            if(getCommandMatcher(command, showMenuRegex) != null){
-                System.out.println("Profile Menu");
-            }else if(getCommandMatcher(command, changeNicknameRegex) != null){
-
-            }else if(getCommandMatcher(command, changePasswordRegex) != null){
-
-            }else if(getCommandMatcher(command, exitMenuRegex) != null){
-                break;
-            }else System.out.println("invalid command :)");
-        }
+    public void run() {
+        menuLoop(functions);
     }
 
+    @Override
+    protected void gotoMenu() {
+        System.out.println("menu navigation is not possible");
+    }
+
+    private void changePassword() {
+        //TODO
+        System.out.println("change password");
+    }
+
+    private void changeNickname() {
+        //TODO
+        System.out.println("change nickname");
+    }
 }

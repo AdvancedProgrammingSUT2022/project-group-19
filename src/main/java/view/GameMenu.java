@@ -1,13 +1,12 @@
 package view;
 
 
-import model.Player;
+import java.util.regex.Matcher;
 
-public class GameMenu extends Menu {
-    Player playingPlayer;
-    //همزمان نوبت دو نفر نیست پس به یه همچین فیلدی نیاز بود
+public class GameMenu extends MainMenu {
+    private String command;
 
-    public void run() {
+    public void menuLoop() {
         String infoResearchRegex = "";
         String infoUnitsRegex = "";
         String infoCitiesRegex = "";
@@ -54,7 +53,6 @@ public class GameMenu extends Menu {
             command = scanner.nextLine();
             if (getCommandMatcher(command, infoResearchRegex) != null) {
             } else if (getCommandMatcher(command, infoUnitsRegex) != null) {
-
             } else if (getCommandMatcher(command, infoCitiesRegex) != null) {
             } else if (getCommandMatcher(command, infoDiplomacyRegex) != null) {
             } else if (getCommandMatcher(command, infoVictoryRegex) != null) {
@@ -95,7 +93,16 @@ public class GameMenu extends Menu {
             } else if (getCommandMatcher(command, unitRepairRegex) != null) {
             } else if (getCommandMatcher(command, MapShowRegex) != null) {
             } else if (getCommandMatcher(command, MapMoveRegex) != null) {
-            } else System.out.println("invalid command!");
+            } else System.out.println("invalid command :)");
         }
+    }
+
+    @Override
+    protected void gotoMenu() {
+        System.out.println("menu navigation is not possible");
+    }
+
+    public Matcher getCommandMatcher(String command, String regex) {
+        return null;
     }
 }

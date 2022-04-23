@@ -4,34 +4,42 @@ import model.Function;
 import model.User;
 
 import java.util.HashMap;
-import java.util.regex.Matcher;
 
 public class MainMenu extends Menu {
     protected User loggedInUser;
-    private final HashMap<String, Function> regexToFunction = new HashMap<>(){{
-        put("^menu enter (?<menuName>.+)$", () -> System.out.println("hello"));
-        put("^menu exit$", () -> System.out.println("hello"));
-        put("^menu show-current$", () -> System.out.println("hello"));
-        put("^user logout$", () -> System.out.println("hello"));
-        put("^play game --player1 (?<username1>.+) --player2 (?<username2>.+).*", () -> System.out.println("hello"));
-    }};
+    private final HashMap<String, Function> functions = new HashMap<>();
 
-    public void run() {
-        String enterMenuRegex = "";
-        String exitMenuRegex = "";
-        String showNameMenuRegex = "";
-        while (true) {
-            command = scanner.nextLine();
-            if (getCommandMatcher(command, enterMenuRegex) != null) {
+    public MainMenu() {
+        functions.putAll(basicFunctions);
+        functions.put("^user logout$", this::logout);
+        functions.put("^play game --player1 (?<username1>.+) --player2 (?<username2>.+).*", this::startGame);
 
-            } else if (getCommandMatcher(command, showNameMenuRegex) != null) {
-
-            } else if (getCommandMatcher(command, exitMenuRegex) != null) {
-
-            } else System.out.println("invalid command :)");
-        }
     }
 
-    private void startGame(Matcher matcher) {
+    public void run() {
+        menuLoop(functions);
+    }
+
+    @Override
+    protected void gotoMenu() {
+        String nextMenuName = matcher.group("menuName");
+        if (nextMenuName.equals("profile menu")) {
+            ProfileMenu profileMenu = new ProfileMenu();
+            profileMenu.run();
+        } else if (nextMenuName.equals("game menu")) {
+            GameMenu gameMenu = new GameMenu();
+            gameMenu.run();
+        } else
+            System.out.println("menu navigation is not possible");
+    }
+
+    private void startGame() {
+        System.out.println("start the game (X_x)");
+        //TODO
+    }
+
+    private void logout() {
+        System.out.println("logout (X_x)");
+        //TODO
     }
 }
