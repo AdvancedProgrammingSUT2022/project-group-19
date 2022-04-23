@@ -5,7 +5,7 @@ import model.User;
 
 import java.util.HashMap;
 
-public class MainMenu extends LoginMenu {
+public class MainMenu extends Menu {
     protected User loggedInUser;
     private final HashMap<String, Function> functions = new HashMap<>();
 
