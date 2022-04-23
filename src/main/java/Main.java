@@ -1,3 +1,4 @@
+//بسم الله الرحمن الرحیم
 import view.LoginMenu;
 
 public class Main {
