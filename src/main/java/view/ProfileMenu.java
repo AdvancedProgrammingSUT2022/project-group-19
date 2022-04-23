@@ -7,7 +7,7 @@ import model.User;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class ProfileMenu extends MainMenu {
+public class ProfileMenu extends Menu {
     private ProfileMenuController profileMenuController;
     private User user;
 

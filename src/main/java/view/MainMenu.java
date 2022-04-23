@@ -6,7 +6,7 @@ import model.User;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 
-public class MainMenu extends LoginMenu {
+public class MainMenu extends Menu {
     protected User loggedInUser;
     private final HashMap<String, Function> regexToFunction = new HashMap<>(){{
         put("^menu enter (?<menuName>.+)$", () -> System.out.println("hello"));
