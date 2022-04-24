@@ -1,26 +1,24 @@
 package model;
 
-import model.land.Land;
+import model.land.Tile;
 
 public class GameMap {
-    private final int mapLength = 10;
-    private final int mapWidth = 5;
-    private Land[][] map = new Land[mapLength][mapWidth];
+    private int mapLength;
+    private int mapWidth;
+    private Tile[][] map;
 
-    public Land[][] getMap() {
-        return map;
-    }
-
-    public void setMap(Land[][] map) {
+    public GameMap(int mapLength, int mapWidth, Tile[][] map) {
+        this.mapLength = mapLength;
+        this.mapWidth = mapWidth;
         this.map = map;
     }
 
-    public void generateMap() {
-        //generate a random map
-        //generate ruins
-        //generate cities
-        //generate ...
-        Land[][] newMap = new Land[mapLength][mapWidth];
-        map = newMap;
+    public Tile[][] getMap() {
+        return map;
     }
+
+    public void setMap(Tile[][] map) {
+        this.map = map;
+    }
+
 }
