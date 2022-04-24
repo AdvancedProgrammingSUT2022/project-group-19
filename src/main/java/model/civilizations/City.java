@@ -1,7 +1,7 @@
 package model.civilizations;
 
 import model.building.Building;
-import model.land.Land;
+import model.land.Tile;
 import model.unit.Unit;
 import model.unit.UnitType;
 
@@ -16,7 +16,7 @@ public class City {
     private int citizens;
     private int population;
     private ArrayList<Unit> units;
-    private ArrayList<Land> tiles;
+    private ArrayList<Tile> tiles;
     private ArrayList<Building> buildings;
     private Unit militarySettledUnit;
     private Unit civilianSettledUnit;

@@ -2,7 +2,7 @@ package model.unit;
 
 import model.Improvement;
 import model.civilizations.Civilization;
-import model.land.LandType;
+import model.land.TerrainType;
 import model.technology.Technology;
 
 import java.util.ArrayList;
@@ -23,8 +23,8 @@ public class Worker extends Unit {
     }
 
     public void buildImprovement(Improvement improvement) {
-        LandType landType = super.getPosition().getType();
-        ArrayList<LandType> allowedLands = new ArrayList<>(List.of(improvement.getFoundOn()));
+        TerrainType landType = super.getPosition().getType();
+        ArrayList<TerrainType> allowedLands = new ArrayList<>(List.of(improvement.getFoundOn()));
         if (allowedLands.contains(landType)) {
             super.setWorkCounter(6);
             //so on ...

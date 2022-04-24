@@ -2,7 +2,7 @@ package model.unit;
 
 import model.civilizations.City;
 import model.civilizations.Civilization;
-import model.land.Land;
+import model.land.Tile;
 import model.technology.Technology;
 import model.resource.ResourceType;
 
@@ -19,7 +19,7 @@ public class Unit {
     private final Technology requiredTechnology;
     private Civilization civilization;
     private int workCounter;
-    private Land position;
+    private Tile position;
     private boolean sleep = false;
     private boolean assigned = false;
     private int remainMP;
@@ -41,7 +41,7 @@ public class Unit {
         assigned = false;
     }
 
-    public void move(Land destination) {
+    public void move(Tile destination) {
         //Calculate the distance of the destination
 //        int distance = 1;
 //        remainMP -= distance;
@@ -80,7 +80,7 @@ public class Unit {
 
     }
 
-    public void rangedAttack(Land land) {
+    public void rangedAttack(Tile land) {
 
     }
 
@@ -100,11 +100,11 @@ public class Unit {
 
     }
 
-    public void Attack(Land land) {
+    public void Attack(Tile land) {
         //This method can be combined with move method
     }
 
-    public ArrayList<Land> getVisibleArea() {
+    public ArrayList<Tile> getVisibleArea() {
         return null;
     }
 
@@ -128,7 +128,7 @@ public class Unit {
         this.workCounter = workCounter;
     }
 
-    public Land getPosition() {
+    public Tile getPosition() {
         return position;
     }
 }
