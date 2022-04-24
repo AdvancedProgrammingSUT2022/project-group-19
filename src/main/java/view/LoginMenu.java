@@ -1,5 +1,6 @@
 package view;
 
+import controller.Controller;
 import model.Database;
 import model.Function;
 
@@ -33,8 +34,7 @@ public class LoginMenu extends Menu {
         String username = matcher.group("username");
         String password = matcher.group("password");
         String nickname = matcher.group("nickname");
-        //TODO this
-        String message = "test";//= Controller.checkNewUser(username, password, nickname);
+        String message = Controller.addUser(username, password, nickname);
         System.out.println(message);
     }
 

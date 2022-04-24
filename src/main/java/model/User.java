@@ -4,7 +4,7 @@ public class User {
     private String username;
     private String password;
     private String nickname;
-    private int score;
+    private int score = 0;
 
 
     public User(String username, String password, String nickname) {
