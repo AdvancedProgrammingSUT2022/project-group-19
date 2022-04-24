@@ -13,7 +13,6 @@ public class MainMenu extends Menu {
         functions.putAll(basicFunctions);
         functions.put("^user logout$", this::logout);
         functions.put("^play game --player1 (?<username1>.+) --player2 (?<username2>.+).*", this::startGame);
-
     }
 
     public void run() {
