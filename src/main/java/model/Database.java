@@ -5,8 +5,8 @@ import java.util.List;
 
 
 public class Database {
-    private List<User> users; //all registered users
-    private List<Player> players = new ArrayList<>();  //players in game
+    private static List<User> users; //all registered users
+    private static List<Player> players = new ArrayList<>();  //players in game
 
     public Database() {
         //read the data from file at first.
@@ -19,19 +19,30 @@ public class Database {
         //this method should always be called
     }
 
-    public List<User> getUsers() {
+    public static List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(ArrayList<User> users) {
-        this.users = users;
-    }
-
-    public List<Player> getPlayers() {
+    public static List<Player> getPlayers() {
         return players;
     }
 
-    public void setPlayers(ArrayList<Player> players) {
-        this.players = players;
+    public static void addUser(User newUser) {
+        users.add(newUser);
+        //TODO: update file
+    }
+
+    public static User getUser(String username) {
+        for (User user : users)
+            if (user.getUsername().equals(username))
+                return user;
+        return null;
+    }
+
+    public static User getUserByNickname(String nickname) {
+        for (User user : users)
+            if (user.getNickname().equals(nickname))
+                return user;
+        return null;
     }
 }
