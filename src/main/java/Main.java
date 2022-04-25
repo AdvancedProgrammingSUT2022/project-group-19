@@ -1,4 +1,5 @@
 //بسم الله الرحمن الرحیم
+import model.Database;
 import view.LoginMenu;
 
 public class Main {
@@ -7,6 +8,9 @@ public class Main {
                 "Hello Sky Stars! This is an empty project.\n" +
                 "please configure your java version to 13\n" +
                 "good luck :)");
+        //create a new database
+        Database database = new Database();
+
         LoginMenu loginMenu = new LoginMenu();
         loginMenu.run();
     }

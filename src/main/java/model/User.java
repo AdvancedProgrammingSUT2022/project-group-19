@@ -4,8 +4,14 @@ public class User {
     private String username;
     private String password;
     private String nickname;
-    private int score = 0;
+    private int score;
 
+    public User(String username, String password, String nickname) {
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+        this.score = 0;
+    }
 
     public String getUsername() {
         return username;

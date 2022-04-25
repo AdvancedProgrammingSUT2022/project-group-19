@@ -22,7 +22,6 @@ public class Database {
         //read the data from file at first.
         readSavedUsers();
         readSavedGame();
-        players = null;
     }
 
     public static void readSavedUsers() {
