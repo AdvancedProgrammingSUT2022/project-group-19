@@ -1,4 +1,5 @@
 //بسم الله الرحمن الرحیم
+import controller.modelcontroller.GameController;
 import view.LoginMenu;
 
 public class Main {

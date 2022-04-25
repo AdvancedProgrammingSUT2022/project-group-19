@@ -4,6 +4,8 @@ import model.resource.ResourceType;
 
 public enum TerrainType {
     //features:
+    NULL(0, 0, 0, 0, 0, null, null),
+
     JOLGE(2, 0, 0, -0.33, 1, null,
         new ResourceType[]{ResourceType.WHEAT, ResourceType.SUGAR}),
 
@@ -22,8 +24,6 @@ public enum TerrainType {
     OASIS(3, 0, 1, -0.33, 1, null,
         new ResourceType[]{}),
 
-    RIVER(0, 0, 1, 0, 0, null,
-        new ResourceType[]{}),
 
 
     //terrains:

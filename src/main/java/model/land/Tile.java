@@ -23,9 +23,9 @@ public class Tile {
     private int remainingTimeForBuildImprovement = 6;
     private Ruin ruin = null;
     private City city;
-    private boolean[] isRiverOnBounds;
+    private boolean[] isRiverOnBounds = new boolean[6];
     private int riversNumber = 0;
-    private Tile[] neighborOnBounds;
+    private Tile[] neighborOnBounds = new Tile[6];
     private boolean haveRoad = false;
     private boolean isRoadRailed = false;
 
@@ -129,6 +129,34 @@ public class Tile {
 
     public int getRemainingTimeForBuildImprovement() {
         return remainingTimeForBuildImprovement;
+    }
+
+    public void setRuin(Ruin ruin) {
+        this.ruin = ruin;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public void setIsRiverOnBounds(boolean[] isRiverOnBounds) {
+        this.isRiverOnBounds = isRiverOnBounds;
+    }
+
+    public void setRiversNumber(int riversNumber) {
+        this.riversNumber = riversNumber;
+    }
+
+    public void setNeighborOnBounds(Tile[] neighborOnBounds) {
+        this.neighborOnBounds = neighborOnBounds;
+    }
+
+    public void setHaveRoad(boolean haveRoad) {
+        this.haveRoad = haveRoad;
+    }
+
+    public void setRoadRailed(boolean roadRailed) {
+        isRoadRailed = roadRailed;
     }
 
     public void setRemainingTimeForBuildImprovement(int remainingTimeForBuildImprovement) {
