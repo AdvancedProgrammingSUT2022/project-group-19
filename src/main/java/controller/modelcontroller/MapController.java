@@ -69,7 +69,6 @@ public class MapController {
                 return TerrainType.PLAIN;
             case 6:
                 return TerrainType.SNOW;
-
         }
         return TerrainType.PLAIN;
     }
