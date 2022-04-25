@@ -9,64 +9,62 @@ public class GameMenu extends MainMenu {
 
     public GameMenu() {
         this.functions.putAll(basicFunctions);
-        functions.put("^info research$", this::infoResearch);
-        functions.put("^info units$", this::infoUnits);
-        functions.put("^info cities$", this::infoCities);
-        functions.put("^info diplomacy$", this::infoDiplomacy);
-        functions.put("^info victory$", this::infoVictory);
-        functions.put("^info demographics$", this::infoDemographics);
-        functions.put("^info notifications$", this::infoNotifications);
-        functions.put("^info military$", this::infoMilitary);
-        functions.put("^info economic$", this::infoEconomic);
-        functions.put("^info diplomatic$", this::infoDiplomatic);
-        functions.put("^info deals$", this::infoDeals);
-        functions.put("^select unit combat X: (?<xPosition>[-]?\\d+) Y: (?<xPosition>[-]?\\d+)$", this::selectUnitCombat);
-        functions.put("^select unit noncombat X: (?<xPosition>[-]?\\d+) Y: (?<xPosition>[-]?\\d+)$", this::selectUnitNoncombat);
-        functions.put("^select city (?<cityName>.+)$", this::selectCityName);
-        functions.put("^select city X: (?<xPosition>[-]?\\d+) Y: (?<xPosition>[-]?\\d+)$", this::selectCityPosition);
-        functions.put("^unit move to X: (?<xPosition>[-]?\\d+) Y: (?<xPosition>[-]?\\d+)$", this::unitMove);
-        functions.put("^unit sleep$", this::unitSleep);
-        functions.put("^unit alert$", this::unitAlert);
-        functions.put("^unit fortify$", this::unitFortify);
-        functions.put("^unit fortify heal$", this::unitFortifyHeal);
-        functions.put("^unit garrison$", this::unitGarrison);
-        functions.put("^unit setup$", this::unitSetup);
-        functions.put("^unit attack$", this::unitAttack);
-        functions.put("^unit found$", this::unitFound);
-        functions.put("^unit cancel$", this::unitCancel);
-        functions.put("^unit wake$", this::unitWake);
-        functions.put("^unit delete$", this::unitDelete);
-        functions.put("^unit build road$", this::unitBuildRoad);
-        functions.put("^unit build railroad$", this::unitBuildRailroad);
-        functions.put("^unit build farm$", this::unitBuildFarm);
-        functions.put("^unit build mine$", this::unitBuildMine);
-        functions.put("^unit build trading post$", this::unitBuildTradingPost);
-        functions.put("^unit build lumber mill$", this::unitBuildLumberMill);
-        functions.put("^unit build pasture$", this::unitBuildPasture);
-        functions.put("^unit build camp$", this::unitBuildCamp);
-        functions.put("^unit build plantation$", this::unitBuildPlantation);
-        functions.put("^unit build quarry$", this::unitBuildQuarry);
-        functions.put("^unit remove jungle$", this::removeJungle);
-        functions.put("^unit remove route$", this::removeRoute);
-        functions.put("^unit repair$", this::unitRepair);
-        functions.put("^map show X: (?<xPosition>[-]?\\d+) Y: (?<xPosition>[-]?\\d+)$", this::mapShowPosition);
-        functions.put("^map show (?<cityName>.+)$", this::mapShowName);
-        functions.put("^map move right (?<NumberOfMoves>\\d+)$", this::moveRight);
-        functions.put("^map move left (?<NumberOfMoves>\\d+)$", this::moveLeft);
-        functions.put("^map move up (?<NumberOfMoves>\\d+)$", this::moveUp);
-        functions.put("^map move down (?<NumberOfMoves>\\d+)$", this::moveDown);
+        this.functions.put("^info research$", this::infoResearch);
+        this.functions.put("^info units$", this::infoUnits);
+        this.functions.put("^info cities$", this::infoCities);
+        this.functions.put("^info diplomacy$", this::infoDiplomacy);
+        this.functions.put("^info victory$", this::infoVictory);
+        this.functions.put("^info demographics$", this::infoDemographics);
+        this.functions.put("^info notifications$", this::infoNotifications);
+        this.functions.put("^info military$", this::infoMilitary);
+        this.functions.put("^info economic$", this::infoEconomic);
+        this.functions.put("^info diplomatic$", this::infoDiplomatic);
+        this.functions.put("^info deals$", this::infoDeals);
+        this.functions.put("^select unit combat X: (?<xPosition>[-]?\\d+) Y: (?<xPosition>[-]?\\d+)$", this::selectUnitCombat);
+        this.functions.put("^select unit noncombat X: (?<xPosition>[-]?\\d+) Y: (?<xPosition>[-]?\\d+)$", this::selectUnitNoncombat);
+        this.functions.put("^select city (?<cityName>.+)$", this::selectCityName);
+        this.functions.put("^select city X: (?<xPosition>[-]?\\d+) Y: (?<xPosition>[-]?\\d+)$", this::selectCityPosition);
+        this.functions.put("^unit move to X: (?<xPosition>[-]?\\d+) Y: (?<xPosition>[-]?\\d+)$", this::unitMove);
+        this.functions.put("^unit sleep$", this::unitSleep);
+        this.functions.put("^unit alert$", this::unitAlert);
+        this.functions.put("^unit fortify$", this::unitFortify);
+        this.functions.put("^unit fortify heal$", this::unitFortifyHeal);
+        this.functions.put("^unit garrison$", this::unitGarrison);
+        this.functions.put("^unit setup$", this::unitSetup);
+        this.functions.put("^unit attack$", this::unitAttack);
+        this.functions.put("^unit found$", this::unitFound);
+        this.functions.put("^unit cancel$", this::unitCancel);
+        this.functions.put("^unit wake$", this::unitWake);
+        this.functions.put("^unit delete$", this::unitDelete);
+        this.functions.put("^unit build road$", this::unitBuildRoad);
+        this.functions.put("^unit build railroad$", this::unitBuildRailroad);
+        this.functions.put("^unit build farm$", this::unitBuildFarm);
+        this.functions.put("^unit build mine$", this::unitBuildMine);
+        this.functions.put("^unit build trading post$", this::unitBuildTradingPost);
+        this.functions.put("^unit build lumber mill$", this::unitBuildLumberMill);
+        this.functions.put("^unit build pasture$", this::unitBuildPasture);
+        this.functions.put("^unit build camp$", this::unitBuildCamp);
+        this.functions.put("^unit build plantation$", this::unitBuildPlantation);
+        this.functions.put("^unit build quarry$", this::unitBuildQuarry);
+        this.functions.put("^unit remove jungle$", this::removeJungle);
+        this.functions.put("^unit remove route$", this::removeRoute);
+        this.functions.put("^unit repair$", this::unitRepair);
+        this.functions.put("^map show X: (?<xPosition>[-]?\\d+) Y: (?<xPosition>[-]?\\d+)$", this::mapShowPosition);
+        this.functions.put("^map show (?<cityName>.+)$", this::mapShowName);
+        this.functions.put("^map move right (?<NumberOfMoves>\\d+)$", this::moveRight);
+        this.functions.put("^map move left (?<NumberOfMoves>\\d+)$", this::moveLeft);
+        this.functions.put("^map move up (?<NumberOfMoves>\\d+)$", this::moveUp);
+        this.functions.put("^map move down (?<NumberOfMoves>\\d+)$", this::moveDown);
     }
 
-
     public void run() {
-        menuLoop(functions);
+        getCommand(functions);
     }
 
     @Override
     protected void gotoMenu() {
         System.out.println("menu navigation is not possible");
     }
-
 
     private void infoResearch() {
     }
@@ -205,5 +203,4 @@ public class GameMenu extends MainMenu {
 
     private void moveDown() {
     }
-
 }

@@ -1,11 +1,14 @@
 package view;
 
+import controller.Controller;
+import model.Database;
 import model.Function;
 
 import java.util.HashMap;
 
 public class ProfileMenu extends MainMenu {
     private final HashMap<String, Function> functions = new HashMap<>();
+
     public ProfileMenu() {
         functions.putAll(basicFunctions);
         functions.put("^profile change --nickname (?<nickname>.+)$", this::changeNickname);
@@ -13,7 +16,7 @@ public class ProfileMenu extends MainMenu {
     }
 
     public void run() {
-        menuLoop(functions);
+        getCommand(functions);
     }
 
     @Override
@@ -22,12 +25,15 @@ public class ProfileMenu extends MainMenu {
     }
 
     private void changePassword() {
-        //TODO
-        System.out.println("change password");
+        String currentPassword = matcher.group("currentPassword>");
+        String newPassword = matcher.group("newPassword");
+        String massage = Controller.changePassword(currentPassword, newPassword, loggedInUser);
+        System.out.println(massage);
     }
 
     private void changeNickname() {
-        //TODO
-        System.out.println("change nickname");
+        String nickname  = matcher.group("nickName");
+        String massage = Controller.changeNickname(nickname, loggedInUser);
+        System.out.println(massage);
     }
 }

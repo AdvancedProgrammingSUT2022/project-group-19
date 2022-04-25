@@ -1,5 +1,6 @@
 package view;
 
+import model.Database;
 import model.Function;
 
 import java.util.HashMap;
@@ -8,8 +9,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Menu {
-    Scanner scanner = new Scanner(System.in);
-    Matcher matcher;
+    protected Database database = new Database();
+    protected Scanner scanner = new Scanner(System.in);
+    protected Matcher matcher;
     protected HashMap<String, Function> basicFunctions = new HashMap<>() {{
         put("^menu exit$", null);
         put("^menu show-current$", () -> showCurrentMenu());
@@ -25,7 +27,7 @@ public class Menu {
         System.out.println(className);
     }
 
-    protected void menuLoop(HashMap<String, Function> functions) {
+    protected void getCommand(HashMap<String, Function> functions) {
         while (true) {
             String command = scanner.nextLine();
             boolean validCommand = false;

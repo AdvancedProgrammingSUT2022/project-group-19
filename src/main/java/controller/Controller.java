@@ -13,4 +13,20 @@ public class Controller {
         Database.addUser(newUser);
         return "user created successfully!";
     }
+
+    static public String changePassword(String currentPassword, String newPassword, User loggedInUser) {
+        if (!loggedInUser.getPassword().equals(currentPassword))
+            return "current password is invalid";
+        if (loggedInUser.getPassword().equals(newPassword))
+            return "please enter a new password";
+        loggedInUser.setPassword(newPassword);
+        return "password changed successfully!";
+    }
+
+    static public String changeNickname(String nickname, User loggedInUser){
+        if(Database.getUserByNickname(nickname) != null)
+            return "user with nickname " + nickname + " already exists";
+        loggedInUser.setNickname(nickname);
+        return "nickname changed successfully!";
+    }
 }

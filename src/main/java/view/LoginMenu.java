@@ -7,7 +7,6 @@ import model.Function;
 import java.util.HashMap;
 
 public class LoginMenu extends Menu {
-    protected Database database = new Database();
     private final HashMap<String, Function> functions = new HashMap<>();
 
     public LoginMenu() {
@@ -17,7 +16,7 @@ public class LoginMenu extends Menu {
     }
 
     public void run() {
-        menuLoop(functions);
+        getCommand(functions);
     }
 
     @Override
