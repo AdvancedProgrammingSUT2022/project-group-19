@@ -4,3 +4,5 @@
 .idea
 target
 .zip
+*.txt
+*.json
