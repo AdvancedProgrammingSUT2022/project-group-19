@@ -6,7 +6,7 @@ import model.land.Tile;
 
 import java.util.Random;
 
-public class GameController {
+public class MapController {
     public GameMap generateRandomMap(int length, int width) {
         Tile[][] tiles = new Tile[length][width];
         tiles[length / 2][width / 2] = new Tile(TerrainType.PLAIN, TerrainType.NULL);
