@@ -10,14 +10,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MainMenu extends Menu {
-    protected User loggedInUser;// TODO
+    protected User loggedInUser;
     private final HashMap<String, Function> functions = new HashMap<>();
 
     public MainMenu(User loggedInUser) {
         this.loggedInUser = loggedInUser;
         functions.putAll(basicFunctions);
         functions.put("^user logout$", this::logout);
-        functions.put("^play game(?<player> --player(?<numberPlayer>[1-9[0-9]*) (?<username1>\\S+))+", this::startGame);
+        functions.put("^play game(?<player> --player(?<numberPlayer>[1-9][0-9]*) (?<username1>\\S+))+", this::startGame);
     }
 
     public void run() {
