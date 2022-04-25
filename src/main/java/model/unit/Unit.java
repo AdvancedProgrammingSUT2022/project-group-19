@@ -52,6 +52,10 @@ public class Unit {
 //        }
     }
 
+    public boolean checkIfMovePossible(Unit unit, int destinationI, int destinationJ){
+        return false;
+    }
+
     public void sleep() {
         sleep = true;
     }
