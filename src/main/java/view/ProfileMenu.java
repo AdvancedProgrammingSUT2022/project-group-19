@@ -1,15 +1,17 @@
 package view;
 
 import controller.Controller;
-import model.Database;
 import model.Function;
+import model.User;
 
 import java.util.HashMap;
 
-public class ProfileMenu extends MainMenu {
+public class ProfileMenu extends Menu {
+    private User loggedInUser = new User();
     private final HashMap<String, Function> functions = new HashMap<>();
 
-    public ProfileMenu() {
+    public ProfileMenu(User loggedInUser) {
+        this.loggedInUser = loggedInUser;
         functions.putAll(basicFunctions);
         functions.put("^profile change --nickname (?<nickname>.+)$", this::changeNickname);
         functions.put("^profile change --password --current (?<currentPassword>.+) --new (?<newPassword>.+)$", this::changePassword);
@@ -25,15 +27,12 @@ public class ProfileMenu extends MainMenu {
     }
 
     private void changePassword() {
-        String currentPassword = matcher.group("currentPassword>");
-        String newPassword = matcher.group("newPassword");
-        String massage = Controller.changePassword(currentPassword, newPassword, loggedInUser);
-        System.out.println(massage);
+        String message = Controller.changePassword(matcher.group("currentPassword>"), matcher.group("newPassword"), loggedInUser);
+        System.out.println(message);
     }
 
     private void changeNickname() {
-        String nickname  = matcher.group("nickName");
-        String massage = Controller.changeNickname(nickname, loggedInUser);
-        System.out.println(massage);
+        String message = Controller.changeNickname(matcher.group("nickName"), loggedInUser);
+        System.out.println(message);
     }
 }

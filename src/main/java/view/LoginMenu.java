@@ -3,6 +3,7 @@ package view;
 import controller.Controller;
 import model.Database;
 import model.Function;
+import model.User;
 
 import java.util.HashMap;
 
@@ -21,27 +22,21 @@ public class LoginMenu extends Menu {
 
     @Override
     protected void gotoMenu() {
-        String nextMenuName = matcher.group("menuName");
-        if (nextMenuName.equals("main menu")) {
-            MainMenu mainMenu = new MainMenu();
-            mainMenu.run();
-        } else
-            System.out.println("menu navigation is not possible");
+        System.out.println("menu navigation is not possible");
     }
 
     private void addUser() {
-        String username = matcher.group("username");
-        String password = matcher.group("password");
-        String nickname = matcher.group("nickname");
-        String message = Controller.addUser(username, password, nickname);
+        String message = Controller.addUser(matcher.group("username"), matcher.group("password"), matcher.group("nickname"));
         System.out.println(message);
     }
 
     private void login() {
-        String username = matcher.group("username");
-        String password = matcher.group("password");
-        //TODO this
-        String message = "test";// = Controller.loginCheck(username,password);
+        String message = Controller.loginCheck(matcher.group("username"), matcher.group("password"));
         System.out.println(message);
+        if (message.equals("user logged in successfully!")) {
+            User loggedInUser = Database.getUser(matcher.group("username"));
+            MainMenu mainMenu = new MainMenu(loggedInUser);
+            mainMenu.run();
+        }
     }
 }

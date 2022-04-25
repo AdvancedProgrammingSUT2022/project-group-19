@@ -4,7 +4,7 @@ import model.Function;
 
 import java.util.HashMap;
 
-public class GameMenu extends MainMenu {
+public class GameMenu extends Menu {
     private final HashMap<String, Function> functions = new HashMap<>();
 
     public GameMenu() {
