@@ -1,4 +1,5 @@
 //بسم الله الرحمن الرحیم
+import controller.Controller;
 import model.Database;
 import view.LoginMenu;
 
@@ -10,6 +11,7 @@ public class Main {
                 "good luck :)");
         //create a new database
         Database database = new Database();
+        Controller.printMap();
 
         LoginMenu loginMenu = new LoginMenu();
         loginMenu.run();
