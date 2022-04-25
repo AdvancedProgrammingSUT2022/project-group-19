@@ -13,4 +13,12 @@ public class Player {
     public void setCivilization(Civilization civilization){
         this.civilization = civilization;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Civilization getCivilization() {
+        return civilization;
+    }
 }

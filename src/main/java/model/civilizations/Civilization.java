@@ -36,7 +36,25 @@ public class Civilization {
         //
     }
 
+    public List<Unit> getUnits() {
+        return units;
+    }
 
+    public void setUnits(List<Unit> units) {
+        this.units = units;
+    }
+
+    public List<City> getCities() {
+        return cities;
+    }
+
+    public void setCities(List<City> cities) {
+        this.cities = cities;
+    }
+
+    public void setReachedTechs(List<Technology> reachedTechs) {
+        this.reachedTechs = reachedTechs;
+    }
 
     public List<Technology> getReachedTechs() {
         return reachedTechs;

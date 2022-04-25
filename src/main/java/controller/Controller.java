@@ -1,8 +1,10 @@
 package controller;
 
 import model.Database;
+import model.Player;
 import model.User;
 import model.land.Tile;
+import model.unit.Unit;
 
 
 public class Controller {
@@ -67,6 +69,18 @@ public class Controller {
             }
             System.out.println();
         }
+    }
+
+    public static boolean isInSight(Player player, int x, int y) {
+        for (Unit unit : player.getCivilization().getUnits())
+            if (nearEachOther(unit.getPosition(), x, y))
+                return true;
+        return false;
+    }
+
+    private static boolean nearEachOther(Tile position, int x, int y) {
+        //TODO: this method
+        return true;
     }
 }
 
