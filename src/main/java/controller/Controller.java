@@ -2,6 +2,7 @@ package controller;
 
 import model.Database;
 import model.User;
+import model.land.Tile;
 
 
 public class Controller {
@@ -36,4 +37,42 @@ public class Controller {
             return "Username and password didn't match!";
         return "user logged in successfully!";
     }
+
+    static public void printMap() {
+        Tile[][] map = Database.map;
+
+        for (int i = 0; i < 4; i++)
+            printRow(i, map);
+
+    }
+
+    private static void printRow(int row, Tile[][] map) {
+        String[] hex = {
+                "  /       \\         ",
+                " /         \\        ",
+                "/           \\_______",
+                "\\           /       ",
+                " \\         /        ",
+                "  \\_______/         "
+        };
+        for (int k = 0; k < hex.length; k++) {
+            for (int i = 0; i < 5; i++) {
+                if (k == 2) {
+                    StringBuilder str = new StringBuilder(map[row][i].getType().toString());
+                    int numOfSpace = 10 - str.length();
+                    str.append(" ".repeat(Math.max(0, numOfSpace)));
+                    System.out.print("/ " + str + "\\_______");
+                } else
+                    System.out.print(hex[k]);
+            }
+            System.out.println();
+        }
+    }
 }
+
+//  /       \
+// /         \
+///           \_______
+//\           /
+// \         /
+//  \_______/

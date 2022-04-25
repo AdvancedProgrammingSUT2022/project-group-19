@@ -3,6 +3,7 @@ package model.land;
 import model.Improvement;
 import model.Ruin;
 import model.civilizations.City;
+import model.resource.Resource;
 import model.resource.ResourceType;
 import model.unit.Unit;
 
@@ -23,9 +24,9 @@ public class Tile {
     private int remainingTimeForBuildImprovement = 6;
     private Ruin ruin = null;
     private City city;
-    private boolean[] isRiverOnBounds = new boolean[6];
+    private boolean[] isRiverOnBounds;
     private int riversNumber = 0;
-    private Tile[] neighborOnBounds = new Tile[6];
+    private Tile[] neighborOnBounds;
     private boolean haveRoad = false;
     private boolean isRoadRailed = false;
 
@@ -36,12 +37,16 @@ public class Tile {
         this.type = type;
         this.feature = feature;
         this.food = type.getFood() + feature.getFood();
-
         this.gold = type.getGold() + feature.getGold();
         this.movePoint = type.getMovePoint() + feature.getMovePoint();
         this.production = type.getProduction() + feature.getProduction();
         this.fightChanges = type.getFightChanges() + feature.getFightChanges();
-        this.resources = null;
+        this.resources = generateRandomResources();
+    }
+
+    private ResourceType[] generateRandomResources() {
+        //TODO this method
+        return new ResourceType[]{ResourceType.IRON};
     }
 
 //    public void updateInSight() {
