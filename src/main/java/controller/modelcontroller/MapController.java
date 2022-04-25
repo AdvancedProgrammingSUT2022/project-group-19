@@ -7,13 +7,17 @@ import model.land.Tile;
 import java.util.Random;
 
 public class MapController {
+    public void printMap(GameMap gameMap){
+
+    }
     public GameMap generateRandomMap(int length, int width) {
         Tile[][] tiles = new Tile[length][width];
         tiles[length / 2][width / 2] = new Tile(TerrainType.PLAIN, TerrainType.NULL);
         fillMapByRandomDfs(tiles, length, width);
         findNeighbors(tiles, length, width);
         // TODO: 4/25/2022 اضافه کردن رودخانه ها و ریسورس ها
-        return null;
+
+        return new GameMap(length, width, tiles);
 
     }
 
