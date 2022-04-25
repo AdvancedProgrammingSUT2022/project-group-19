@@ -21,4 +21,11 @@ public class GameMap {
         this.map = map;
     }
 
+    public int getMapLength() {
+        return mapLength;
+    }
+
+    public int getMapWidth() {
+        return mapWidth;
+    }
 }
