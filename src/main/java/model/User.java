@@ -7,12 +7,6 @@ public class User {
     private int score = 0;
 
 
-    public User(String username, String password, String nickname) {
-        this.username = username;
-        this.password = password;
-        this.nickname = nickname;
-    }
-
     public String getUsername() {
         return username;
     }

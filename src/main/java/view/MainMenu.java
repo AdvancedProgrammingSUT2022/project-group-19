@@ -6,14 +6,14 @@ import model.User;
 import java.util.HashMap;
 
 public class MainMenu extends Menu {
-    protected User loggedInUser;
+    protected User loggedInUser;// TODO
     private final HashMap<String, Function> functions = new HashMap<>();
 
-    public MainMenu() {
+    public MainMenu(User loggedInUser) {
+        this.loggedInUser = loggedInUser;
         functions.putAll(basicFunctions);
         functions.put("^user logout$", this::logout);
         functions.put("^play game --player1 (?<username1>.+) --player2 (?<username2>.+).*", this::startGame);
-
     }
 
     public void run() {
@@ -24,7 +24,7 @@ public class MainMenu extends Menu {
     protected void gotoMenu() {
         String nextMenuName = matcher.group("menuName");
         if (nextMenuName.equals("profile menu")) {
-            ProfileMenu profileMenu = new ProfileMenu();
+            ProfileMenu profileMenu = new ProfileMenu(loggedInUser);
             profileMenu.run();
         } else if (nextMenuName.equals("game menu")) {
             GameMenu gameMenu = new GameMenu();
@@ -40,6 +40,7 @@ public class MainMenu extends Menu {
 
     private void logout() {
         System.out.println("logout (X_x)");
-        //TODO
+        LoginMenu loginMenu = new LoginMenu();
+        loginMenu.run();
     }
 }
