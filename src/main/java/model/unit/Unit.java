@@ -24,6 +24,9 @@ public class Unit {
     private boolean sleep = false;
     private boolean assigned = false;
     private int remainMP;
+    private int destinationI;
+    private int destinationJ;
+    private Tile tile;
 
     public Unit(UnitType type, Civilization belongTo) {
         this.type = type;
@@ -42,7 +45,7 @@ public class Unit {
         assigned = false;
     }
 
-    public void move(Tile destination) {
+    public void move(Unit unit, int destinationI, int destinationJ) {
         //Calculate the distance of the destination
 //        int distance = 1;
 //        remainMP -= distance;
@@ -51,10 +54,35 @@ public class Unit {
 //                remainMP = 0;
 //            //move the unit
 //        }
+        if(checkIfMovePossible(unit, destinationI, destinationJ)){
+            unit.setDestinationI(destinationI);
+            unit.setDestinationJ(destinationJ);
+            if(unit.getType().equals("military"))
+                tile.setMilitaryUnit(null);
+            else tile.setCivilianUnit(null);
+            //TODO
+
+        }else return;
     }
 
     public boolean checkIfMovePossible(GameMap gameMap, Unit unit, int destinationI, int destinationJ){
         return false;
+    }
+
+    public int getDestinationI() {
+        return destinationI;
+    }
+
+    public void setDestinationI(int destinationI) {
+        this.destinationI = destinationI;
+    }
+
+    public int getDestinationJ() {
+        return destinationJ;
+    }
+
+    public void setDestinationJ(int destinationJ) {
+        this.destinationJ = destinationJ;
     }
 
     public void sleep() {
@@ -135,5 +163,69 @@ public class Unit {
 
     public Tile getPosition() {
         return position;
+    }
+
+    public UnitType getType() {
+        return type;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public int getRangedPower() {
+        return rangedPower;
+    }
+
+    public int getRange() {
+        return range;
+    }
+
+    public int getMovePoint() {
+        return movePoint;
+    }
+
+    public ResourceType getRequiredResource() {
+        return requiredResource;
+    }
+
+    public Technology getRequiredTechnology() {
+        return requiredTechnology;
+    }
+
+    public int getWorkCounter() {
+        return workCounter;
+    }
+
+    public void setPosition(Tile position) {
+        this.position = position;
+    }
+
+    public boolean isSleep() {
+        return sleep;
+    }
+
+    public void setSleep(boolean sleep) {
+        this.sleep = sleep;
+    }
+
+    public boolean isAssigned() {
+        return assigned;
+    }
+
+    public void setAssigned(boolean assigned) {
+        this.assigned = assigned;
+    }
+
+    public int getRemainMP() {
+        return remainMP;
+    }
+
+    public void setRemainMP(int remainMP) {
+        this.remainMP = remainMP;
     }
 }
