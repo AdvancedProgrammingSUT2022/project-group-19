@@ -3,6 +3,7 @@ package controller;
 import model.Database;
 import model.Player;
 import model.User;
+import model.civilizations.Civilization;
 import model.land.Tile;
 import model.unit.Unit;
 
@@ -72,9 +73,15 @@ public class Controller {
     }
 
     public static boolean isInSight(Player player, int x, int y) {
-        for (Unit unit : player.getCivilization().getUnits())
+        Civilization civil = player.getCivilization();
+        for (Unit unit : civil.getUnits()) {
+            //TODO x y of unit
+            int x_unit = 1;
+            int y_unit = 1;
+            civil.fogOfWarFlags[x_unit][y_unit] = 1; //area is visible
             if (nearEachOther(unit.getPosition(), x, y))
                 return true;
+        }
         return false;
     }
 

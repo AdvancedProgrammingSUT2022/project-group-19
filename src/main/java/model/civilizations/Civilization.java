@@ -18,6 +18,7 @@ public class Civilization {
     private int scienceIndex;
     private int population;
     private int cups;
+    public int[][] fogOfWarFlags;
 
 
     /*
