@@ -1,9 +1,13 @@
 package view;
 
+import model.Database;
 import model.Function;
+import model.Player;
 import model.User;
 
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainMenu extends Menu {
     protected User loggedInUser;// TODO
@@ -13,7 +17,7 @@ public class MainMenu extends Menu {
         this.loggedInUser = loggedInUser;
         functions.putAll(basicFunctions);
         functions.put("^user logout$", this::logout);
-        functions.put("^play game --player1 (?<username1>.+) --player2 (?<username2>.+).*", this::startGame);
+        functions.put("^play game(?<player> --player(?<numberPlayer>[1-9[0-9]*) (?<username1>\\S+))+", this::startGame);
     }
 
     public void run() {
@@ -35,7 +39,11 @@ public class MainMenu extends Menu {
 
     private void startGame() {
         System.out.println("start the game (X_x)");
-        //TODO
+        Matcher matcher1 = Pattern.compile("(?<player> --player(?<numberPlayer>[1-9][0-9]*) (?<username>\\S+))").matcher(command);
+        while (matcher1.find()){
+            Player player = new Player(Database.getUser(matcher1.group("username")));
+            Database.addPlayer(player);
+        }
     }
 
     private void logout() {

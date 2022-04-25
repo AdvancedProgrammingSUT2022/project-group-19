@@ -80,6 +80,10 @@ public class Database {
                 return user;
         return null;
     }
+
+    public static void addPlayer(Player player){
+        players.add(player);
+    }
 }
 
 class DatabaseTest {

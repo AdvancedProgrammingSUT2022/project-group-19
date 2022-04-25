@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 public class Menu {
     protected Database database = new Database();
     protected Scanner scanner = new Scanner(System.in);
+    protected String command;
     protected Matcher matcher;
     protected HashMap<String, Function> basicFunctions = new HashMap<>() {{
         put("^menu exit$", null);
@@ -29,7 +30,7 @@ public class Menu {
 
     protected void getCommand(HashMap<String, Function> functions) {
         while (true) {
-            String command = scanner.nextLine();
+            command = scanner.nextLine();
             boolean validCommand = false;
             for (String regex : functions.keySet()) {
                 matcher = Pattern.compile(regex).matcher(command);
