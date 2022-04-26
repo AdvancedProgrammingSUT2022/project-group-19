@@ -58,15 +58,15 @@ public class Controller {
                 " \\         /        ",
                 "  \\_______/         "
         };
-        for (int k = 0; k < hex.length; k++) {
+        for (int rowInHex = 0; rowInHex < hex.length; rowInHex++) {
             for (int i = 0; i < 5; i++) {
-                if (k == 2) {
+                if (rowInHex == 2) {
                     StringBuilder str = new StringBuilder(map[row][i].getType().toString());
                     int numOfSpace = 10 - str.length();
                     str.append(" ".repeat(Math.max(0, numOfSpace)));
                     System.out.print("/ " + str + "\\_______");
                 } else
-                    System.out.print(hex[k]);
+                    System.out.print(hex[rowInHex]);
             }
             System.out.println();
         }

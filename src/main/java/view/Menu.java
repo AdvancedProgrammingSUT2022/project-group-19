@@ -13,6 +13,8 @@ public class Menu {
     protected Scanner scanner = new Scanner(System.in);
     protected String command;
     protected Matcher matcher;
+    protected boolean loopFlag = true;
+
     protected HashMap<String, Function> basicFunctions = new HashMap<>() {{
         put("^menu exit$", null);
         put("^menu show-current$", () -> showCurrentMenu());
@@ -29,7 +31,7 @@ public class Menu {
     }
 
     protected void getCommand(HashMap<String, Function> functions) {
-        while (true) {
+        while (loopFlag) {
             command = scanner.nextLine();
             boolean validCommand = false;
             for (String regex : functions.keySet()) {

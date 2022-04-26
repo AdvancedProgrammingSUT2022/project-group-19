@@ -22,7 +22,11 @@ public class LoginMenu extends Menu {
 
     @Override
     protected void gotoMenu() {
-        System.out.println("menu navigation is not possible");
+        String nextMenuName = matcher.group("menuName");
+        if (nextMenuName.equals("main menu"))
+            System.out.println("Please login first.\nEnter: 'user login --username <your username> --password <your password>' to login.");
+        else
+            System.out.println("menu navigation is not possible");
     }
 
     private void addUser() {

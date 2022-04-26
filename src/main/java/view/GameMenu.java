@@ -20,11 +20,11 @@ public class GameMenu extends Menu {
         this.functions.put("^info economic$", this::infoEconomic);
         this.functions.put("^info diplomatic$", this::infoDiplomatic);
         this.functions.put("^info deals$", this::infoDeals);
-        this.functions.put("^select unit combat X: (?<xPosition>[-]?\\d+) Y: (?<xPosition>[-]?\\d+)$", this::selectUnitCombat);
-        this.functions.put("^select unit noncombat X: (?<xPosition>[-]?\\d+) Y: (?<xPosition>[-]?\\d+)$", this::selectUnitNoncombat);
+        this.functions.put("^select unit combat X: (?<xPosition>[-]?\\d+) Y: (?<yPosition>[-]?\\d+)$", this::selectUnitCombat);
+        this.functions.put("^select unit noncombat X: (?<xPosition>[-]?\\d+) Y: (?<yPosition>[-]?\\d+)$", this::selectUnitNoncombat);
         this.functions.put("^select city (?<cityName>.+)$", this::selectCityName);
-        this.functions.put("^select city X: (?<xPosition>[-]?\\d+) Y: (?<xPosition>[-]?\\d+)$", this::selectCityPosition);
-        this.functions.put("^unit move to X: (?<xPosition>[-]?\\d+) Y: (?<xPosition>[-]?\\d+)$", this::unitMove);
+        this.functions.put("^select city X: (?<xPosition>[-]?\\d+) Y: (?<yPosition>[-]?\\d+)$", this::selectCityPosition);
+        this.functions.put("^unit move to X: (?<xPosition>[-]?\\d+) Y: (?<yPosition>[-]?\\d+)$", this::unitMove);
         this.functions.put("^unit sleep$", this::unitSleep);
         this.functions.put("^unit alert$", this::unitAlert);
         this.functions.put("^unit fortify$", this::unitFortify);
@@ -63,7 +63,11 @@ public class GameMenu extends Menu {
 
     @Override
     protected void gotoMenu() {
-        System.out.println("menu navigation is not possible");
+        String nextMenuName = matcher.group("menuName");
+        if (nextMenuName.equals("main menu"))
+            loopFlag = false;
+        else
+            System.out.println("menu navigation is not possible");
     }
 
     private void infoResearch() {

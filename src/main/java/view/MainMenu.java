@@ -30,20 +30,23 @@ public class MainMenu extends Menu {
         if (nextMenuName.equals("profile menu")) {
             ProfileMenu profileMenu = new ProfileMenu(loggedInUser);
             profileMenu.run();
-        } else if (nextMenuName.equals("game menu")) {
-            GameMenu gameMenu = new GameMenu();
-            gameMenu.run();
-        } else
+        } else if (nextMenuName.equals("game menu"))
+            System.out.println("Enter: 'play game --player1 ali --player2 sajjad' to start a game.");
+        else if (nextMenuName.equals("login menu"))
+            loopFlag = false;
+        else
             System.out.println("menu navigation is not possible");
     }
 
     private void startGame() {
         System.out.println("start the game (X_x)");
         Matcher matcher1 = Pattern.compile("(?<player> --player(?<numberPlayer>[1-9][0-9]*) (?<username>\\S+))").matcher(command);
-        while (matcher1.find()){
+        while (matcher1.find()) {
             Player player = new Player(Database.getUser(matcher1.group("username")));
             Database.addPlayer(player);
         }
+        GameMenu gameMenu = new GameMenu();
+        gameMenu.run();
     }
 
     private void logout() {

@@ -65,7 +65,7 @@ public class Unit {
         }else return;
     }
 
-    public boolean checkIfMovePossible(GameMap gameMap, Unit unit, int destinationI, int destinationJ){
+    public boolean checkIfMovePossible(/*GameMap gameMap,*/ Unit unit, int destinationI, int destinationJ){
         return false;
     }
 

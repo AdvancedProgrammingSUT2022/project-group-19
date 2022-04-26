@@ -23,7 +23,11 @@ public class ProfileMenu extends Menu {
 
     @Override
     protected void gotoMenu() {
-        System.out.println("menu navigation is not possible");
+        String nextMenuName = matcher.group("menuName");
+        if (nextMenuName.equals("main menu"))
+            loopFlag = false;
+        else
+            System.out.println("menu navigation is not possible");
     }
 
     private void changePassword() {
