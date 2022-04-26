@@ -5,7 +5,9 @@ import model.Function;
 import model.Player;
 import model.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,12 +41,19 @@ public class MainMenu extends Menu {
     }
 
     private void startGame() {
-        System.out.println("start the game (X_x)");
         Matcher matcher1 = Pattern.compile("(?<player> --player(?<numberPlayer>[1-9][0-9]*) (?<username>\\S+))").matcher(command);
+        List<Player> players = new ArrayList<>();
         while (matcher1.find()) {
-            Player player = new Player(Database.getUser(matcher1.group("username")));
-            Database.addPlayer(player);
+            String username = matcher1.group("username");
+            User user = Database.getUser(username);
+            if (user == null) {
+                System.out.println("No user exists with name: " + username);
+                return;
+            }
+            players.add(new Player(user));
         }
+        System.out.println("Starting the game...");
+        Database.setPlayers(players);
         GameMenu gameMenu = new GameMenu();
         gameMenu.run();
     }

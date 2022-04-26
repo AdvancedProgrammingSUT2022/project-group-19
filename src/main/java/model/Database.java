@@ -98,6 +98,9 @@ public class Database {
     public static void addPlayer(Player player) {
         players.add(player);
     }
+    public static void setPlayers(List<Player> players){
+        Database.players = players;
+    }
 }
 
 class DatabaseTest {

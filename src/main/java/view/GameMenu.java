@@ -49,7 +49,7 @@ public class GameMenu extends Menu {
         this.functions.put("^unit remove jungle$", this::removeJungle);
         this.functions.put("^unit remove route$", this::removeRoute);
         this.functions.put("^unit repair$", this::unitRepair);
-        this.functions.put("^map show X: (?<xPosition>[-]?\\d+) Y: (?<xPosition>[-]?\\d+)$", this::mapShowPosition);
+        this.functions.put("^map show X: (?<xPosition>[-]?\\d+) Y: (?<yPosition>[-]?\\d+)$", this::mapShowPosition);
         this.functions.put("^map show (?<cityName>.+)$", this::mapShowName);
         this.functions.put("^map move right (?<NumberOfMoves>\\d+)$", this::moveRight);
         this.functions.put("^map move left (?<NumberOfMoves>\\d+)$", this::moveLeft);
