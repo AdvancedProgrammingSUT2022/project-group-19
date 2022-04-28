@@ -23,7 +23,7 @@ public class Worker extends Unit {
     }
 
     public void buildImprovement(Improvement improvement) {
-        TerrainType landType = super.getPosition().getType();
+        TerrainType landType = super.getTile().getType();
         ArrayList<TerrainType> allowedLands = new ArrayList<>(List.of(improvement.getFoundOn()));
         if (allowedLands.contains(landType)) {
             super.setWorkCounter(6);

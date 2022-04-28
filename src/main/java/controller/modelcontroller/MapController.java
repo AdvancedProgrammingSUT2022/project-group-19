@@ -12,7 +12,7 @@ public class MapController {
     }
     public GameMap generateRandomMap(int length, int width) {
         Tile[][] tiles = new Tile[length][width];
-        tiles[length / 2][width / 2] = new Tile(TerrainType.PLAIN, TerrainType.NULL);
+        tiles[length / 2][width / 2] = new Tile(TerrainType.PLAIN, TerrainType.NULL, length / 2, width / 2);
         fillMapByRandomDfs(tiles, length, width);
         findNeighbors(tiles, length, width);
         // TODO: 4/25/2022 اضافه کردن رودخانه ها و ریسورس ها
@@ -31,7 +31,7 @@ public class MapController {
                     if (tiles[i - 1][j] != null || tiles[i + 1][j] != null || tiles[i][j - 1] != null || tiles[i][j + 1] != null) {
                         if (tiles[i][j] == null && random.nextInt() % 3 == 0) {
                             TerrainType terrainType = chooseRandomTerrain();
-                            tiles[i][j] = new Tile(terrainType, chooseRandomFeature(terrainType));
+                            tiles[i][j] = new Tile(terrainType, chooseRandomFeature(terrainType), i, j);
                             filledGround++;
                         }
                     }
@@ -41,7 +41,7 @@ public class MapController {
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < width; j++) {
                 if (tiles[i][j] == null) {
-                    tiles[i][j] = new Tile(TerrainType.OCEAN, TerrainType.NULL);
+                    tiles[i][j] = new Tile(TerrainType.OCEAN, TerrainType.NULL, i, j);
                 }
             }
         }
