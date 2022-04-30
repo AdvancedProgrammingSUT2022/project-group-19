@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import controller.modelcontroller.MapController;
 import model.land.TerrainType;
 import model.land.Tile;
 import org.junit.jupiter.api.Assertions;
@@ -18,25 +19,16 @@ public class Database {
     private static List<User> users = new ArrayList<>(); //all registered users
     private static List<Player> players = new ArrayList<>();  //players in game
     private static final String usersPath = "data/users.json";
-    public static Tile[][] map = new Tile[10][5];
+    public static MapController mapController = new MapController();
+    public static GameMap gameMap = mapController.generateRandomMap(10, 5);
+    public static Tile[][] map = gameMap.getMap();
 
     public Database() {
         //read the data from file at first.
         readSavedUsers();
         readSavedGame();
-        generateRandomMap();
     }
 
-    private void generateRandomMap() {
-        for (int i = 0; i < 10; i++)
-            for (int j = 0; j < 5; j++)
-                map[i][j] = generateRandomTile();
-    }
-
-    private Tile generateRandomTile() {
-        //TODO this method
-        return new Tile(TerrainType.PLAIN, TerrainType.JUNGLE);
-    }
 
     public static void readSavedUsers() {
         try {
