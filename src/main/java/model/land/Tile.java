@@ -45,23 +45,8 @@ public class Tile {
         this.movePoint = type.getMovePoint() + feature.getMovePoint();
         this.production = type.getProduction() + feature.getProduction();
         this.fightChanges = type.getFightChanges() + feature.getFightChanges();
-        this.resource = generateRandomResource();
     }
 
-    private ResourceType generateRandomResource() {
-        //TODO this method
-        Random random = new Random();
-        switch (random.nextInt(10)){
-            case 1:
-                return ResourceType.IRON;
-            case 2:
-                return ResourceType.COAL;
-            case 3:
-                return ResourceType.GOLD;
-            default:
-                return null;
-        }
-    }
 
 //    public void updateInSight() {
 //        //algorithm goes here...
