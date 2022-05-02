@@ -12,15 +12,14 @@ public class LoginMenu extends Menu {
 
     public LoginMenu() {
         functions.putAll(basicFunctions);
-        functions.put("^user login --(username|u) (?<username>.+) --(password|p) (?<password>.+)$", this::login);
-        functions.put("^user login --(password|p) (?<password>.+) --(username|u) (?<username>.+)$", this::login);
-
-        functions.put("^user create --(username|u) (?<username>.+) --(nickname|n) (?<nickname>.+) --(password|p) (?<password>.+)$", this::addUser);
-        functions.put("^user create --(username|u) (?<username>.+) --(password|p) (?<password>.+) --(nickname|n) (?<nickname>.+)$", this::addUser);
-        functions.put("^user create --(nickname|n) (?<nickname>.+) --(username|u) (?<username>.+) --(password|p) (?<password>.+)$", this::addUser);
-        functions.put("^user create --(nickname|n) (?<nickname>.+) --(password|p) (?<password>.+) --(username|u) (?<username>.+)$", this::addUser);
-        functions.put("^user create --(password|p) (?<password>.+) --(nickname|n) (?<nickname>.+) --(username|u) (?<username>.+)$", this::addUser);
-        functions.put("^user create --(password|p) (?<password>.+) --(username|u) (?<username>.+) --(nickname|n) (?<nickname>.+)$", this::addUser);
+        functions.put("^user login (--username|-u) (?<username>.+) (--password|-p) (?<password>.+)$", this::login);
+        functions.put("^user login (--password|-p) (?<password>.+) (--username|-u) (?<username>.+)$", this::login);
+        functions.put("^user create (--username|-u) (?<username>.+) (--nickname|-n) (?<nickname>.+) (--password|-p) (?<password>.+)$", this::addUser);
+        functions.put("^user create (--username|-u) (?<username>.+) (--password|-p) (?<password>.+) (--nickname|-n) (?<nickname>.+)$", this::addUser);
+        functions.put("^user create (--nickname|-n) (?<nickname>.+) (--username|-u) (?<username>.+) (--password|-p) (?<password>.+)$", this::addUser);
+        functions.put("^user create (--nickname|-n) (?<nickname>.+) (--password|-p) (?<password>.+) (--username|-u) (?<username>.+)$", this::addUser);
+        functions.put("^user create (--password|-p) (?<password>.+) (--nickname|-n) (?<nickname>.+) (--username|-u) (?<username>.+)$", this::addUser);
+        functions.put("^user create (--password|-p) (?<password>.+) (--username|-u) (?<username>.+) (--nickname|-n) (?<nickname>.+)$", this::addUser);
     }
 
     public void run() {

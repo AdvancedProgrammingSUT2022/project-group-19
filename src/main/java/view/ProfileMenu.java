@@ -13,8 +13,8 @@ public class ProfileMenu extends Menu {
     public ProfileMenu(User loggedInUser) {
         this.loggedInUser = loggedInUser;
         functions.putAll(basicFunctions);
-        functions.put("^profile change --nickname (?<nickname>.+)$", this::changeNickname);
-        functions.put("^profile change --password --current (?<currentPassword>.+) --new (?<newPassword>.+)$", this::changePassword);
+        functions.put("^profile change (--nickname|-n) (?<nickname>.+)$", this::changeNickname);
+        functions.put("^profile change (--password|-p) (--current|-c) (?<currentPassword>.+) (--new|-n) (?<newPassword>.+)$", this::changePassword);
     }
 
     public void run() {
