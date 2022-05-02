@@ -1,6 +1,10 @@
 package view;
 
+import model.Database;
 import model.Function;
+import model.Player;
+import model.civilizations.Civilization;
+import model.unit.Unit;
 
 import java.util.HashMap;
 
@@ -58,7 +62,15 @@ public class GameMenu extends Menu {
     }
 
     public void run() {
-        getCommand(functions);
+        while (true) {
+            for (Player player : Database.getPlayers()) {
+                //get unit command
+                for (Unit unit : player.getCivilization().getUnits()) {
+                    loopFlag = false;
+                    getCommand(functions);
+                }
+            }
+        }
     }
 
     @Override

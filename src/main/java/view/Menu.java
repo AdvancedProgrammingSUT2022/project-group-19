@@ -47,5 +47,6 @@ public class Menu {
             if (!validCommand)
                 System.out.println("invalid command");
         }
+        loopFlag = true;
     }
 }
