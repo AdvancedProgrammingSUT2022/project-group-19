@@ -7,6 +7,8 @@ import model.civilizations.Civilization;
 import model.land.Tile;
 import model.unit.Unit;
 
+import java.util.Arrays;
+
 
 public class Controller {
     static public String addUser(String username, String password, String nickname) {
@@ -44,7 +46,7 @@ public class Controller {
     static public void printMap() {
         Tile[][] map = Database.map;
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 5; i++)
             printRow(i, map);
 
     }
@@ -59,17 +61,50 @@ public class Controller {
                 "  \\_______/         "
         };
         for (int rowInHex = 0; rowInHex < hex.length; rowInHex++) {
-            for (int i = 0; i < 5; i++) {
-                if (rowInHex == 2) {
-                    StringBuilder str = new StringBuilder(map[row][i].getType().toString());
-                    int numOfSpace = 10 - str.length();
-                    str.append(" ".repeat(Math.max(0, numOfSpace)));
-                    System.out.print("/ " + str + "\\_______");
+            for (int i = 0; i < 14; i += 2) {
+                if (rowInHex == 1) {
+                    String information = getInformation("feature", i, map[row]);
+                    System.out.print(" / " + information + " \\        ");
+                } else if (rowInHex == 2) {
+                    String information = getInformation("landType", i, map[row]);
+                    System.out.print("/  " + information + "  \\_______");
+                } else if (rowInHex == 4) {
+                    String information = getInformation("feature", i+1, map[row]);
+                    System.out.print(" \\         / " + information);
+                } else if (rowInHex == 5) {
+                    String information = getInformation("landType", i+1, map[row]);
+                    System.out.print("  \\_______/  " + information);
                 } else
                     System.out.print(hex[rowInHex]);
             }
             System.out.println();
         }
+    }
+
+    private static String getInformation(String information, int columnOfMap, Tile[] map) {
+        StringBuilder str = null;
+        if (information.equals("landType"))
+            str = new StringBuilder(map[columnOfMap].getType().toString());
+        else if (information.equals("feature"))
+            str = new StringBuilder(map[columnOfMap].getFeature().toString());
+        else if (information.equals("unit"))
+            return null;
+        else if (information.equals("resource"))
+            str = new StringBuilder(Arrays.toString(map[columnOfMap].getResources()));
+        else if (information.equals("none"))
+            str = new StringBuilder("");
+        else
+            throw new RuntimeException();
+
+        if (str.toString().equals("NULL"))
+            str = new StringBuilder("");
+
+        if (str.length() >= 7)
+            str.setLength(7);
+        else
+            str.append(" ".repeat(7 - str.length()));
+
+        return String.valueOf(str);
     }
 
     public static boolean isInSight(Player player, int x, int y) {

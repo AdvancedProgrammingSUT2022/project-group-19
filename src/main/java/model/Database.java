@@ -18,9 +18,9 @@ import java.util.*;
 public class Database {
     private static List<User> users = new ArrayList<>(); //all registered users
     private static List<Player> players = new ArrayList<>();  //players in game
-    private static final String usersPath = "data/users.json";
+    private static final String usersPath = "./data/users.json";
     public static MapController mapController = new MapController();
-    public static GameMap gameMap = mapController.generateRandomMap(10, 5);
+    public static GameMap gameMap = mapController.generateRandomMap(5, 14);
     public static Tile[][] map = gameMap.getMap();
 
     public Database() {
