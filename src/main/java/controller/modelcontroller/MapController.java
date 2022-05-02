@@ -3,6 +3,7 @@ package controller.modelcontroller;
 import model.GameMap;
 import model.land.TerrainType;
 import model.land.Tile;
+import model.resource.ResourceType;
 
 import java.util.Random;
 
@@ -32,6 +33,7 @@ public class MapController {
                         if (tiles[i][j] == null && random.nextInt() % 3 == 0) {
                             TerrainType terrainType = chooseRandomTerrain();
                             tiles[i][j] = new Tile(terrainType, chooseRandomFeature(terrainType), i, j);
+                            tiles[i][j].setResource(generateRandomResource(tiles[i][j].getType()));
                             filledGround++;
                         }
                     }
@@ -82,6 +84,24 @@ public class MapController {
             }
         }
         return TerrainType.NULL;
+    }
+
+    private ResourceType generateRandomResource(TerrainType type) {
+        //TODO this method
+        if (type.equals(TerrainType.OCEAN))
+            return null;
+
+        Random random = new Random();
+        switch (random.nextInt(6)){
+            case 1:
+                return ResourceType.IRON;
+            case 2:
+                return ResourceType.COAL;
+            case 3:
+                return ResourceType.GOLD;
+            default:
+                return null;
+        }
     }
 
     public void findNeighbors(Tile[][] tiles, int length, int width) {

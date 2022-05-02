@@ -3,11 +3,11 @@ package model.land;
 import model.Improvement;
 import model.Ruin;
 import model.civilizations.City;
-import model.resource.Resource;
 import model.resource.ResourceType;
 import model.unit.Unit;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Tile {
     private final int food;
@@ -19,7 +19,7 @@ public class Tile {
     private final TerrainType feature;
     private final int positionI;
     private final int positionJ;
-    private ResourceType[] resources;
+    private ResourceType resource;
     private Unit militaryUnit;
     private Unit civilianUnit;
     private Improvement improvement;
@@ -45,13 +45,8 @@ public class Tile {
         this.movePoint = type.getMovePoint() + feature.getMovePoint();
         this.production = type.getProduction() + feature.getProduction();
         this.fightChanges = type.getFightChanges() + feature.getFightChanges();
-        this.resources = generateRandomResources();
     }
 
-    private ResourceType[] generateRandomResources() {
-        //TODO this method
-        return new ResourceType[]{ResourceType.IRON};
-    }
 
 //    public void updateInSight() {
 //        //algorithm goes here...
@@ -116,13 +111,12 @@ public class Tile {
     public TerrainType getFeature() {
         return feature;
     }
-
-    public ResourceType[] getResources() {
-        return resources;
+    public ResourceType getResource() {
+        return resource;
     }
 
-    public void setResources(ResourceType[] resources) {
-        this.resources = resources;
+    public void setResource(ResourceType resource) {
+        this.resource = resource;
     }
 
     public Unit getMilitaryUnit() {
