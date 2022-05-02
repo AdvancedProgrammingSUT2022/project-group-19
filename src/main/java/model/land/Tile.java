@@ -159,6 +159,10 @@ public class Tile {
         this.isRiverOnBounds = isRiverOnBounds;
     }
 
+    public boolean[] getIsRiverOnBounds() {
+        return isRiverOnBounds;
+    }
+
     public void setRiversNumber(int riversNumber) {
         this.riversNumber = riversNumber;
     }

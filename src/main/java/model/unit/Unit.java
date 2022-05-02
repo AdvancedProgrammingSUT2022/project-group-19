@@ -26,11 +26,9 @@ public class Unit {
     private boolean sleep = false;
     private boolean assigned = false;
     private int remainMP;
-    private int positionI;
-    private int positionJ;
-    private int destinationI;
-    private int destinationJ;
+    //هر تایلی تو خودش مختصات آی و جی ذخیره کرده و مختصات آی و جی یونیتو از همون جا میگیریم
     private Tile tile;
+    private ArrayList<Tile> way;
 
     public Unit(UnitType type, Civilization belongTo) {
         this.type = type;
@@ -51,40 +49,49 @@ public class Unit {
 
     // TODO: 4/28/2022 دوستان توابع بخش حرکت داره اینجا زده میشه لطفا از زدن توابع مشابه بپرهیزید !!!!!!!
 
-    public void move(GameMap gameMap, Unit unit, int destinationI, int destinationJ) {
+    public void moveOrder(GameMap gameMap, Unit unit, int destinationI, int destinationJ) {
 
         ArrayList<Tile> way = computeBestWay(unit.tile, gameMap.getMap()[destinationI][destinationJ], new ArrayList<>(), null);
-        if (checkIfMovePossible(way, unit)) {
-            unit.setDestinationI(destinationI);
-            unit.setDestinationJ(destinationJ);
-            //مختصات i , j توی یونیت ذخیره شده
-            //باید موقع حرکت یونیت هر دو تغییر کنن و تایل هم باید تغییر کنه
-            //باید برای حالتی که حرکت ممکن نبود پیامی برای ویو فرستاده شود!!
-            if (unit.getType().equals("military")) tile.setMilitaryUnit(null);
-            else tile.setCivilianUnit(null);
-            //TODO
+        unit.setWay(way);
+    }
 
-        }
-    }
     //با توجه به موو پوینت مسیر و یونیت امکان مهاجرت یک یونیت به مقصد را بررسی میکند
-    public boolean checkIfMovePossible(ArrayList<Tile> way, Unit unit) {
-        int wayMovePoint = 0;
-        for (Tile tile : way) {
-            wayMovePoint += tile.getMovePoint();
+    public void move(Unit unit) {
+        while (unit.getRemainMP() > 0) {
+            Tile nextTile = unit.getWay().get(0);
+            if (nextTile.getMovePoint() < unit.getRemainMP()) {
+                if (nextTile.getMilitaryUnit() != null && nextTile.getCivilianUnit() != null) break;
+
+                if (nextTile.getMilitaryUnit() != null) {
+                    if (!unit.getCivilization().equals(nextTile.getMilitaryUnit().getCivilization()) || unit.getPower() != 0) break;
+                }
+                if (nextTile.getCivilianUnit() != null) {
+                    if (!unit.getCivilization().equals(nextTile.getCivilianUnit().getCivilization()) || unit.getPower() == 0) break;
+                }
+                if (unit.getPower() != 0) unit.tile.setMilitaryUnit(null);
+                else unit.tile.setCivilianUnit(null);
+                unit.tile = nextTile;
+                if (unit.getPower() != 0) unit.tile.setMilitaryUnit(unit);
+                else unit.tile.setCivilianUnit(unit);
+                unit.setRemainMP(unit.getRemainMP() - unit.getWay().get(0).getMovePoint());
+
+            }
+            else break;
         }
-        if (unit.getMovePoint() >= wayMovePoint) return true;
-        return false;
+
     }
+
     //بهترین مسیر را محاسبه میکند
     public ArrayList<Tile> computeBestWay(Tile origin, Tile destination, ArrayList<Tile> route, ArrayList<Tile> bestWay) {
         if (bestWay != null && route.size() > bestWay.size()) return bestWay;
         if (origin == destination) return route;
         Tile[] neighbors = origin.getNeighborOnBounds();
         int distance2 = (destination.getPositionI() - origin.getPositionI()) * (destination.getPositionI() - origin.getPositionI()) + (destination.getPositionJ() - origin.getPositionJ()) * (destination.getPositionJ() - origin.getPositionJ());
+        int counter = 0;
         for (Tile neighbor : neighbors) {
+            counter++;
             int newDistance2 = (destination.getPositionI() - neighbor.getPositionI()) * (destination.getPositionI() - neighbor.getPositionI()) + (destination.getPositionJ() - neighbor.getPositionJ()) * (destination.getPositionJ() - neighbor.getPositionJ());
-            if (newDistance2 < distance2) {
-                // TODO: 4/28/2022 باید رودخانه و مناطق صعب العبور اضافه شود
+            if (newDistance2 < distance2 && neighbor != null && !origin.getIsRiverOnBounds()[counter] && neighbor.getMovePoint() < 10) {
                 ArrayList<Tile> temp = new ArrayList<>();
                 temp.addAll(route);
                 temp.add(neighbor);
@@ -172,13 +179,6 @@ public class Unit {
         this.workCounter = workCounter;
     }
 
-    public int getPositionI() {
-        return positionI;
-    }
-
-    public int getPositionJ() {
-        return positionJ;
-    }
 
     public Tile getTile() {
         return tile;
@@ -220,21 +220,6 @@ public class Unit {
         return workCounter;
     }
 
-    public int getDestinationI() {
-        return destinationI;
-    }
-
-    public void setDestinationI(int destinationI) {
-        this.destinationI = destinationI;
-    }
-
-    public int getDestinationJ() {
-        return destinationJ;
-    }
-
-    public void setDestinationJ(int destinationJ) {
-        this.destinationJ = destinationJ;
-    }
 
     public boolean isSleep() {
         return sleep;
@@ -258,5 +243,13 @@ public class Unit {
 
     public void setRemainMP(int remainMP) {
         this.remainMP = remainMP;
+    }
+
+    public ArrayList<Tile> getWay() {
+        return way;
+    }
+
+    public void setWay(ArrayList<Tile> way) {
+        this.way = way;
     }
 }
