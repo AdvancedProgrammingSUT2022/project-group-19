@@ -17,6 +17,8 @@ public class Tile {
     private final double fightChanges;
     private final TerrainType type;
     private final TerrainType feature;
+    private final int positionI;
+    private final int positionJ;
     private ResourceType[] resources;
     private Unit militaryUnit;
     private Unit civilianUnit;
@@ -31,7 +33,9 @@ public class Tile {
     private boolean isRoadRailed = false;
 
 
-    public Tile(TerrainType type, TerrainType feature) {
+    public Tile(TerrainType type, TerrainType feature, int positionI, int positionJ) {
+        this.positionI = positionI;
+        this.positionJ = positionJ;
         this.isRiverOnBounds = new boolean[6];
         this.neighborOnBounds = new Tile[6];
         this.type = type;
@@ -75,6 +79,19 @@ public class Tile {
 //    public void setInSight(boolean inSight) {
 //        this.inSight = inSight;
 //    }
+
+
+    public Tile[] getNeighborOnBounds() {
+        return neighborOnBounds;
+    }
+
+    public int getPositionI() {
+        return positionI;
+    }
+
+    public int getPositionJ() {
+        return positionJ;
+    }
 
     public int getFood() {
         return food;

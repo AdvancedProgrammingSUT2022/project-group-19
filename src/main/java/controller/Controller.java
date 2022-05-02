@@ -79,7 +79,7 @@ public class Controller {
             int x_unit = 1;
             int y_unit = 1;
             civil.fogOfWarFlags[x_unit][y_unit] = 1; //area is visible
-            if (nearEachOther(unit.getPosition(), x, y))
+            if (nearEachOther(unit.getTile(), x, y))
                 return true;
         }
         return false;

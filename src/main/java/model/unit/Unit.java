@@ -7,7 +7,9 @@ import model.land.Tile;
 import model.technology.Technology;
 import model.resource.ResourceType;
 
+import javax.sound.midi.MidiFileFormat;
 import java.util.ArrayList;
+import java.util.concurrent.TimeoutException;
 
 public class Unit {
     private final UnitType type;
@@ -20,10 +22,12 @@ public class Unit {
     private final Technology requiredTechnology;
     private Civilization civilization;
     private int workCounter;
-    private Tile position;
+    //private Tile position;
     private boolean sleep = false;
     private boolean assigned = false;
     private int remainMP;
+    private int positionI;
+    private int positionJ;
     private int destinationI;
     private int destinationJ;
     private Tile tile;
@@ -45,45 +49,52 @@ public class Unit {
         assigned = false;
     }
 
-    public void move(Unit unit, int destinationI, int destinationJ) {
-        //Calculate the distance of the destination
-//        int distance = 1;
-//        remainMP -= distance;
-//        if (remainMP >= 0) {
-//            if (destination.getType().equals(LandType.RIVER))
-//                remainMP = 0;
-//            //move the unit
-//        }
-        if(checkIfMovePossible(unit, destinationI, destinationJ)){
+    // TODO: 4/28/2022 دوستان توابع بخش حرکت داره اینجا زده میشه لطفا از زدن توابع مشابه بپرهیزید !!!!!!!
+
+    public void move(GameMap gameMap, Unit unit, int destinationI, int destinationJ) {
+
+        ArrayList<Tile> way = computeBestWay(unit.tile, gameMap.getMap()[destinationI][destinationJ], new ArrayList<>(), null);
+        if (checkIfMovePossible(way, unit)) {
             unit.setDestinationI(destinationI);
             unit.setDestinationJ(destinationJ);
-            if(unit.getType().equals("military"))
-                tile.setMilitaryUnit(null);
+            //مختصات i , j توی یونیت ذخیره شده
+            //باید موقع حرکت یونیت هر دو تغییر کنن و تایل هم باید تغییر کنه
+            //باید برای حالتی که حرکت ممکن نبود پیامی برای ویو فرستاده شود!!
+            if (unit.getType().equals("military")) tile.setMilitaryUnit(null);
             else tile.setCivilianUnit(null);
             //TODO
 
-        }else return;
+        }
     }
-
-    public boolean checkIfMovePossible(/*GameMap gameMap,*/ Unit unit, int destinationI, int destinationJ){
+    //با توجه به موو پوینت مسیر و یونیت امکان مهاجرت یک یونیت به مقصد را بررسی میکند
+    public boolean checkIfMovePossible(ArrayList<Tile> way, Unit unit) {
+        int wayMovePoint = 0;
+        for (Tile tile : way) {
+            wayMovePoint += tile.getMovePoint();
+        }
+        if (unit.getMovePoint() >= wayMovePoint) return true;
         return false;
     }
-
-    public int getDestinationI() {
-        return destinationI;
+    //بهترین مسیر را محاسبه میکند
+    public ArrayList<Tile> computeBestWay(Tile origin, Tile destination, ArrayList<Tile> route, ArrayList<Tile> bestWay) {
+        if (bestWay != null && route.size() > bestWay.size()) return bestWay;
+        if (origin == destination) return route;
+        Tile[] neighbors = origin.getNeighborOnBounds();
+        int distance2 = (destination.getPositionI() - origin.getPositionI()) * (destination.getPositionI() - origin.getPositionI()) + (destination.getPositionJ() - origin.getPositionJ()) * (destination.getPositionJ() - origin.getPositionJ());
+        for (Tile neighbor : neighbors) {
+            int newDistance2 = (destination.getPositionI() - neighbor.getPositionI()) * (destination.getPositionI() - neighbor.getPositionI()) + (destination.getPositionJ() - neighbor.getPositionJ()) * (destination.getPositionJ() - neighbor.getPositionJ());
+            if (newDistance2 < distance2) {
+                // TODO: 4/28/2022 باید رودخانه و مناطق صعب العبور اضافه شود
+                ArrayList<Tile> temp = new ArrayList<>();
+                temp.addAll(route);
+                temp.add(neighbor);
+                ArrayList<Tile> test = computeBestWay(neighbor, destination, temp, bestWay);
+                if (bestWay == null || test.size() < bestWay.size()) bestWay = test;
+            }
+        }
+        return bestWay;
     }
 
-    public void setDestinationI(int destinationI) {
-        this.destinationI = destinationI;
-    }
-
-    public int getDestinationJ() {
-        return destinationJ;
-    }
-
-    public void setDestinationJ(int destinationJ) {
-        this.destinationJ = destinationJ;
-    }
 
     public void sleep() {
         sleep = true;
@@ -161,8 +172,16 @@ public class Unit {
         this.workCounter = workCounter;
     }
 
-    public Tile getPosition() {
-        return position;
+    public int getPositionI() {
+        return positionI;
+    }
+
+    public int getPositionJ() {
+        return positionJ;
+    }
+
+    public Tile getTile() {
+        return tile;
     }
 
     public UnitType getType() {
@@ -201,8 +220,20 @@ public class Unit {
         return workCounter;
     }
 
-    public void setPosition(Tile position) {
-        this.position = position;
+    public int getDestinationI() {
+        return destinationI;
+    }
+
+    public void setDestinationI(int destinationI) {
+        this.destinationI = destinationI;
+    }
+
+    public int getDestinationJ() {
+        return destinationJ;
+    }
+
+    public void setDestinationJ(int destinationJ) {
+        this.destinationJ = destinationJ;
     }
 
     public boolean isSleep() {
