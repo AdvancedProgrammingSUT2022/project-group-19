@@ -63,10 +63,12 @@ public class Unit {
                 if (nextTile.getMilitaryUnit() != null && nextTile.getCivilianUnit() != null) break;
 
                 if (nextTile.getMilitaryUnit() != null) {
-                    if (!unit.getCivilization().equals(nextTile.getMilitaryUnit().getCivilization()) || unit.getPower() != 0) break;
+                    if (!unit.getCivilization().equals(nextTile.getMilitaryUnit().getCivilization()) || unit.getPower() != 0)
+                        break;
                 }
                 if (nextTile.getCivilianUnit() != null) {
-                    if (!unit.getCivilization().equals(nextTile.getCivilianUnit().getCivilization()) || unit.getPower() == 0) break;
+                    if (!unit.getCivilization().equals(nextTile.getCivilianUnit().getCivilization()) || unit.getPower() == 0)
+                        break;
                 }
                 if (unit.getPower() != 0) unit.tile.setMilitaryUnit(null);
                 else unit.tile.setCivilianUnit(null);
@@ -75,8 +77,7 @@ public class Unit {
                 else unit.tile.setCivilianUnit(unit);
                 unit.setRemainMP(unit.getRemainMP() - unit.getWay().get(0).getMovePoint());
 
-            }
-            else break;
+            } else break;
         }
 
     }
@@ -251,5 +252,9 @@ public class Unit {
 
     public void setWay(ArrayList<Tile> way) {
         this.way = way;
+    }
+
+    public boolean isMilitary() {
+        return !(type.equals(UnitType.WORKER) || type.equals(UnitType.SETTLER));
     }
 }

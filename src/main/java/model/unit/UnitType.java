@@ -21,7 +21,7 @@ public enum UnitType {
     //medieval era units:
     CROSSBOW_MAN(120, 6, 12, 2, 2, null, Technology.MACHINERY),
     KNIGHT(150, 18, 0, 0, 3, ResourceType.HORSE, Technology.CHIVALRY),
-    LONGSWRDS_MAN(150, 18, 0, 0, 3, ResourceType.IRON, Technology.STEEL),
+    LONG_SWORDS_MAN(150, 18, 0, 0, 3, ResourceType.IRON, Technology.STEEL),
     PIKE_MAN(100, 10, 0, 0, 2, null, Technology.CIVIL_SERVICE),
     TREBUCHET(170, 6, 20, 2, 2, ResourceType.IRON, Technology.PHYSICS),
 
@@ -84,5 +84,9 @@ public enum UnitType {
 
     public Technology getRequiredTechnology() {
         return requiredTechnology;
+    }
+
+    public boolean isMilitary() {
+        return !(this.equals(UnitType.WORKER) || this.equals(UnitType.SETTLER));
     }
 }
