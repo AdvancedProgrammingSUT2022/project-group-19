@@ -29,6 +29,7 @@ public class Tile {
     private Tile[] neighborOnBounds;
     private boolean haveRoad = false;
     private boolean isRoadRailed = false;
+    private boolean assignedPerson = false;
 
 
     public Tile(TerrainType type, TerrainType feature, int positionI, int positionJ) {
@@ -199,5 +200,13 @@ public class Tile {
 
     public void removeFeature() {
         feature = TerrainType.NULL;
+    }
+
+    public boolean isAssignedPerson() {
+        return assignedPerson;
+    }
+
+    public void setAssignedPerson(boolean assignedPerson) {
+        this.assignedPerson = assignedPerson;
     }
 }
