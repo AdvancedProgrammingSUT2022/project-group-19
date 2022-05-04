@@ -100,6 +100,30 @@ public class City {
         return Message.OK;
     }
 
+    public void freePersonFromTile(Tile tile) {
+        tile.setAssignedPerson(false);
+        idleCitizens++;
+    }
+
+    public Message assignPersonToTile(Tile tile) {
+        if (idleCitizens == 0)
+            return Message.noIdlePerson;
+        if (tile.isAssignedPerson())
+            return Message.tileHasPerson;
+        tile.setAssignedPerson(true);
+        idleCitizens--;
+        return Message.OK;
+    }
+
+    public void randomAssignPersonToTiles() {
+        for (Tile tile : tiles) {
+            if (idleCitizens == 0)
+                break;
+            tile.setAssignedPerson(true);
+            idleCitizens--;
+        }
+    }
+
     public ArrayList<UnitType> getAvailableUnitsForMake() {
         ArrayList<UnitType> units = new ArrayList<>();
         for (UnitType unitType : UnitType.values())

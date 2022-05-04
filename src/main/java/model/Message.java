@@ -11,7 +11,9 @@ public enum Message {
     noTechnology("you do not have necessary technologies."),
     OK("OK"),
     busy("This Unit is busy now"),
-    invalidCommand("invalid command :/");
+    invalidCommand("invalid command :/"),
+    noIdlePerson("No idle person in city. Please free someone first."),
+    tileHasPerson("This tile have a person. Please free him first.");
     private final String errorMessage;
 
     Message(String errorMessage) {
