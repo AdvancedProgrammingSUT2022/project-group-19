@@ -12,6 +12,7 @@ public class Settler extends Unit {
         int x = super.tile.getPositionI();
         int y = super.tile.getPositionJ();
         City city = new City(super.getCivilization(), x, y);
+        super.getCivilization().addCity(city);
         //TODO: settler self destruction
     }
 

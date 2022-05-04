@@ -6,9 +6,6 @@ import model.civilizations.City;
 import model.resource.ResourceType;
 import model.unit.Unit;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 public class Tile {
     private final int food;
     private final int production;
@@ -171,12 +168,12 @@ public class Tile {
         this.neighborOnBounds = neighborOnBounds;
     }
 
-    public void setHaveRoad(boolean haveRoad) {
+    public void setRoad(boolean haveRoad) {
         this.haveRoad = haveRoad;
     }
 
-    public void setRoadRailed(boolean roadRailed) {
-        isRoadRailed = roadRailed;
+    public void setRailRoad(boolean roadRailed) {
+        this.isRoadRailed = roadRailed;
     }
 
     public void setRemainingTimeForBuildImprovement(int remainingTimeForBuildImprovement) {

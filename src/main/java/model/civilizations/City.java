@@ -79,17 +79,19 @@ public class City {
         }
         if (inProductionUnit == null)
             return Message.noProduction;
-        productionCounter--;
-        if (productionCounter == 0) {
-            savedUnit = inProductionUnit;
-            inProductionUnit = null;
-            if (savedUnit.isMilitary() && militaryUnit != null || !savedUnit.isMilitary() && civilianUnit != null)
-                return Message.moveUnitFromCity;
-            if (savedUnit.isMilitary())
-                militaryUnit = savedUnit;
-            else
-                civilianUnit = savedUnit;
-            savedUnit = null;
+        if (productionCounter > 0) {
+            productionCounter--;
+            if (productionCounter == 0) {
+                savedUnit = inProductionUnit;
+                inProductionUnit = null;
+                if (savedUnit.isMilitary() && militaryUnit != null || !savedUnit.isMilitary() && civilianUnit != null)
+                    return Message.moveUnitFromCity;
+                if (savedUnit.isMilitary())
+                    militaryUnit = savedUnit;
+                else
+                    civilianUnit = savedUnit;
+                savedUnit = null;
+            }
         }
         return Message.OK;
     }

@@ -78,4 +78,8 @@ public class Civilization {
         //TODO: this must be done. page 13-14 game doc
         return resources;
     }
+
+    public void addCity(City city) {
+        cities.add(city);
+    }
 }
