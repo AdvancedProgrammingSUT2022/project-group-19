@@ -11,6 +11,6 @@
 ---
 ![alt text](https://i.pinimg.com/originals/75/d0/09/75d00916fbefc89fe725d0257fa205db.gif)
 
-![alt text](https://s6.uupload.ir/files/شش_7eal.jpg)
+
 
 
