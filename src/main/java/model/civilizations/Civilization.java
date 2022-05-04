@@ -1,9 +1,9 @@
 package model.civilizations;
 
+import model.resource.ResourceType;
 import model.technology.Technology;
 import model.unit.Unit;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Civilization {
@@ -12,13 +12,14 @@ public class Civilization {
     private List<City> cities;
     private List<Technology> reachedTechs;
     private List<Technology> InStudyTechs;
-    private int Gold;
+    private int gold;
     private int production;
     private int happinessIndex;
     private int scienceIndex;
     private int population;
     private int cups;
     public int[][] fogOfWarFlags;
+    private List<ResourceType> resources;
 
 
     /*
@@ -61,4 +62,20 @@ public class Civilization {
         return reachedTechs;
     }
 
+    public void increaseGold(int amount) {
+        gold += amount;
+    }
+
+    public void decreaseGold(int amount){
+        gold -= amount;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public List<ResourceType> getResources() {
+        //TODO: this must be done. page 13-14 game doc
+        return resources;
+    }
 }
