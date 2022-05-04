@@ -10,7 +10,8 @@ public enum Message {
     improvementLandError("Making this improvement in this land type is not allowed."),
     noTechnology("you do not have necessary technologies."),
     OK("OK"),
-    busy("This Unit is busy now");
+    busy("This Unit is busy now"),
+    invalidCommand("invalid command :/");
     private final String errorMessage;
 
     Message(String errorMessage) {
