@@ -13,6 +13,9 @@ public class Worker extends Unit {
     private Improvement inProgressImprovement = null;
     private boolean buildingRoad = false;
     private boolean buildingRailRoad = false;
+    private boolean repairingImprovements = false;
+    private boolean repairingRoads = false;
+    private boolean destroyingFeature = false;
 
     public Worker(Civilization belongTo) {
         super(UnitType.WORKER, belongTo);
@@ -29,9 +32,18 @@ public class Worker extends Unit {
                 } else if (buildingRoad) {
                     super.getTile().setRoad(true);
                     buildingRoad = false;
-                } else {
+                } else if (buildingRailRoad) {
                     super.getTile().setRailRoad(true);
                     buildingRailRoad = false;
+                } else if (repairingImprovements) {
+                    super.getTile().getImprovement().setPlundered(false);
+                    repairingImprovements = false;
+                } else if (repairingRoads) {
+                    super.getTile().setRoadPlundered(false);
+                    repairingRoads = false;
+                } else if (destroyingFeature){
+                    super.getTile().removeFeature();
+                    destroyingFeature = false;
                 }
             }
         }
@@ -48,8 +60,15 @@ public class Worker extends Unit {
         return Message.OK;
     }
 
-    public void buildRailRoad() {
-
+    public Message buildRailRoad() {
+        //TODO: same as buildRoad() but may workCounter and technology different.
+        if (workCounter != 0)
+            return Message.busy;
+        if (super.getCivilization().getReachedTechs().contains(Technology.THE_WHEEL)) { //TODO change this technologies
+            workCounter = 3;
+            buildingRailRoad = true;
+        }
+        return Message.OK;
     }
 
     public Message buildImprovement(Improvement improvement) {
@@ -71,11 +90,38 @@ public class Worker extends Unit {
     public void destroyRoad() {
         super.getTile().setRoad(false);
         super.getTile().setRailRoad(false);
+        super.getTile().setRoadPlundered(false);
     }
 
-    public void destroyFeature() {
+    public Message destroyFeature() {
+        if (workCounter != 0)
+            return Message.busy;
+        TerrainType feature = super.getTile().getFeature();
+        if (feature.equals(TerrainType.FOREST))
+            workCounter = 4;
+        else if (feature.equals(TerrainType.JUNGLE))
+            workCounter = 7;
+        else if (feature.equals(TerrainType.MARSH))
+            workCounter = 6;
+        else
+            return Message.invalidCommand;
+
+        destroyingFeature = true;
+        return Message.OK;
     }
 
-    public void repair() {
+    public Message repair() {
+        if (workCounter != 0)
+            return Message.busy;
+        if (super.tile.getImprovement().isPlundered()) {
+            workCounter = 3;
+            repairingImprovements = true;
+        } else if (super.tile.isRoadPlundered()) {
+            workCounter = 3;
+            repairingRoads = true;
+        } else {
+            return Message.invalidCommand;
+        }
+        return Message.OK;
     }
 }

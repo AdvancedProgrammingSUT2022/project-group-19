@@ -2,23 +2,24 @@ package model.land;
 
 import model.resource.ResourceType;
 
-public enum TerrainType {
+public enum     TerrainType {
     //features:
     NULL(0, 0, 0, 0, 0, null, null),
 
     JOLGE(2, 0, 0, -0.33, 1, null,
         new ResourceType[]{ResourceType.WHEAT, ResourceType.SUGAR}),
 
-    JUNGLE(1, 1, 0, 0.25, 2, null,
+    FOREST(1, 1, 0, 0.25, 2, null,
         new ResourceType[]{ResourceType.GAZELLE, ResourceType.COLOR, ResourceType.SILK}),
 
     ICE(0, 0, 0, 0, 9999, null,
         new ResourceType[]{}),
 
-    DARK_JUNGLE(1, -1, 0, 0.25, 2, null,
+    //جنگل انبوه = JUNGLE
+    JUNGLE(1, -1, 0, 0.25, 2, null,
         new ResourceType[]{ResourceType.BANANA, ResourceType.COLOR}),
 
-    SWAMP(-1, 0, 0, -0.33, 2, null,
+    MARSH(-1, 0, 0, -0.33, 2, null,
         new ResourceType[]{ResourceType.SUGAR}),
 
     OASIS(3, 0, 1, -0.33, 1, null,
@@ -33,12 +34,12 @@ public enum TerrainType {
             ResourceType.COTTON, ResourceType.INCENSE, ResourceType.SHEEP}),
 
     GRASS_LAND(2, 0, 0, -0.33, 1,
-        new TerrainType[]{JUNGLE, SWAMP},
+        new TerrainType[]{FOREST, MARSH},
         new ResourceType[]{ResourceType.IRON, ResourceType.HORSE, ResourceType.COAL, ResourceType.COW,
             ResourceType.GOLD, ResourceType.MARBLE, ResourceType.COTTON, ResourceType.SHEEP}),
 
     HILL(0, 2, 0, 0.25, 2,
-        new TerrainType[]{JUNGLE, DARK_JUNGLE},
+        new TerrainType[]{FOREST, JUNGLE},
         new ResourceType[]{ResourceType.IRON, ResourceType.COAL, ResourceType.GAZELLE, ResourceType.GOLD,
             ResourceType.SILVER, ResourceType.SHEEP}),
 
@@ -51,7 +52,7 @@ public enum TerrainType {
         new ResourceType[]{}),
 
     PLAIN(1, 1, 0, -0.33, 1,
-        new TerrainType[]{JUNGLE, DARK_JUNGLE},
+        new TerrainType[]{FOREST, JUNGLE},
         new ResourceType[]{ResourceType.IRON, ResourceType.HORSE, ResourceType.COAL, ResourceType.WHEAT, ResourceType.GOLD,
             ResourceType.MARBLE, ResourceType.IVORY, ResourceType.COTTON, ResourceType.INCENSE, ResourceType.SHEEP}),
 
@@ -60,7 +61,7 @@ public enum TerrainType {
         new ResourceType[]{ResourceType.IRON}),
 
     TUNDRA(1, 0, 0, -0.33, 1,
-        new TerrainType[]{JUNGLE},
+        new TerrainType[]{FOREST},
         new ResourceType[]{ResourceType.IRON, ResourceType.HORSE, ResourceType.GAZELLE, ResourceType.SILVER, ResourceType.MARBLE});
 
 

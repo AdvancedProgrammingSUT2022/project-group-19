@@ -7,15 +7,16 @@ import model.resource.ResourceType;
 import model.unit.Unit;
 
 public class Tile {
-    private final int food;
-    private final int production;
-    private final int gold;
-    private final int movePoint;
-    private final double fightChanges;
+    private int food;
+    private int production;
+    private int gold;
+    private int movePoint;
+    private double fightChanges;
     private final TerrainType type;
-    private final TerrainType feature;
+    private TerrainType feature;
     private final int positionI;
     private final int positionJ;
+    private boolean isRoadPlundered = false;
     private ResourceType resource;
     private Unit militaryUnit;
     private Unit civilianUnit;
@@ -37,13 +38,16 @@ public class Tile {
         this.neighborOnBounds = new Tile[6];
         this.type = type;
         this.feature = feature;
+        initTileValues();
+    }
+
+    private void initTileValues() {
         this.food = type.getFood() + feature.getFood();
         this.gold = type.getGold() + feature.getGold();
         this.movePoint = type.getMovePoint() + feature.getMovePoint();
         this.production = type.getProduction() + feature.getProduction();
         this.fightChanges = type.getFightChanges() + feature.getFightChanges();
     }
-
 
 //    public void updateInSight() {
 //        //algorithm goes here...
@@ -108,6 +112,7 @@ public class Tile {
     public TerrainType getFeature() {
         return feature;
     }
+
     public ResourceType getResource() {
         return resource;
     }
@@ -180,7 +185,19 @@ public class Tile {
         this.remainingTimeForBuildImprovement = remainingTimeForBuildImprovement;
     }
 
-    public City getCity(){
+    public boolean isRoadPlundered() {
+        return isRoadPlundered;
+    }
+
+    public void setRoadPlundered(boolean roadPlundered) {
+        isRoadPlundered = roadPlundered;
+    }
+
+    public City getCity() {
         return city;
+    }
+
+    public void removeFeature() {
+        feature = TerrainType.NULL;
     }
 }

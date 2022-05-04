@@ -16,6 +16,7 @@ public class City {
     private int food;
     private Production production;
     private int citizens;
+    private int idleCitizens;
     private int population;
     private ArrayList<Tile> tiles;
     private ArrayList<Building> buildings;
@@ -25,11 +26,11 @@ public class City {
     private Unit militaryUnit = null;
     private Unit civilianUnit = null;
     private Civilization civilization;
-    private boolean containSettler; //if a city have a settler => food field must not increase (Game doc, page 38)
+    private boolean containSettler = false; //if a city have a settler => food field must not increase (Game doc, page 38)
     private final int positionI;
     private final int positionJ;
     private int cityIncome;
-
+    private Building inBuildBuilding = null;
 
     public City(Civilization civilization, int x, int y) {
         this.civilization = civilization;
@@ -63,34 +64,37 @@ public class City {
         if (tile.getCity() == null) {
             tile.setCity(this);
         }
-
     }
 
     //This methode must be run every turn of the game
     public Message cityProduction() {
-        if (savedUnit != null && (savedUnit.isMilitary() && militaryUnit != null || !savedUnit.isMilitary() && civilianUnit != null))
-            return Message.moveUnitFromCity;
-        if (savedUnit != null) {
+        if (savedUnit != null) { //force the player to move the unit
+            if (savedUnit.isMilitary() && militaryUnit != null || !savedUnit.isMilitary() && civilianUnit != null)
+                return Message.moveUnitFromCity;
             if (savedUnit.isMilitary())
                 militaryUnit = savedUnit;
             else
                 civilianUnit = savedUnit;
             savedUnit = null;
         }
-        if (inProductionUnit == null)
-            return Message.noProduction;
+
         if (productionCounter > 0) {
             productionCounter--;
             if (productionCounter == 0) {
-                savedUnit = inProductionUnit;
-                inProductionUnit = null;
-                if (savedUnit.isMilitary() && militaryUnit != null || !savedUnit.isMilitary() && civilianUnit != null)
-                    return Message.moveUnitFromCity;
-                if (savedUnit.isMilitary())
-                    militaryUnit = savedUnit;
-                else
-                    civilianUnit = savedUnit;
-                savedUnit = null;
+                if (inBuildBuilding != null) {
+                    buildings.add(inBuildBuilding);
+                    inBuildBuilding = null;
+                } else {
+                    savedUnit = inProductionUnit;
+                    inProductionUnit = null;
+                    if (savedUnit.isMilitary() && militaryUnit != null || !savedUnit.isMilitary() && civilianUnit != null)
+                        return Message.moveUnitFromCity; //TODO: force the player to move the unit
+                    if (savedUnit.isMilitary())
+                        militaryUnit = savedUnit;
+                    else
+                        civilianUnit = savedUnit;
+                    savedUnit = null;
+                }
             }
         }
         return Message.OK;
@@ -106,10 +110,12 @@ public class City {
     }
 
     public Message makeUnit(UnitType type) {
+        if (productionCounter > 0)
+            return Message.busy;
         if (!getAvailableUnitsForMake().contains(type))
             return Message.cantMakeUnit;
         if (type.getCost() > civilization.getGold())
-            return Message.notEnoughGold;
+            return Message.noEnoughGold;
 
         Unit newUnit = new Unit(type, civilization);
         civilization.decreaseGold(type.getCost());
@@ -118,6 +124,26 @@ public class City {
         return Message.OK;
     }
 
+    public ArrayList<Building> getAvailableBuildingsForBuild() {
+        ArrayList<Building> buildingsList = new ArrayList<>();
+        for (Building building : Building.values())
+            if (civilization.getReachedTechs().contains(building.getRequiredTechnology()))
+                buildingsList.add(building);
+        buildingsList.removeAll(this.buildings);
+        return buildingsList;
+    }
+
+    public Message buildBuilding(Building building) {
+        if (productionCounter > 0)
+            return Message.busy;
+        if (!getAvailableUnitsForMake().contains(building))
+            return Message.noTechnology;
+        if (building.getCost() > civilization.getGold())
+            return Message.noEnoughGold;
+        productionCounter = building.getCost() / cityIncome + 1;
+        inBuildBuilding = building;
+        return Message.OK;
+    }
 
     public Message purchaseTile(int x, int y) {
         int tilePrice = 100;
@@ -130,12 +156,13 @@ public class City {
         if (tile.getCity() != null)
             return Message.tileHasOwner;
         if (tilePrice > civilization.getGold())
-            return Message.notEnoughGold;
+            return Message.noEnoughGold;
         civilization.decreaseGold(tilePrice);
         tiles.add(tile);
         tile.setCity(this);
         return Message.OK;
     }
+
 
     public void decreaseGoldAfterCityLoss() {
 

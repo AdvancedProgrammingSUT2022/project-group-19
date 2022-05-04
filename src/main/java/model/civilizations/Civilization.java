@@ -4,6 +4,7 @@ import model.resource.ResourceType;
 import model.technology.Technology;
 import model.unit.Unit;
 
+import java.util.Collection;
 import java.util.List;
 
 public class Civilization {
@@ -82,4 +83,5 @@ public class Civilization {
     public void addCity(City city) {
         cities.add(city);
     }
+
 }
