@@ -10,6 +10,8 @@ import java.util.Arrays;
 
 public class Worker extends Unit {
     private int workCounter;
+    private int savedCounter;
+    private Improvement savedImprovement = null;
     private Improvement inProgressImprovement = null;
     private boolean buildingRoad = false;
     private boolean buildingRailRoad = false;
@@ -41,7 +43,7 @@ public class Worker extends Unit {
                 } else if (repairingRoads) {
                     super.getTile().setRoadPlundered(false);
                     repairingRoads = false;
-                } else if (destroyingFeature){
+                } else if (destroyingFeature) {
                     super.getTile().removeFeature();
                     destroyingFeature = false;
                 }
@@ -71,6 +73,22 @@ public class Worker extends Unit {
         return Message.OK;
     }
 
+    public void pauseImprovement() {
+        if (workCounter == 0)
+            return;
+        savedCounter = workCounter;
+        workCounter = 0;
+        savedImprovement = inProgressImprovement;
+    }
+
+    public void resumeImprovement() {
+        if (savedImprovement == null)
+            return;
+        workCounter = savedCounter;
+        savedCounter = 0;
+        inProgressImprovement = savedImprovement;
+    }
+
     public Message buildImprovement(Improvement improvement) {
         if (workCounter != 0)
             return Message.busy;
@@ -82,6 +100,7 @@ public class Worker extends Unit {
             return Message.improvementLandError;
         if (!super.getCivilization().getReachedTechs().contains(improvement.getRequiredTechnology()))
             return Message.noTechnology;
+        savedImprovement = null;
         workCounter = 6;
         inProgressImprovement = improvement;
         return Message.OK;
