@@ -67,7 +67,7 @@ public enum Building {
         return this.maintenance;
     }
 
-    public Technology getTechnologyRequiredName() {
+    public Technology getRequiredTechnology() {
         return this.technologyRequiredName;
     }
 

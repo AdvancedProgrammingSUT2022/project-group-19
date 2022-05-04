@@ -29,7 +29,7 @@ public class City {
     private final int positionI;
     private final int positionJ;
     private int cityIncome;
-
+    private Building inBuildBuilding = null;
 
     public City(Civilization civilization, int x, int y) {
         this.civilization = civilization;
@@ -68,6 +68,7 @@ public class City {
 
     //This methode must be run every turn of the game
     public Message cityProduction() {
+        //TODO: building production timer
         if (savedUnit != null && (savedUnit.isMilitary() && militaryUnit != null || !savedUnit.isMilitary() && civilianUnit != null))
             return Message.moveUnitFromCity;
         if (savedUnit != null) {
@@ -109,7 +110,7 @@ public class City {
         if (!getAvailableUnitsForMake().contains(type))
             return Message.cantMakeUnit;
         if (type.getCost() > civilization.getGold())
-            return Message.notEnoughGold;
+            return Message.noEnoughGold;
 
         Unit newUnit = new Unit(type, civilization);
         civilization.decreaseGold(type.getCost());
@@ -118,6 +119,26 @@ public class City {
         return Message.OK;
     }
 
+    public ArrayList<Building> getAvailableBuildingsForBuild() {
+        ArrayList<Building> buildingsList = new ArrayList<>();
+        for (Building building : Building.values())
+            if (civilization.getReachedTechs().contains(building.getRequiredTechnology()))
+                buildingsList.add(building);
+        buildingsList.removeAll(this.buildings);
+        return buildingsList;
+    }
+
+    public Message buildBuilding(Building building) {
+        if (productionCounter > 0)
+            return Message.busy;
+        if (!getAvailableUnitsForMake().contains(building))
+            return Message.noTechnology;
+        if (building.getCost() > civilization.getGold())
+            return Message.noEnoughGold;
+        productionCounter = building.getCost() / cityIncome + 1;
+        inBuildBuilding = building;
+        return Message.OK;
+    }
 
     public Message purchaseTile(int x, int y) {
         int tilePrice = 100;
@@ -130,7 +151,7 @@ public class City {
         if (tile.getCity() != null)
             return Message.tileHasOwner;
         if (tilePrice > civilization.getGold())
-            return Message.notEnoughGold;
+            return Message.noEnoughGold;
         civilization.decreaseGold(tilePrice);
         tiles.add(tile);
         tile.setCity(this);
