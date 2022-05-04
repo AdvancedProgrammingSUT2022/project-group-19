@@ -25,7 +25,7 @@ public class Tile {
     private Improvement improvement;
     private int remainingTimeForBuildImprovement = 6;
     private Ruin ruin = null;
-    private City city;
+    private City city = null;
     private boolean[] isRiverOnBounds;
     private int riversNumber = 0;
     private Tile[] neighborOnBounds;
@@ -181,5 +181,9 @@ public class Tile {
 
     public void setRemainingTimeForBuildImprovement(int remainingTimeForBuildImprovement) {
         this.remainingTimeForBuildImprovement = remainingTimeForBuildImprovement;
+    }
+
+    public City getCity(){
+        return city;
     }
 }

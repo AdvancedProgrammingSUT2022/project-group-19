@@ -27,7 +27,7 @@ public class Unit {
     private boolean assigned = false;
     private int remainMP;
     //هر تایلی تو خودش مختصات آی و جی ذخیره کرده و مختصات آی و جی یونیتو از همون جا میگیریم
-    private Tile tile;
+    protected Tile tile;
     private ArrayList<Tile> way;
 
     public Unit(UnitType type, Civilization belongTo) {
