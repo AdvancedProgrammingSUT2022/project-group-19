@@ -21,8 +21,7 @@ public class Unit {
     private final ResourceType requiredResource;
     private final Technology requiredTechnology;
     private Civilization civilization;
-    private int workCounter;
-    //private Tile position;
+//    private int workCounter;
     private boolean sleep = false;
     private boolean assigned = false;
     private int remainMP;
@@ -176,9 +175,9 @@ public class Unit {
         this.civilization = civilization;
     }
 
-    public void setWorkCounter(int workCounter) {
-        this.workCounter = workCounter;
-    }
+//    public void setWorkCounter(int workCounter) {
+//        this.workCounter = workCounter;
+//    }
 
 
     public Tile getTile() {
@@ -217,9 +216,9 @@ public class Unit {
         return requiredTechnology;
     }
 
-    public int getWorkCounter() {
-        return workCounter;
-    }
+//    public int getWorkCounter() {
+//        return workCounter;
+//    }
 
 
     public boolean isSleep() {
