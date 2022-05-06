@@ -49,6 +49,20 @@ public enum ResourceType {
         this.requiredTechnology = requiredTechnology;
     }
 
+    public boolean isBounce() {
+        return this.equals(BANANA) || this.equals(COW) || this.equals(GAZELLE) || this.equals(SHEEP) || this.equals(WHEAT);
+    }
+
+    public boolean isLuxury() {
+        return this.equals(COTTON) || this.equals(COLOR) || this.equals(FUR) || this.equals(VALUABLE_STONE) ||
+                this.equals(GOLD) || this.equals(INCENSE) || this.equals(IVORY) || this.equals(MARBLE) ||
+                this.equals(SILK) || this.equals(SILVER) || this.equals(SUGAR);
+    }
+
+    public boolean isStrategic() {
+        return this.equals(COAL) || this.equals(HORSE) || this.equals(IRON);
+    }
+
     public int getFood() {
         return food;
     }
