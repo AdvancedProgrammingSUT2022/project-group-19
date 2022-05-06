@@ -13,7 +13,9 @@ public enum Message {
     busy("This Unit is busy now"),
     invalidCommand("invalid command :/"),
     noIdlePerson("No idle person in city. Please free someone first."),
-    tileHasPerson("This tile have a person. Please free him first.");
+    loginOK("user logged in successfully!"),
+    tileHasPerson("This tile have a person. Please free him first."),
+    loginFail("Username and password didn't match!");
     private final String errorMessage;
 
     Message(String errorMessage) {

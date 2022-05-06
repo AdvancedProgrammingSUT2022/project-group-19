@@ -1,6 +1,7 @@
 package controller;
 
 import model.Database;
+import model.Message;
 import model.Player;
 import model.User;
 import model.civilizations.Civilization;
@@ -38,10 +39,10 @@ public class Controller {
         return "nickname changed successfully!";
     }
 
-    static public String loginCheck(String username, String password) {
+    static public Message loginCheck(String username, String password) {
         if (Database.getUser(username) == null || !Database.getUser(username).getPassword().equals(password))
-            return "Username and password didn't match!";
-        return "user logged in successfully!";
+            return Message.loginFail;
+        return Message.loginOK;
     }
 
     static public void printMap() {

@@ -3,6 +3,7 @@ package view;
 import controller.Controller;
 import model.Database;
 import model.Function;
+import model.Message;
 import model.User;
 
 import java.util.HashMap;
@@ -12,14 +13,8 @@ public class LoginMenu extends Menu {
 
     public LoginMenu() {
         functions.putAll(basicFunctions);
-        functions.put("^user login (--username|-u) (?<username>.+) (--password|-p) (?<password>.+)$", this::login);
-        functions.put("^user login (--password|-p) (?<password>.+) (--username|-u) (?<username>.+)$", this::login);
-        functions.put("^user create (--username|-u) (?<username>.+) (--nickname|-n) (?<nickname>.+) (--password|-p) (?<password>.+)$", this::addUser);
-        functions.put("^user create (--username|-u) (?<username>.+) (--password|-p) (?<password>.+) (--nickname|-n) (?<nickname>.+)$", this::addUser);
-        functions.put("^user create (--nickname|-n) (?<nickname>.+) (--username|-u) (?<username>.+) (--password|-p) (?<password>.+)$", this::addUser);
-        functions.put("^user create (--nickname|-n) (?<nickname>.+) (--password|-p) (?<password>.+) (--username|-u) (?<username>.+)$", this::addUser);
-        functions.put("^user create (--password|-p) (?<password>.+) (--nickname|-n) (?<nickname>.+) (--username|-u) (?<username>.+)$", this::addUser);
-        functions.put("^user create (--password|-p) (?<password>.+) (--username|-u) (?<username>.+) (--nickname|-n) (?<nickname>.+)$", this::addUser);
+        functions.put("user login(?<args>(?=.+(-u|--username) (\\S+))(?=.+(-p|--password) (\\S+)).+)", this::login);
+        functions.put("user create(?<args>(?=.+(-u|--username) (\\S+))(?=.+(-p|--password) (\\S+))(?=.+(-n|--nickname) (\\S+)).+)", this::addUser);
     }
 
     public void run() {
@@ -36,15 +31,20 @@ public class LoginMenu extends Menu {
     }
 
     private void addUser() {
-        String message = Controller.addUser(matcher.group("username"), matcher.group("password"), matcher.group("nickname"));
+        String username = args.get("-u") != null ? args.get("-u") : args.get("-username");
+        String password = args.get("-p") != null ? args.get("-p") : args.get("-password");
+        String nickname = args.get("-n") != null ? args.get("-n") : args.get("-nickname");
+        String message = Controller.addUser(username,password,nickname);
         System.out.println(message);
     }
 
     private void login() {
-        String message = Controller.loginCheck(matcher.group("username"), matcher.group("password"));
-        System.out.println(message);
-        if (message.equals("user logged in successfully!")) {
-            User loggedInUser = Database.getUser(matcher.group("username"));
+        String username = args.get("-u") != null ? args.get("-u") : args.get("-username");
+        String password = args.get("-p") != null ? args.get("-p") : args.get("-password");
+        Message message = Controller.loginCheck(username, password);
+        System.out.println(message.getErrorMessage());
+        if (message.equals(Message.loginOK)) {
+            User loggedInUser = Database.getUser(username);
             MainMenu mainMenu = new MainMenu(loggedInUser);
             mainMenu.run();
         }
