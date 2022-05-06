@@ -1,11 +1,9 @@
 package model;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import controller.modelcontroller.MapController;
-import model.land.TerrainType;
 import model.land.Tile;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -23,11 +21,11 @@ public class Database {
     public static GameMap gameMap = mapController.generateRandomMap(5, 14);
     public static Tile[][] map = gameMap.getMap();
 
-    public Database() {
-        //read the data from file at first.
-        readSavedUsers();
-        readSavedGame();
-    }
+//    public Database() {
+//        //read the data from file at first.
+//        readSavedUsers();
+//        readSavedGame();
+//    }
 
 
     public static void readSavedUsers() {
@@ -37,19 +35,21 @@ public class Database {
             Gson gson = new Gson();
             JsonReader reader = new JsonReader(new FileReader(usersPath));
             users = gson.fromJson(reader, type);
+            reader.close();
         } catch (Exception e) {
-            System.out.println("No users.json file");
+            System.out.println("No users.json file / " + e.getMessage());
         }
     }
 
     public static void updateUsersFile() {
         try {
             Writer writer = new FileWriter(usersPath);
-            Gson gson = new GsonBuilder().create();
-            gson.toJson(users, writer);
+            new Gson().toJson(users, writer);
+//            Gson gson = new GsonBuilder().create();
+//            gson.toJson(users, writer);
             writer.close();
         } catch (Exception e) {
-            System.out.println("An Error occurred :(");
+            System.out.println("An Error occurred :( " + e.getMessage());
         }
     }
 
@@ -90,7 +90,8 @@ public class Database {
     public static void addPlayer(Player player) {
         players.add(player);
     }
-    public static void setPlayers(List<Player> players){
+
+    public static void setPlayers(List<Player> players) {
         Database.players = players;
     }
 }

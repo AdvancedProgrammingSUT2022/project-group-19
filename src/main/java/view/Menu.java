@@ -10,7 +10,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Menu {
-    protected Database database = new Database();
     protected Scanner scanner = new Scanner(System.in);
     protected String command;
     protected Matcher matcher;
@@ -67,8 +66,11 @@ public class Menu {
                 if (matcher.find()) {
                     if (functions.get(regex) == null)
                         return;
-                    args = getArgs(matcher.group("args"));
-                    if (args == null) break;
+                    try {
+                        args = getArgs(matcher.group("args"));
+                        if (args == null) break;
+                    } catch (IllegalArgumentException ignored) {
+                    }
                     functions.get(regex).function();
                     validCommand = true;
                     break;

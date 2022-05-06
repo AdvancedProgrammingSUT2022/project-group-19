@@ -12,6 +12,7 @@ public class LoginMenu extends Menu {
     private final HashMap<String, Function> functions = new HashMap<>();
 
     public LoginMenu() {
+        Database.readSavedUsers();
         functions.putAll(basicFunctions);
         functions.put("user login(?<args>(?=.+(-u|--username) (\\S+))(?=.+(-p|--password) (\\S+)).+)", this::login);
         functions.put("user create(?<args>(?=.+(-u|--username) (\\S+))(?=.+(-p|--password) (\\S+))(?=.+(-n|--nickname) (\\S+)).+)", this::addUser);
@@ -31,16 +32,16 @@ public class LoginMenu extends Menu {
     }
 
     private void addUser() {
-        String username = args.get("-u") != null ? args.get("-u") : args.get("-username");
-        String password = args.get("-p") != null ? args.get("-p") : args.get("-password");
-        String nickname = args.get("-n") != null ? args.get("-n") : args.get("-nickname");
-        String message = Controller.addUser(username,password,nickname);
+        String username = args.get("-u") != null ? args.get("-u") : args.get("--username");
+        String password = args.get("-p") != null ? args.get("-p") : args.get("--password");
+        String nickname = args.get("-n") != null ? args.get("-n") : args.get("--nickname");
+        String message = Controller.addUser(username, password, nickname);
         System.out.println(message);
     }
 
     private void login() {
-        String username = args.get("-u") != null ? args.get("-u") : args.get("-username");
-        String password = args.get("-p") != null ? args.get("-p") : args.get("-password");
+        String username = args.get("-u") != null ? args.get("-u") : args.get("--username");
+        String password = args.get("-p") != null ? args.get("-p") : args.get("--password");
         Message message = Controller.loginCheck(username, password);
         System.out.println(message.getErrorMessage());
         if (message.equals(Message.loginOK)) {

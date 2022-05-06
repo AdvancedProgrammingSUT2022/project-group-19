@@ -19,7 +19,7 @@ public class MainMenu extends Menu {
         this.loggedInUser = loggedInUser;
         functions.putAll(basicFunctions);
         functions.put("^user logout$", this::logout);
-        functions.put("^play game(?<player> --player(?<numberPlayer>[1-9][0-9]*) (?<username1>\\S+))+", this::startGame);
+        functions.put("^play game(?<player> (--player|-p)(?<numberPlayer>[1-9][0-9]*) (?<username1>\\S+))+", this::startGame);
     }
 
     public void run() {
@@ -41,7 +41,7 @@ public class MainMenu extends Menu {
     }
 
     private void startGame() {
-        Matcher matcher1 = Pattern.compile("(?<player> --player(?<numberPlayer>[1-9][0-9]*) (?<username>\\S+))").matcher(command);
+        Matcher matcher1 = Pattern.compile("(?<player> (--player|-p)(?<numberPlayer>[1-9][0-9]*) (?<username>\\S+))").matcher(command);
         List<Player> players = new ArrayList<>();
         while (matcher1.find()) {
             String username = matcher1.group("username");
@@ -59,7 +59,7 @@ public class MainMenu extends Menu {
     }
 
     private void logout() {
-        System.out.println("logout (X_x)");
+        System.out.println("logged out.");
         LoginMenu loginMenu = new LoginMenu();
         loginMenu.run();
     }
