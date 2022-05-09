@@ -1,5 +1,6 @@
 package view;
 
+import controller.GameController;
 import model.Database;
 import model.Function;
 import model.Player;
@@ -23,7 +24,7 @@ public class MainMenu extends Menu {
     }
 
     public void run() {
-        getCommand(functions);
+        getCommandInLoop(functions);
     }
 
     @Override
@@ -54,8 +55,8 @@ public class MainMenu extends Menu {
         }
         System.out.println("Starting the game...");
         Database.setPlayers(players);
-        GameMenu gameMenu = new GameMenu();
-        gameMenu.run();
+        GameController gameController = new GameController();
+        gameController.gameLoop();
     }
 
     private void logout() {

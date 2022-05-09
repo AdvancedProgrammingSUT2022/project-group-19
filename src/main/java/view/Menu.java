@@ -1,6 +1,5 @@
 package view;
 
-import model.Database;
 import model.Function;
 
 import java.util.ArrayList;
@@ -56,29 +55,32 @@ public class Menu {
     }
 
 
-    protected void getCommand(HashMap<String, Function> functions) {
-        while (loopFlag) {
-            command = scanner.nextLine();
-            boolean validCommand = false;
-            args = new HashMap<>();
-            for (String regex : functions.keySet()) {
-                matcher = Pattern.compile(regex).matcher(command);
-                if (matcher.find()) {
-                    if (functions.get(regex) == null)
-                        return;
-                    try {
-                        args = getArgs(matcher.group("args"));
-                        if (args == null) break;
-                    } catch (IllegalArgumentException ignored) {
-                    }
-                    functions.get(regex).function();
-                    validCommand = true;
-                    break;
-                }
-            }
-            if (!validCommand)
-                System.out.println("invalid command");
-        }
+    protected void getCommandInLoop(HashMap<String, Function> functions) {
+        while (loopFlag)
+            getCommandOnce(functions);
         loopFlag = true;
+    }
+
+    protected void getCommandOnce(HashMap<String, Function> functions) {
+        command = scanner.nextLine();
+        boolean validCommand = false;
+        args = new HashMap<>();
+        for (String regex : functions.keySet()) {
+            matcher = Pattern.compile(regex).matcher(command);
+            if (matcher.find()) {
+                if (functions.get(regex) == null)
+                    loopFlag = false;
+                try {
+                    args = getArgs(matcher.group("args"));
+                    if (args == null) break;
+                } catch (IllegalArgumentException ignored) {
+                }
+                functions.get(regex).function();
+                validCommand = true;
+                break;
+            }
+        }
+        if (!validCommand)
+            System.out.println("invalid command");
     }
 }

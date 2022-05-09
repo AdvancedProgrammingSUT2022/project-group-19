@@ -3,13 +3,13 @@ package model;
 import model.land.Tile;
 
 public class GameMap {
-    private int mapLength;
-    private int mapWidth;
+    private static int numOfCols;
+    private static int numOfRows;
     private Tile[][] map;
 
-    public GameMap(int mapLength, int mapWidth, Tile[][] map) {
-        this.mapLength = mapLength;
-        this.mapWidth = mapWidth;
+    public GameMap(int numOfCols, int numOfRows, Tile[][] map) {
+        GameMap.numOfCols = numOfCols;
+        GameMap.numOfRows = numOfRows;
         this.map = map;
     }
 
@@ -21,11 +21,11 @@ public class GameMap {
         this.map = map;
     }
 
-    public int getMapLength() {
-        return mapLength;
+    public static int getNumOfCols() {
+        return numOfCols;
     }
 
-    public int getMapWidth() {
-        return mapWidth;
+    public static int getNumOfRows() {
+        return numOfRows;
     }
 }

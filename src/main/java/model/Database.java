@@ -37,7 +37,7 @@ public class Database {
             users = gson.fromJson(reader, type);
             reader.close();
         } catch (Exception e) {
-            System.out.println("No users.json file / " + e.getMessage());
+            System.out.println("No users.json file | " + e.getMessage());
         }
     }
 

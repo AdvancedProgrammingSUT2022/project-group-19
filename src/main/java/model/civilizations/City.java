@@ -31,6 +31,7 @@ public class City {
     private final int positionJ;
     private int cityIncome;
     private Building inBuildBuilding = null;
+    private boolean isAssigned = false;
 
     public City(Civilization civilization, int x, int y) {
         this.civilization = civilization;
@@ -190,5 +191,17 @@ public class City {
 
     public void decreaseGoldAfterCityLoss() {
 
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public boolean isAssigned() {
+        return isAssigned;
+    }
+
+    public void setAssigned(boolean assigned) {
+        isAssigned = assigned;
     }
 }

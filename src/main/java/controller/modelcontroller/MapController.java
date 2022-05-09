@@ -11,14 +11,14 @@ public class MapController {
     public void printMap(GameMap gameMap){
 
     }
-    public GameMap generateRandomMap(int length, int width) {
-        Tile[][] tiles = new Tile[length][width];
-        tiles[length / 2][width / 2] = new Tile(TerrainType.PLAIN, TerrainType.NULL, length / 2, width / 2);
-        fillMapByRandomDfs(tiles, length, width);
-        findNeighbors(tiles, length, width);
+    public GameMap generateRandomMap(int numOfRows, int numOfCols) {
+        Tile[][] tiles = new Tile[numOfRows][numOfCols];
+        tiles[numOfRows / 2][numOfCols / 2] = new Tile(TerrainType.PLAIN, TerrainType.NULL, numOfRows / 2, numOfCols / 2);
+        fillMapByRandomDfs(tiles, numOfRows, numOfCols);
+        findNeighbors(tiles, numOfRows, numOfCols);
         // TODO: 4/25/2022 اضافه کردن رودخانه ها و ریسورس ها
 
-        return new GameMap(length, width, tiles);
+        return new GameMap(numOfRows, numOfCols, tiles);
 
     }
 

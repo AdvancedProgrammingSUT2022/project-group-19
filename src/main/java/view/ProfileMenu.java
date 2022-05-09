@@ -19,7 +19,7 @@ public class ProfileMenu extends MainMenu {
     }
 
     public void run() {
-        getCommand(functions);
+        getCommandInLoop(functions);
     }
 
     @Override

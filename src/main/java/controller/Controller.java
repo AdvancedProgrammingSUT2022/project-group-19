@@ -1,9 +1,6 @@
 package controller;
 
-import model.Database;
-import model.Message;
-import model.Player;
-import model.User;
+import model.*;
 import model.civilizations.Civilization;
 import model.land.Tile;
 import model.resource.ResourceType;
@@ -79,6 +76,8 @@ public class Controller {
                 System.out.println();
             }
         }
+        System.out.println();
+        System.out.println();
     }
 
     private static String getInformation(String information, int columnOfMap, Tile[] map) {
@@ -127,6 +126,10 @@ public class Controller {
     private static boolean nearEachOther(Tile position, int x, int y) {
         //TODO: this method
         return true;
+    }
+
+    public static boolean isInvalidCoordinate(int x, int y) {
+        return (x < 1 || x > GameMap.getNumOfRows() || y < 1 || y > GameMap.getNumOfCols());
     }
 }
 

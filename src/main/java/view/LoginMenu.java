@@ -19,7 +19,7 @@ public class LoginMenu extends Menu {
     }
 
     public void run() {
-        getCommand(functions);
+        getCommandInLoop(functions);
     }
 
     @Override

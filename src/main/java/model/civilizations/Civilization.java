@@ -4,15 +4,16 @@ import model.resource.ResourceType;
 import model.technology.Technology;
 import model.unit.Unit;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public class Civilization {
     private String leaderName;
-    private List<Unit> units;
-    private List<City> cities;
-    private List<Technology> reachedTechs;
-    private List<Technology> InStudyTechs;
+    private List<Unit> units = new ArrayList<>();
+    private List<City> cities = new ArrayList<>();
+    private List<Technology> reachedTechs = new ArrayList<>();
+    private List<Technology> InStudyTechs = new ArrayList<>();
     private int gold;
     private int production;
     private int happinessIndex;
@@ -20,7 +21,7 @@ public class Civilization {
     private int population;
     private int cups;
     public int[][] fogOfWarFlags;
-    private List<ResourceType> resources;
+    private List<ResourceType> resources = new ArrayList<>();
 
 
     /*
@@ -43,8 +44,8 @@ public class Civilization {
         return units;
     }
 
-    public void setUnits(List<Unit> units) {
-        this.units = units;
+    public void addUnit(Unit unit) {
+        units.add(unit);
     }
 
     public List<City> getCities() {
@@ -67,7 +68,7 @@ public class Civilization {
         gold += amount;
     }
 
-    public void decreaseGold(int amount){
+    public void decreaseGold(int amount) {
         gold -= amount;
     }
 
