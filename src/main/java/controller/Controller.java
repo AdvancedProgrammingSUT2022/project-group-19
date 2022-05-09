@@ -43,6 +43,7 @@ public class Controller {
     }
 
     static public void printMap() {
+        String areaColor = Color.RESET;
         Tile[][] map = Database.map;
         String[] hex = {
                 "  /       \\         ",
@@ -57,21 +58,27 @@ public class Controller {
                 for (int i = 0; i < 14; i += 2) {
                     if (rowInHex == 0) {
                         String information = getInformation("resource", i, map[rowOfMap]);
-                        System.out.print("  /" + information + "\\         ");
+                        String unitName = getInformation("militaryUnit", i + 1, map[rowOfMap]);
+                        System.out.print("  /" + information + "\\ " + unitName + " ");
                     } else if (rowInHex == 1) {
                         String information = getInformation("feature", i, map[rowOfMap]);
-                        System.out.print(" / " + information + " \\        ");
+                        String unitName = getInformation("civilianUnit", i + 1, map[rowOfMap]);
+                        System.out.print(" / " + information + " \\ " + unitName);
                     } else if (rowInHex == 2) {
                         String information = getInformation("landType", i, map[rowOfMap]);
                         System.out.print("/  " + information + "  \\_______");
+                    } else if (rowInHex == 3) {
+                        String information = getInformation("resource", i + 1, map[rowOfMap]);
+                        String unitName = getInformation("militaryUnit", i, map[rowOfMap]);
+                        System.out.print("\\  " + unitName + "  /" + information);
                     } else if (rowInHex == 4) {
                         String information = getInformation("feature", i + 1, map[rowOfMap]);
-                        System.out.print(" \\         / " + information);
-                    } else if (rowInHex == 5) {
+                        String unitName = getInformation("civilianUnit", i, map[rowOfMap]);
+                        System.out.print(" \\ " + unitName + " / " + information);
+                    } else {
                         String information = getInformation("landType", i + 1, map[rowOfMap]);
                         System.out.print("  \\_______/  " + information);
-                    } else
-                        System.out.print(hex[rowInHex]);
+                    }
                 }
                 System.out.println();
             }
@@ -81,32 +88,52 @@ public class Controller {
     }
 
     private static String getInformation(String information, int columnOfMap, Tile[] map) {
-        StringBuilder str = null;
+        StringBuilder turnColor = new StringBuilder("");
+        StringBuilder str = new StringBuilder();
         if (information.equals("landType"))
-            str = new StringBuilder(map[columnOfMap].getType().toString());
+            str.append(map[columnOfMap].getType().toString());
         else if (information.equals("feature"))
-            str = new StringBuilder(map[columnOfMap].getFeature().toString());
+            str.append(map[columnOfMap].getFeature().toString());
         else if (information.equals("unit"))
             return null;
         else if (information.equals("resource")) {
             ResourceType resource = map[columnOfMap].getResource();
-            if (resource == null)
-                str = new StringBuilder("");
-            else
-                str = new StringBuilder(resource.toString());
-        } else if (information.equals("none"))
-            str = new StringBuilder("");
-        else
+            if (resource != null)
+                str.append(resource.toString());
+        } else if (information.equals("civilianUnit")) {
+            Unit unit = map[columnOfMap].getCivilianUnit();
+            if (unit != null) {
+                if (unit.getCivilization().equals(Database.getPlayers().get(0).getCivilization()))
+                    turnColor = new StringBuilder(Color.BLUE);
+                else
+                    turnColor = new StringBuilder(Color.RED);
+                str = new StringBuilder(turnColor + unit.getType().toString());
+            }
+        } else if (information.equals("militaryUnit")) {
+            Unit unit = map[columnOfMap].getMilitaryUnit();
+            if (unit != null) {
+                if (unit.getCivilization().equals(Database.getPlayers().get(0).getCivilization()))
+                    turnColor = new StringBuilder(Color.BLUE);
+                else
+                    turnColor = new StringBuilder(Color.RED);
+                str = new StringBuilder(turnColor + unit.getType().toString());
+            }
+        } else
             throw new RuntimeException();
+
 
         if (str.toString().equals("NULL"))
             str = new StringBuilder("");
 
-        if (str.length() >= 7)
-            str.setLength(7);
-        else
-            str.append(" ".repeat(7 - str.length()));
 
+        if (str.length() > 7 + turnColor.length()) {
+            str.setLength(7 + turnColor.length());
+        } else if (str.length() == 0) {
+            str.append(" ".repeat(7));
+        } else {
+            str.append(" ".repeat(7 + turnColor.length() - str.length()));
+        }
+        str.append(Color.RESET);
         return String.valueOf(str);
     }
 

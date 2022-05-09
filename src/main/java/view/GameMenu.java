@@ -32,12 +32,12 @@ public class GameMenu extends Menu {
         this.functions.put("^info economic$", this::infoEconomic);
         this.functions.put("^info diplomatic$", this::infoDiplomatic);
         this.functions.put("^info deals$", this::infoDeals);
-//        this.functions.put("^select unit combat X: (?<xPosition>[-]?\\d+) Y: (?<yPosition>[-]?\\d+)$", this::selectUnitCombat);
-//        this.functions.put("^select unit noncombat X: (?<xPosition>[-]?\\d+) Y: (?<yPosition>[-]?\\d+)$", this::selectUnitNoncombat);
+//        this.functions.put("^select unit combat (?<xPosition>[-]?\\d+) (?<yPosition>[-]?\\d+)$", this::selectUnitCombat);
+//        this.functions.put("^select unit noncombat (?<xPosition>[-]?\\d+) (?<yPosition>[-]?\\d+)$", this::selectUnitNoncombat);
 //        this.functions.put("^select city (?<cityName>.+)$", this::selectCityName);
-//        this.functions.put("^select city X: (?<xPosition>[-]?\\d+) Y: (?<yPosition>[-]?\\d+)$", this::selectCityPosition);
-        this.functions.put("^select tile X: (?<xPosition>[-]?\\d+) Y: (?<yPosition>[-]?\\d+)$", this::selectTile);
-        this.functions.put("^unit move to X: (?<xPosition>[-]?\\d+) Y: (?<yPosition>[-]?\\d+)$", this::unitMove);
+//        this.functions.put("^select city (?<xPosition>[-]?\\d+) (?<yPosition>[-]?\\d+)$", this::selectCityPosition);
+        this.functions.put("^select tile (?<xPosition>[-]?\\d+) (?<yPosition>[-]?\\d+)$", this::selectTile);
+        this.functions.put("^unit move to (?<xPosition>[-]?\\d+) (?<yPosition>[-]?\\d+)$", this::unitMove);
         this.functions.put("^unit sleep$", this::unitSleep);
         this.functions.put("^unit alert$", this::unitAlert);
         this.functions.put("^unit fortify$", this::unitFortify);
@@ -62,7 +62,7 @@ public class GameMenu extends Menu {
         this.functions.put("^unit remove jungle$", this::removeJungle);
         this.functions.put("^unit remove route$", this::removeRoute);
         this.functions.put("^unit repair$", this::unitRepair);
-        this.functions.put("^map show X: (?<xPosition>[-]?\\d+) Y: (?<yPosition>[-]?\\d+)$", this::mapShowPosition);
+        this.functions.put("^map show (?<xPosition>[-]?\\d+) (?<yPosition>[-]?\\d+)$", this::mapShowPosition);
         this.functions.put("^map show (?<cityName>.+)$", this::mapShowName);
         this.functions.put("^map move right (?<NumberOfMoves>\\d+)$", this::moveRight);
         this.functions.put("^map move left (?<NumberOfMoves>\\d+)$", this::moveLeft);

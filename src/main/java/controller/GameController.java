@@ -17,8 +17,8 @@ public class GameController {
             for (Player player : Database.getPlayers()) {
                 GameMenu gameMenu = new GameMenu(player);
                 turn = player;
+                Controller.printMap();
                 while (aUnitNeedsOrder(player)) {
-                    Controller.printMap();
                     //select a tile:
                     System.out.println("Please select a Tile");
                     Tile selectedTile = gameMenu.run(null, null);
@@ -44,8 +44,7 @@ public class GameController {
                                 break;
                         }
                     }
-
-
+                    Controller.printMap();
                 }
                 //At the end of each turn all units must unAssigned:
                 unAssignAllUnits(player);

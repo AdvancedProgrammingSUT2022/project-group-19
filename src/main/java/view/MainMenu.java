@@ -64,4 +64,11 @@ public class MainMenu extends Menu {
         LoginMenu loginMenu = new LoginMenu();
         loginMenu.run();
     }
+
+    //FOR TEST ONLY
+    public void autoStartGame(){
+        command = "play game -p1 ali -p2 sajad";
+        System.out.println(command);
+        startGame();
+    }
 }

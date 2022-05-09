@@ -50,4 +50,16 @@ public class LoginMenu extends Menu {
             mainMenu.run();
         }
     }
+
+    //FOR TEST ONLY
+    public void autoLogin(){
+        System.out.println("user login -u ali -p aaaa");
+        Message message = Controller.loginCheck("ali", "aaaa");
+        System.out.println(message.getErrorMessage());
+        if (message.equals(Message.loginOK)) {
+            User loggedInUser = Database.getUser("ali");
+            MainMenu mainMenu = new MainMenu(loggedInUser);
+            mainMenu.autoStartGame();
+        }
+    }
 }
