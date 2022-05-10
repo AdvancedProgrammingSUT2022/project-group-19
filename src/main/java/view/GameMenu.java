@@ -1,10 +1,7 @@
 package view;
 
 import controller.Controller;
-import model.Database;
-import model.Function;
-import model.Player;
-import model.SelectedType;
+import model.*;
 import model.land.Tile;
 
 import java.util.HashMap;
@@ -15,10 +12,9 @@ public class GameMenu extends Menu {
     private SelectedType selected = null;
 
     public GameMenu(Player player) {
-
-        System.out.println("Turn: " + player.getUser().getNickname());
+        String color = (player.getCivilization().equals(Database.getPlayers().get(0).getCivilization())) ? Color.BLUE : Color.RED;
+        System.out.println(color + "Turn: " + player.getUser().getNickname() + Color.RESET);
         System.out.println("select a tile first. for additional help information enter: 'help'");
-
         this.functions.putAll(basicFunctions);
         this.functions.put("^help$", this::help);
         this.functions.put("^info research$", this::infoResearch);
@@ -87,7 +83,7 @@ public class GameMenu extends Menu {
         this.selectedTile = selectedTile;
         this.selected = selectedType;
         getCommandOnce(functions);
-        return selectedTile;
+        return this.selectedTile;
     }
 
     @Override
@@ -291,8 +287,8 @@ public class GameMenu extends Menu {
         HashMap<SelectedType, String> selectableMap = new HashMap<>();
         boolean haveCity = false;
         boolean haveUnit = false;
-        if (tile.getCity() != null)
-            selectableMap.put(SelectedType.CITY, "Select City " + tile.getCity().getName());
+        if (tile.isCityCenter())
+            selectableMap.put(SelectedType.CITY, "Select City '" + tile.getCity().getName() + "'");
         if (tile.getMilitaryUnit() != null)
             selectableMap.put(SelectedType.MILITARY_UNIT, "Select Military Unit " + tile.getMilitaryUnit().getType());
         if (tile.getCivilianUnit() != null)

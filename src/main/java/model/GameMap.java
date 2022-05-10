@@ -7,7 +7,7 @@ public class GameMap {
     private static int numOfRows;
     private Tile[][] map;
 
-    public GameMap(int numOfCols, int numOfRows, Tile[][] map) {
+    public GameMap(int numOfRows,int numOfCols, Tile[][] map) {
         GameMap.numOfCols = numOfCols;
         GameMap.numOfRows = numOfRows;
         this.map = map;

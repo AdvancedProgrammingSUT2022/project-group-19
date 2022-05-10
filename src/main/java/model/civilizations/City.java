@@ -10,7 +10,7 @@ import model.unit.UnitType;
 import java.util.ArrayList;
 
 public class City {
-    private String name;
+    private String name = "Unnamed City";
     private int defensivePower;
     private boolean isCapital;
     private int food;
@@ -35,23 +35,25 @@ public class City {
 
     public City(Civilization civilization, int x, int y) {
         this.civilization = civilization;
+        civilization.addCity(this);
+        Database.map[x][y].setCityCenter(true);
         positionI = x;
         positionJ = y;
 
         //add surrounded tiles to the city:
-        Tile tile = null;
-        for (int i = 0; i < 3; i++) {
+        Tile tile;
+        for (int i = -1; i <= 1; i++) {
             try {
-                tile = Database.map[y - 1][x - 1 + i];
+                tile = Database.map[x + 1][y + i];
             } catch (Exception e) {
                 continue;
             }
             if (tile.getCity() == null)
                 tile.setCity(this);
         }
-        for (int i = -1; i <= 1; i += 2) {
+        for (int i = -1; i <= 1; i++) {
             try {
-                tile = Database.map[y][x + i];
+                tile = Database.map[x][y + i];
             } catch (Exception e) {
                 continue;
             }
@@ -59,11 +61,11 @@ public class City {
                 tile.setCity(this);
         }
         try {
-            tile = Database.map[y + 1][x];
+            tile = Database.map[x - 1][y];
+            if (tile.getCity() == null) {
+                tile.setCity(this);
+            }
         } catch (Exception ignored) {
-        }
-        if (tile.getCity() == null) {
-            tile.setCity(this);
         }
     }
 
@@ -203,5 +205,13 @@ public class City {
 
     public void setAssigned(boolean assigned) {
         isAssigned = assigned;
+    }
+
+    public Civilization getCivilization() {
+        return civilization;
+    }
+
+    public void setCivilization(Civilization civilization) {
+        this.civilization = civilization;
     }
 }

@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import model.civilizations.City;
 import model.civilizations.Civilization;
 import model.land.Tile;
 import model.resource.ResourceType;
@@ -59,25 +60,50 @@ public class Controller {
                     if (rowInHex == 0) {
                         String information = getInformation("resource", i, map[rowOfMap]);
                         String unitName = getInformation("militaryUnit", i + 1, map[rowOfMap]);
-                        System.out.print("  /" + information + "\\ " + unitName + " ");
+                        City city = map[rowOfMap][i + 1].getCity();
+                        String cityLogo = "";
+                        if (city != null) {
+                            if (map[rowOfMap][i + 1].isCityCenter())
+                                cityLogo = Color.YELLOW_BACKGROUND;
+                            if (city.getCivilization().equals(Database.getPlayers().get(0).getCivilization()))
+                                cityLogo += Color.BLUE + "C" + Color.RESET;
+                            else
+                                cityLogo += Color.RED + "C" + Color.RESET;
+                        } else
+                            cityLogo = " ";
+                        System.out.print("  /" + information + "\\" + cityLogo + unitName + " ");
                     } else if (rowInHex == 1) {
                         String information = getInformation("feature", i, map[rowOfMap]);
                         String unitName = getInformation("civilianUnit", i + 1, map[rowOfMap]);
                         System.out.print(" / " + information + " \\ " + unitName);
                     } else if (rowInHex == 2) {
                         String information = getInformation("landType", i, map[rowOfMap]);
-                        System.out.print("/  " + information + "  \\_______");
+                        String col = (i > 9) ? (i + "") : (i + " ");
+                        System.out.print("/" + rowOfMap + " " + information + col + "\\_______");
                     } else if (rowInHex == 3) {
                         String information = getInformation("resource", i + 1, map[rowOfMap]);
                         String unitName = getInformation("militaryUnit", i, map[rowOfMap]);
-                        System.out.print("\\  " + unitName + "  /" + information);
+                        City city = map[rowOfMap][i].getCity();
+                        String cityLogo = "";
+                        if (city != null) {
+                            if (map[rowOfMap][i].isCityCenter())
+                                cityLogo = Color.YELLOW_BACKGROUND;
+                            if (city.getCivilization().equals(Database.getPlayers().get(0).getCivilization()))
+                                cityLogo += Color.BLUE + "C" + Color.RESET;
+                            else
+                                cityLogo += Color.RED + "C" + Color.RESET;
+                        } else
+                            cityLogo = " ";
+                        System.out.print("\\" + cityLogo + " " + unitName + "  /" + information);
                     } else if (rowInHex == 4) {
                         String information = getInformation("feature", i + 1, map[rowOfMap]);
                         String unitName = getInformation("civilianUnit", i, map[rowOfMap]);
                         System.out.print(" \\ " + unitName + " / " + information);
                     } else {
                         String information = getInformation("landType", i + 1, map[rowOfMap]);
-                        System.out.print("  \\_______/  " + information);
+                        String col = ((i - 1) > 9) ? ((i - 1) + "") : ((i - 1) + " ");
+                        if (i == 0) col = "  ";
+                        System.out.print(col + "\\_______/" + (rowOfMap + 1) + " " + information);
                     }
                 }
                 System.out.println();
@@ -156,7 +182,7 @@ public class Controller {
     }
 
     public static boolean isInvalidCoordinate(int x, int y) {
-        return (x < 1 || x > GameMap.getNumOfRows() || y < 1 || y > GameMap.getNumOfCols());
+        return (x < 0 || x > GameMap.getNumOfRows() - 1 || y < 0 || y > GameMap.getNumOfCols() - 1);
     }
 }
 

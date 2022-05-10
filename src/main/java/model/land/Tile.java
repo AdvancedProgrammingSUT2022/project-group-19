@@ -30,6 +30,7 @@ public class Tile {
     private boolean haveRoad = false;
     private boolean isRoadRailed = false;
     private boolean assignedPerson = false;
+    private boolean isCityCenter = false;
 
 
     public Tile(TerrainType type, TerrainType feature, int positionI, int positionJ) {
@@ -208,5 +209,13 @@ public class Tile {
 
     public void setAssignedPerson(boolean assignedPerson) {
         this.assignedPerson = assignedPerson;
+    }
+
+    public boolean isCityCenter() {
+        return isCityCenter;
+    }
+
+    public void setCityCenter(boolean cityCenter) {
+        isCityCenter = cityCenter;
     }
 }
