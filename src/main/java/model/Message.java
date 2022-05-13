@@ -1,6 +1,7 @@
 package model;
 
 public enum Message {
+    NULL(""),
     noEnoughGold("You don't have enough gold!"),
     cantMakeUnit("You can not make this unit."),
     moveUnitFromCity("You must move the unit from the city first."),
@@ -15,7 +16,12 @@ public enum Message {
     noIdlePerson("No idle person in city. Please free someone first."),
     loginOK("user logged in successfully!"),
     tileHasPerson("This tile have a person. Please free him first."),
-    loginFail("Username and password didn't match!");
+    loginFail("Username and password didn't match!"),
+    destinationIsFull("Two units in one tile is forbidden."),
+    assigned("You can not assign a unit twice in a turn."),
+
+
+    ;
     private final String errorMessage;
 
     Message(String errorMessage) {

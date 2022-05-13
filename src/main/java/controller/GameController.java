@@ -1,6 +1,7 @@
 package controller;
 
 import model.Database;
+import model.Message;
 import model.Player;
 import model.SelectedType;
 import model.civilizations.City;
@@ -17,8 +18,8 @@ public class GameController {
             for (Player player : Database.getPlayers()) {
                 GameMenu gameMenu = new GameMenu(player);
                 turn = player;
-                Controller.printMap();
                 while (aUnitNeedsOrder(player)) {
+                    Controller.printMap();
                     //select a tile:
                     System.out.println("Please select a Tile");
                     Tile selectedTile = gameMenu.run(null, null);
@@ -29,22 +30,7 @@ public class GameController {
                     selectedType = gameMenu.selectUnitOrCity(selectedTile);
                     if (selectedType == null)
                         continue;
-                    boolean notAssigned = true;
-                    while (notAssigned) {
-                        gameMenu.run(selectedTile, selectedType);
-                        switch (selectedType) {
-                            case CIVILIAN_UNIT:
-                                notAssigned = !selectedTile.getCivilianUnit().isAssigned();
-                                break;
-                            case MILITARY_UNIT:
-                                notAssigned = !selectedTile.getMilitaryUnit().isAssigned();
-                                break;
-                            case CITY:
-                                notAssigned = !selectedTile.getCity().isAssigned();
-                                break;
-                        }
-                    }
-                    Controller.printMap();
+                    while (gameMenu.runWithMessage(selectedTile, selectedType) != Message.OK) {}
                 }
                 //At the end of each turn all units must unAssigned:
                 unAssignAllUnits(player);

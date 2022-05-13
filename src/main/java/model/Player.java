@@ -16,10 +16,7 @@ public class Player {
 
         //create the first unit of the player:
         Unit settler = new Unit(UnitType.SETTLER, civilization);
-        civilization.addUnit(settler);
-
         Unit scout = new Unit(UnitType.SCOUT, civilization);
-        civilization.addUnit(scout);
 
         //insert the unit in the map:
         int y = 4;
@@ -29,9 +26,10 @@ public class Player {
         }
         tile.setCivilianUnit(settler);
         tile.setMilitaryUnit(scout);
+        settler.setTile(tile);
+        scout.setTile(tile);
 
         City city = new City(civilization, 2, y);
-
     }
 
     public void setCivilization(Civilization civilization) {

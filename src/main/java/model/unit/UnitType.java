@@ -89,4 +89,20 @@ public enum UnitType {
     public boolean isMilitary() {
         return !(this.equals(UnitType.WORKER) || this.equals(UnitType.SETTLER));
     }
+
+    public boolean isSiege() {
+        return this.equals(CATAPULT) || this.equals(TREBUCHET) || this.equals(CANON) || this.equals(ARTILLERY);
+    }
+
+    public boolean isMelee() {
+        return this.equals(SPEARMAN) || this.equals(WARRIOR) || this.equals(SWORDS_MAN) || this.equals(LONG_SWORDS_MAN) ||
+                this.equals(PIKE_MAN);
+    }
+
+    public boolean isRanged() {
+        return this.equals(ARCHER) || this.equals(CHARIOT_ARCHER) || this.equals(CROSSBOW_MAN) ||
+                this.equals(TANK) || this.equals(PANZER) || this.equals(ANTI_TANK_GUN) || this.equals(RIFLE_MAN) ||
+                this.equals(MUSKET_MAN) || this.equals(LANCER) || this.equals(CAVALRY) || this.equals(KNIGHT) ||
+                this.equals(HORSE_MAN) || this.equals(SCOUT) || this.equals(INFANTRY);
+    }
 }

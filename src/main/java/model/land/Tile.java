@@ -18,8 +18,8 @@ public class Tile {
     private final int positionJ;
     private boolean isRoadPlundered = false;
     private ResourceType resource;
-    private Unit militaryUnit;
-    private Unit civilianUnit;
+    private Unit militaryUnit = null;
+    private Unit civilianUnit = null;
     private Improvement improvement;
     private int remainingTimeForBuildImprovement = 6;
     private Ruin ruin = null;
@@ -217,5 +217,9 @@ public class Tile {
 
     public void setCityCenter(boolean cityCenter) {
         isCityCenter = cityCenter;
+    }
+
+    public void deleteCivilianUnit() {
+        this.civilianUnit = null;
     }
 }

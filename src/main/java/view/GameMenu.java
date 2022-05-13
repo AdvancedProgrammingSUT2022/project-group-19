@@ -10,6 +10,7 @@ public class GameMenu extends Menu {
     private final HashMap<String, Function> functions = new HashMap<>();
     private Tile selectedTile = null;
     private SelectedType selected = null;
+    private Message message = null;
 
     public GameMenu(Player player) {
         String color = (player.getCivilization().equals(Database.getPlayers().get(0).getCivilization())) ? Color.BLUE : Color.RED;
@@ -86,6 +87,13 @@ public class GameMenu extends Menu {
         return this.selectedTile;
     }
 
+    public Message runWithMessage(Tile selectedTile, SelectedType selectedType) {
+        this.selectedTile = selectedTile;
+        this.selected = selectedType;
+        getCommandOnce(functions);
+        return message;
+    }
+
     @Override
     protected void gotoMenu() {
         String nextMenuName = matcher.group("menuName");
@@ -139,58 +147,27 @@ public class GameMenu extends Menu {
     private void infoDeals() {
     }
 
-//    private void selectUnitCombat() {
-//        int x = Integer.parseInt(matcher.group("xPosition"));
-//        int y = Integer.parseInt(matcher.group("yPosition"));
-//        if (Controller.isInvalidCoordinate(x, y)) { //invalid entered positions
-//            System.out.println("Invalid position");
-//            return;
-//        }
-//        Unit unit = Database.map[x - 1][y - 1].getMilitaryUnit();
-//        if (unit == null) {
-//            System.out.println("No military unit there are in this tile.");
-//            return;
-//        }
-//        selectedUnit = unit;
-//        System.out.println("Unit selected successfully.");
-//    }
-//
-//    private void selectUnitNoncombat() {
-//        int x = Integer.parseInt(matcher.group("xPosition"));
-//        int y = Integer.parseInt(matcher.group("yPosition"));
-//        if (Controller.isInvalidCoordinate(x, y)) { //invalid entered positions
-//            System.out.println("Invalid position");
-//            return;
-//        }
-//        Unit unit = Database.map[x - 1][y - 1].getCivilianUnit();
-//        if (unit == null) {
-//            System.out.println("No civilian unit there are in this tile.");
-//            return;
-//        }
-//        selectedUnit = unit;
-//        System.out.println("Unit selected successfully.");
-//    }
-//
-//    private void selectCityName() {
-//        String cityName = matcher.group("cityName");
-//        City cityInMap = null;
-//        for (Player player : Database.getPlayers())
-//            for (City city : player.getCivilization().getCities())
-//                if (city.getName().equals(cityName)) {
-//                    cityInMap = city;
-//                    break;
-//                }
-//        if (cityInMap == null)
-//            System.out.println("There is not any city named " + cityName + " in the map.");
-//        else {
-//            selectedCity = cityInMap;
-//        }
-//    }
-
-    private void selectCityPosition() {
-    }
-
     private void unitMove() {
+        int x = Integer.parseInt(matcher.group("xPosition"));
+        int y = Integer.parseInt(matcher.group("yPosition"));
+        if (Controller.isInvalidCoordinate(x, y))
+            System.out.println("Please enter a valid coordinate.");
+        else {
+            message = Message.NULL;
+            switch (selected) {
+                case CITY:
+                    System.out.println("You can not move a city.");
+                    message = Message.OK;
+                    break;
+                case CIVILIAN_UNIT:
+                    message = selectedTile.getCivilianUnit().move(x, y);
+                    break;
+                case MILITARY_UNIT:
+                    message = selectedTile.getMilitaryUnit().move(x, y);
+                    break;
+            }
+            System.out.println(message.getErrorMessage());
+        }
     }
 
     private void unitSleep() {

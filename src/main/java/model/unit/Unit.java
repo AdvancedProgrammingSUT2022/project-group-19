@@ -1,6 +1,8 @@
 package model.unit;
 
+import model.Database;
 import model.GameMap;
+import model.Message;
 import model.civilizations.City;
 import model.civilizations.Civilization;
 import model.land.Tile;
@@ -21,7 +23,7 @@ public class Unit {
     private final ResourceType requiredResource;
     private final Technology requiredTechnology;
     private Civilization civilization;
-//    private int workCounter;
+    //    private int workCounter;
     private boolean sleep = false;
     private boolean assigned = false;
     private int remainMP;
@@ -39,8 +41,11 @@ public class Unit {
         this.requiredResource = type.getRequiredResource();
         this.requiredTechnology = type.getRequiredTechnology();
         this.civilization = belongTo;
+
+        civilization.addUnit(this);
     }
 
+    //must be called each turn
     public void resetMP() {
         remainMP = movePoint;
         assigned = false;
@@ -143,7 +148,7 @@ public class Unit {
 
     }
 
-    public void upgrade(){
+    public void upgrade() {
 
     }
 
@@ -259,5 +264,36 @@ public class Unit {
 
     public boolean isMilitary() {
         return !(type.equals(UnitType.WORKER) || type.equals(UnitType.SETTLER));
+    }
+
+    public Message move(int x, int y) {
+
+        //TODO: First check if you can move to that point
+
+        Tile destination = Database.map[x][y];
+
+        if (assigned)
+            return Message.assigned;
+
+        if (this.isMilitary() && destination.getMilitaryUnit() != null ||
+                !this.isMilitary() && destination.getMilitaryUnit() != null)
+            return Message.destinationIsFull;
+
+        if (this.isMilitary()) {
+            destination.setMilitaryUnit(this);
+            this.tile.setMilitaryUnit(null);
+        } else {
+            destination.setCivilianUnit(this);
+            this.tile.setCivilianUnit(null);
+        }
+        this.tile = destination;
+
+//        this.assigned = true;
+        return Message.OK;
+        //TODO: Decrease in MP
+    }
+
+    public void setTile(Tile tile) {
+        this.tile = tile;
     }
 }
