@@ -2,7 +2,6 @@ package model.unit;
 
 import model.Improvement;
 import model.Message;
-import model.civilizations.Civilization;
 import model.land.TerrainType;
 import model.technology.Technology;
 
@@ -19,8 +18,12 @@ public class Worker extends Unit {
     private boolean repairingRoads = false;
     private boolean destroyingFeature = false;
 
-    public Worker(Civilization belongTo) {
-        super(UnitType.WORKER, belongTo);
+//    public Worker(Civilization belongTo) {
+//        super(UnitType.WORKER, belongTo);
+//    }
+
+    public Worker(Unit unit) {
+        super(UnitType.WORKER, unit.getCivilization(), unit.getTile().getPositionI(), unit.getTile().getPositionJ());
     }
 
     //This method must be run every turn in the game
@@ -115,7 +118,12 @@ public class Worker extends Unit {
     public Message destroyFeature() {
         if (workCounter != 0)
             return Message.busy;
-        TerrainType feature = super.getTile().getFeature();
+        TerrainType feature;
+        try {
+            feature = super.getTile().getFeature();
+        } catch (NullPointerException e) {
+            return Message.noRemovableFeature;
+        }
         if (feature.equals(TerrainType.FOREST))
             workCounter = 4;
         else if (feature.equals(TerrainType.JUNGLE))
@@ -123,7 +131,7 @@ public class Worker extends Unit {
         else if (feature.equals(TerrainType.MARSH))
             workCounter = 6;
         else
-            return Message.invalidCommand;
+            return Message.noRemovableFeature;
 
         destroyingFeature = true;
         return Message.OK;

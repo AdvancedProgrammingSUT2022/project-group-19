@@ -144,7 +144,7 @@ public class City {
         if (type.getCost() > civilization.getGold())
             return Message.noEnoughGold;
 
-        Unit newUnit = new Unit(type, civilization);
+        Unit newUnit = new Unit(type, civilization, this.positionI, this.positionJ);
         civilization.decreaseGold(type.getCost());
         inProductionUnit = newUnit;
         productionCounter = type.getCost() / cityIncome + 1;

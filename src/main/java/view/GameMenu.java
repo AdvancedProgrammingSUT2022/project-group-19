@@ -3,6 +3,9 @@ package view;
 import controller.Controller;
 import model.*;
 import model.land.Tile;
+import model.unit.Unit;
+import model.unit.UnitType;
+import model.unit.Worker;
 
 import java.util.HashMap;
 
@@ -11,8 +14,10 @@ public class GameMenu extends Menu {
     private Tile selectedTile = null;
     private SelectedType selected = null;
     private Message message = null;
+    private final Player player;
 
     public GameMenu(Player player) {
+        this.player = player;
         String color = (player.getCivilization().equals(Database.getPlayers().get(0).getCivilization())) ? Color.BLUE : Color.RED;
         System.out.println(color + "Turn: " + player.getUser().getNickname() + Color.RESET);
         System.out.println("select a tile first. for additional help information enter: 'help'");
@@ -29,13 +34,13 @@ public class GameMenu extends Menu {
         this.functions.put("^info economic$", this::infoEconomic);
         this.functions.put("^info diplomatic$", this::infoDiplomatic);
         this.functions.put("^info deals$", this::infoDeals);
-//        this.functions.put("^select unit combat (?<xPosition>[-]?\\d+) (?<yPosition>[-]?\\d+)$", this::selectUnitCombat);
-//        this.functions.put("^select unit noncombat (?<xPosition>[-]?\\d+) (?<yPosition>[-]?\\d+)$", this::selectUnitNoncombat);
-//        this.functions.put("^select city (?<cityName>.+)$", this::selectCityName);
-//        this.functions.put("^select city (?<xPosition>[-]?\\d+) (?<yPosition>[-]?\\d+)$", this::selectCityPosition);
+
         this.functions.put("^select tile (?<xPosition>[-]?\\d+) (?<yPosition>[-]?\\d+)$", this::selectTile);
+        this.functions.put("^unselect$", () -> message = Message.OK);
         this.functions.put("^unit move to (?<xPosition>[-]?\\d+) (?<yPosition>[-]?\\d+)$", this::unitMove);
+
         this.functions.put("^unit sleep$", this::unitSleep);
+        this.functions.put("^unit wake$", this::unitWake);
         this.functions.put("^unit alert$", this::unitAlert);
         this.functions.put("^unit fortify$", this::unitFortify);
         this.functions.put("^unit fortify heal$", this::unitFortifyHeal);
@@ -44,27 +49,69 @@ public class GameMenu extends Menu {
         this.functions.put("^unit attack$", this::unitAttack);
         this.functions.put("^unit found$", this::unitFound);
         this.functions.put("^unit cancel$", this::unitCancel);
-        this.functions.put("^unit wake$", this::unitWake);
         this.functions.put("^unit delete$", this::unitDelete);
+
         this.functions.put("^unit build road$", this::unitBuildRoad);
         this.functions.put("^unit build railroad$", this::unitBuildRailroad);
-        this.functions.put("^unit build farm$", this::unitBuildFarm);
-        this.functions.put("^unit build mine$", this::unitBuildMine);
-        this.functions.put("^unit build trading post$", this::unitBuildTradingPost);
-        this.functions.put("^unit build lumber mill$", this::unitBuildLumberMill);
-        this.functions.put("^unit build pasture$", this::unitBuildPasture);
-        this.functions.put("^unit build camp$", this::unitBuildCamp);
-        this.functions.put("^unit build plantation$", this::unitBuildPlantation);
-        this.functions.put("^unit build quarry$", this::unitBuildQuarry);
-        this.functions.put("^unit remove jungle$", this::removeJungle);
-        this.functions.put("^unit remove route$", this::removeRoute);
+        this.functions.put("^unit remove route$", this::unitRemoveRoute);
+
+        this.functions.put("^unit build (?<improvement>farm|mine|trading post|lumber mill|pasture|camp|plantation|quarry)$", this::unitBuildImprovement);
+
+        this.functions.put("^unit remove feature$", this::removeFeature);
         this.functions.put("^unit repair$", this::unitRepair);
+
         this.functions.put("^map show (?<xPosition>[-]?\\d+) (?<yPosition>[-]?\\d+)$", this::mapShowPosition);
         this.functions.put("^map show (?<cityName>.+)$", this::mapShowName);
         this.functions.put("^map move right (?<NumberOfMoves>\\d+)$", this::moveRight);
         this.functions.put("^map move left (?<NumberOfMoves>\\d+)$", this::moveLeft);
         this.functions.put("^map move up (?<NumberOfMoves>\\d+)$", this::moveUp);
         this.functions.put("^map move down (?<NumberOfMoves>\\d+)$", this::moveDown);
+    }
+
+    private void unitRemoveRoute() {
+        Worker worker = (Worker) selectedTile.getCivilianUnit();
+        if (worker == null || !worker.getType().equals(UnitType.WORKER))
+            System.out.println("No worker in this tile");
+        else {
+            worker.destroyRoad();
+            System.out.println("Route removed successfully");
+        }
+    }
+
+    private void unitBuildImprovement() {
+        message = Message.OK;
+        String improvement = matcher.group("improvement");
+        Worker worker = (Worker) selectedTile.getCivilianUnit();
+        if (worker == null || !worker.getType().equals(UnitType.WORKER))
+            System.out.println("No worker in this tile");
+        else {
+            switch (improvement) {
+                case "farm":
+                    message = worker.buildImprovement(Improvement.FARM);
+                    break;
+                case "mine":
+                    message = worker.buildImprovement(Improvement.MINE);
+                    break;
+                case "trading post":
+                    message = worker.buildImprovement(Improvement.TRADING_POST);
+                    break;
+                case "lumber mill":
+                    message = worker.buildImprovement(Improvement.LUMBER_MILL);
+                    break;
+                case "pasture":
+                    message = worker.buildImprovement(Improvement.PASTURE);
+                    break;
+                case "camp":
+                    message = worker.buildImprovement(Improvement.CAMP);
+                    break;
+                case "plantation":
+                    message = worker.buildImprovement(Improvement.FARMING);
+                    break;
+                case "quarry":
+                    message = worker.buildImprovement(Improvement.STONE_MINE);
+                    break;
+            }
+        }
     }
 
     private void help() {
@@ -171,6 +218,33 @@ public class GameMenu extends Menu {
     }
 
     private void unitSleep() {
+        switch (selected) {
+            case CITY:
+                System.out.println("You can not sleep a city.");
+                break;
+            case CIVILIAN_UNIT:
+                selectedTile.getCivilianUnit().setSleep(true);
+                break;
+            case MILITARY_UNIT:
+                selectedTile.getMilitaryUnit().setSleep(true);
+                break;
+        }
+        message = Message.OK;
+    }
+
+    private void unitWake() {
+        switch (selected) {
+            case CITY:
+                System.out.println("You can not wake a city.");
+                break;
+            case CIVILIAN_UNIT:
+                selectedTile.getCivilianUnit().setSleep(false);
+                break;
+            case MILITARY_UNIT:
+                selectedTile.getMilitaryUnit().setSleep(false);
+                break;
+        }
+        message = Message.OK;
     }
 
     private void unitAlert() {
@@ -197,9 +271,6 @@ public class GameMenu extends Menu {
     private void unitCancel() {
     }
 
-    private void unitWake() {
-    }
-
     private void unitDelete() {
     }
 
@@ -209,37 +280,59 @@ public class GameMenu extends Menu {
     private void unitBuildRailroad() {
     }
 
-    private void unitBuildFarm() {
+//    private void unitBuildFarm() {
+//    }
+//
+//    private void unitBuildMine() {
+//    }
+//
+//    private void unitBuildTradingPost() {
+//    }
+//
+//    private void unitBuildLumberMill() {
+//    }
+//
+//    private void unitBuildPasture() {
+//    }
+//
+//    private void unitBuildCamp() {
+//    }
+//
+//    private void unitBuildPlantation() {
+//    }
+//
+//    private void unitBuildQuarry() {
+//    }
+
+    private Worker getWorker() {
+        Unit unit = selectedTile.getCivilianUnit();
+        if (unit == null) {
+            System.out.println("there is no unit in this tile.");
+            return null;
+        }
+        Worker worker = new Worker(unit);
+        if (!worker.getType().equals(UnitType.WORKER)) {
+            System.out.println("there is no worker unit in this tile.");
+            return null;
+        }
+        return worker;
     }
 
-    private void unitBuildMine() {
-    }
-
-    private void unitBuildTradingPost() {
-    }
-
-    private void unitBuildLumberMill() {
-    }
-
-    private void unitBuildPasture() {
-    }
-
-    private void unitBuildCamp() {
-    }
-
-    private void unitBuildPlantation() {
-    }
-
-    private void unitBuildQuarry() {
-    }
-
-    private void removeJungle() {
-    }
-
-    private void removeRoute() {
+    private void removeFeature() {
+        Worker worker = getWorker();
+        if (worker == null)
+            return;
+        message = worker.destroyFeature();
+        System.out.println(message);
     }
 
     private void unitRepair() {
+        Worker worker = (Worker) selectedTile.getCivilianUnit();
+        if (worker == null || !worker.getType().equals(UnitType.WORKER))
+            System.out.println("No worker in this tile");
+        else
+            message = worker.repair();
+        System.out.println(message.getErrorMessage());
     }
 
     private void mapShowPosition() {
@@ -264,11 +357,11 @@ public class GameMenu extends Menu {
         HashMap<SelectedType, String> selectableMap = new HashMap<>();
         boolean haveCity = false;
         boolean haveUnit = false;
-        if (tile.isCityCenter())
+        if (tile.isCityCenter() && player.getCivilization().getCities().contains(tile.getCity()))
             selectableMap.put(SelectedType.CITY, "Select City '" + tile.getCity().getName() + "'");
-        if (tile.getMilitaryUnit() != null)
+        if (tile.getMilitaryUnit() != null && player.getCivilization().getUnits().contains(tile.getMilitaryUnit()))
             selectableMap.put(SelectedType.MILITARY_UNIT, "Select Military Unit " + tile.getMilitaryUnit().getType());
-        if (tile.getCivilianUnit() != null)
+        if (tile.getCivilianUnit() != null && player.getCivilization().getUnits().contains(tile.getCivilianUnit()))
             selectableMap.put(SelectedType.CIVILIAN_UNIT, "Select Civilian Unit " + tile.getCivilianUnit().getType());
 
         if (selectableMap.size() == 0) {

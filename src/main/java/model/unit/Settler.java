@@ -4,8 +4,8 @@ import model.civilizations.City;
 import model.civilizations.Civilization;
 
 public class Settler extends Unit {
-    public Settler(Civilization belongTo) {
-        super(UnitType.SETTLER, belongTo);
+    public Settler(Unit unit) {
+        super(UnitType.SETTLER, unit.getCivilization(), unit.getTile().getPositionI(), unit.getTile().getPositionJ());
     }
 
     public void buildCity() {

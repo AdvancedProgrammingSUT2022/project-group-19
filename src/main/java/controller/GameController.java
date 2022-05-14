@@ -30,7 +30,9 @@ public class GameController {
                     selectedType = gameMenu.selectUnitOrCity(selectedTile);
                     if (selectedType == null)
                         continue;
-                    while (gameMenu.runWithMessage(selectedTile, selectedType) != Message.OK) {}
+
+                    while (gameMenu.runWithMessage(selectedTile, selectedType) != Message.OK) {
+                    }
                 }
                 //At the end of each turn all units must unAssigned:
                 unAssignAllUnits(player);
@@ -41,7 +43,7 @@ public class GameController {
 
     private boolean aUnitNeedsOrder(Player player) {
         for (Unit unit : player.getCivilization().getUnits())
-            if (!unit.isAssigned())
+            if (!unit.isSleep() && !unit.isAssigned())
                 return true;
         return false;
     }

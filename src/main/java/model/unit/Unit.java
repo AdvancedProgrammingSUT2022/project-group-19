@@ -9,9 +9,7 @@ import model.land.Tile;
 import model.technology.Technology;
 import model.resource.ResourceType;
 
-import javax.sound.midi.MidiFileFormat;
 import java.util.ArrayList;
-import java.util.concurrent.TimeoutException;
 
 public class Unit {
     private final UnitType type;
@@ -31,7 +29,7 @@ public class Unit {
     protected Tile tile;
     private ArrayList<Tile> way;
 
-    public Unit(UnitType type, Civilization belongTo) {
+    public Unit(UnitType type, Civilization belongTo, int x, int y) {
         this.type = type;
         this.cost = type.getCost();
         this.power = type.getPower();
@@ -43,6 +41,11 @@ public class Unit {
         this.civilization = belongTo;
 
         civilization.addUnit(this);
+        this.tile = Database.map[x][y];
+        if (this.isMilitary())
+            this.tile.setMilitaryUnit(this);
+        else
+            this.tile.setCivilianUnit(this);
     }
 
     //must be called each turn
@@ -67,11 +70,11 @@ public class Unit {
                 if (nextTile.getMilitaryUnit() != null && nextTile.getCivilianUnit() != null) break;
 
                 if (nextTile.getMilitaryUnit() != null) {
-                    if (!unit.getCivilization().equals(nextTile.getMilitaryUnit().getCivilization()) || unit.getPower() != 0)
+                    if (!unit.getCivilization().equals(((Unit) nextTile.getMilitaryUnit()).getCivilization()) || unit.getPower() != 0)
                         break;
                 }
                 if (nextTile.getCivilianUnit() != null) {
-                    if (!unit.getCivilization().equals(nextTile.getCivilianUnit().getCivilization()) || unit.getPower() == 0)
+                    if (!unit.getCivilization().equals(((Unit) nextTile.getCivilianUnit()).getCivilization()) || unit.getPower() == 0)
                         break;
                 }
                 if (unit.getPower() != 0) unit.tile.setMilitaryUnit(null);
@@ -275,18 +278,27 @@ public class Unit {
         if (assigned)
             return Message.assigned;
 
-        if (this.isMilitary() && destination.getMilitaryUnit() != null ||
-                !this.isMilitary() && destination.getMilitaryUnit() != null)
+        if ((this.isMilitary() && destination.getMilitaryUnit() != null) ||
+                (!this.isMilitary() && destination.getCivilianUnit() != null)) {
+            System.out.println("In the destination tile we have a military unit: " + destination.getMilitaryUnit() + ". and a civilian unit: " + destination.getCivilianUnit());
             return Message.destinationIsFull;
+        }
+        System.out.println("In tile " + tile.getPositionI() + " " + tile.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
+        System.out.println("In tile " + destination.getPositionI() + " " + destination.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
 
         if (this.isMilitary()) {
-            destination.setMilitaryUnit(this);
             this.tile.setMilitaryUnit(null);
         } else {
-            destination.setCivilianUnit(this);
             this.tile.setCivilianUnit(null);
         }
+        System.out.println("In tile " + tile.getPositionI() + " " + tile.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
         this.tile = destination;
+
+        if (this.isMilitary())
+            this.tile.setMilitaryUnit(this);
+        else
+            this.tile.setCivilianUnit(this);
+        System.out.println("In tile " + tile.getPositionI() + " " + tile.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
 
 //        this.assigned = true;
         return Message.OK;
