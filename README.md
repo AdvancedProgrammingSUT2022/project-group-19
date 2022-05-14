@@ -5,7 +5,6 @@
 - 👨🏻‍💻 Group members:
   - **400104986 Sajjad Zargari**
   - **400101526 Sayyed Ali Tayyeb**
-  - **400105058 Mohammad Hossein Shalchian**
   
 💯 Teamwork makes it easier to achieve goals. 💯
 ---
