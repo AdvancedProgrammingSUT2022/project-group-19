@@ -173,14 +173,40 @@ public class GameMenu extends Menu {
     }
 
     private void infoUnits() {
+        int index = 1;
         for (Unit unit : player.getCivilization().getUnits()) {
-            System.out.println("Unit type:              " + unit.getType());
-            System.out.println("Unit Position:          " + unit.getTile().getPositionI() + " " + unit.getTile().getPositionJ());
-            System.out.println("Unit Power/rangedPower: " + unit.getPower() + " / " + unit.getRangedPower());
-            System.out.println("Unit work counter:      " + unit.getWorkCounter());
-            System.out.println("Unit is sleep:          " + unit.isSleep());
-            System.out.println("Unit remained MP:       " + unit.getRemainMP());
+            System.out.println("Unit No. " + index);
+            System.out.println("type:              " + unit.getType());
+            System.out.println("Position:          " + unit.getTile().getPositionI() + " " + unit.getTile().getPositionJ());
+            System.out.println("Power/rangedPower: " + unit.getPower() + " / " + unit.getRangedPower());
+            System.out.println("Work counter:      " + unit.getWorkCounter());
+            System.out.println("Is sleep:          " + unit.isSleep());
+            System.out.println("Remained MP:       " + unit.getRemainMP());
             System.out.println("=============================");
+            index++;
+        }
+        index--;
+        System.out.println("\nYou can select a unit here by entering it's number or enter 'exit'");
+        while (true) {
+            String input = "";
+            int number;
+            try {
+                input = scanner.nextLine();
+                number = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                if (input.equals("exit"))
+                    break;
+                System.out.println("Please enter a number.");
+                continue;
+            }
+            if (number < 1 || number > index) {
+                System.out.println("Please enter a valid number.");
+                continue;
+            }
+            Unit unit = player.getCivilization().getUnits().get(number - 1);
+            selectedTile = unit.getTile();
+            selectedType = unit.isMilitary() ? SelectedType.MILITARY_UNIT : SelectedType.CIVILIAN_UNIT;
+            break;
         }
         message = Message.NULL;
     }
