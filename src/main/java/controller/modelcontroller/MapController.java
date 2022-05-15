@@ -16,8 +16,6 @@ public class MapController {
         tiles[numOfRows / 2][numOfCols / 2] = new Tile(TerrainType.PLAIN, TerrainType.NULL, numOfRows / 2, numOfCols / 2);
         fillMapByRandomDfs(tiles, numOfRows, numOfCols);
         findNeighbors(tiles, numOfRows, numOfCols);
-        // TODO: 4/25/2022 اضافه کردن رودخانه ها و ریسورس ها
-
         return new GameMap(numOfRows, numOfCols, tiles);
 
     }
@@ -86,22 +84,17 @@ public class MapController {
         return TerrainType.NULL;
     }
 
-    private ResourceType generateRandomResource(TerrainType type) {
-        //TODO this method
-        if (type.equals(TerrainType.OCEAN))
-            return null;
-
+    private ResourceType generateRandomResource(TerrainType terrain) {
         Random random = new Random();
-        switch (random.nextInt(6)){
-            case 1:
-                return ResourceType.IRON;
-            case 2:
-                return ResourceType.COAL;
-            case 3:
-                return ResourceType.GOLD;
-            default:
-                return null;
+        ResourceType[] possibleResources = terrain.getPossibleResources();
+        if (terrain.equals(TerrainType.OCEAN))
+            return null;
+        for (ResourceType Resource : possibleResources) {
+            if (random.nextInt() % possibleResources.length == 0) {
+                return Resource;
+            }
         }
+        return ResourceType.NULL;
     }
 
     public void findNeighbors(Tile[][] tiles, int length, int width) {

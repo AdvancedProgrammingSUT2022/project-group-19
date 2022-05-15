@@ -227,10 +227,10 @@ public class GameMenu extends Menu {
                     message = Message.OK;
                     break;
                 case CIVILIAN_UNIT:
-                    message = selectedTile.getCivilianUnit().move(x, y);
+                    message = selectedTile.getCivilianUnit().moveOrder(x, y);
                     break;
                 case MILITARY_UNIT:
-                    message = selectedTile.getMilitaryUnit().move(x, y);
+                    message = selectedTile.getMilitaryUnit().moveOrder(x, y);
                     break;
             }
             System.out.println(message.getErrorMessage());

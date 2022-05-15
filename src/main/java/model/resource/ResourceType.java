@@ -8,8 +8,9 @@ public enum ResourceType {
     //   It does not matter where the resources may be found
     //   What matters is what resources each land may have
     //   So In LandType class we implement that
-
+    NULL(0, 0, 0, null, null),
     //Bounce resources:
+
     BANANA(1, 0, 0, Improvement.FARMING, null),
     COW(1, 0, 0, Improvement.PASTURE, null),
     GAZELLE(1, 0, 0, Improvement.CAMP, null),

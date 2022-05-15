@@ -50,6 +50,8 @@ public class GameController {
                     gameMenu.setSelectedType(null);
 
                 }
+                //حرکت یونیت ها اینجا انجام میشود
+                moveAllUnits(player);
                 System.out.println(Color.BLUE_BACKGROUND + Color.BLACK + "============== NEXT TURN =============" + Color.RESET);
                 //At the end of each turn all units must unAssigned:
                 restoreMP(player);
@@ -59,6 +61,12 @@ public class GameController {
         //TODO: save the game
     }
 
+    private boolean aUnitNeedsOrder(Player player) {
+        for (Unit unit : player.getCivilization().getUnits())
+            if (!unit.isSleep() && (unit.getWay().size() == 0))
+                return true;
+        return false;
+    }
 
     private void restoreMP(Player player) {
         for (Unit unit : player.getCivilization().getUnits())
@@ -68,4 +76,9 @@ public class GameController {
             city.cityProduction();
     }
 
+    private void moveAllUnits(Player player) {
+        for (Unit unit : player.getCivilization().getUnits()) {
+            unit.move();
+        }
+    }
 }
