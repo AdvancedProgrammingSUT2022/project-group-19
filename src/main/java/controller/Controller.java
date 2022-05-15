@@ -199,7 +199,7 @@ public class Controller {
 
     public static boolean aUnitNeedsOrder(Player player) {
         for (Unit unit : player.getCivilization().getUnits())
-            if (!unit.isSleep() && (unit.getRemainMP() > 0))
+            if (!unit.isSleep() && (unit.getWay().size() == 0))
                 return true;
         return false;
     }
