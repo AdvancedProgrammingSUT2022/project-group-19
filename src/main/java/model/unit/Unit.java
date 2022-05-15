@@ -275,7 +275,7 @@ public class Unit {
     }
 
     public Message moveOrder(int x, int y) {
-
+        //دستور حرکت
         Tile[][] map = Database.gameMap.getMap();
         ArrayList<Tile> way = computeBestWay(tile, map[x][y], new ArrayList<>(), null);
         setWay(way);
