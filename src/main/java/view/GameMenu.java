@@ -2,6 +2,7 @@ package view;
 
 import controller.Controller;
 import model.*;
+import model.civilizations.City;
 import model.land.Tile;
 import model.unit.Unit;
 import model.unit.UnitType;
@@ -173,19 +174,86 @@ public class GameMenu extends Menu {
     }
 
     private void infoUnits() {
+        int index = 1;
         for (Unit unit : player.getCivilization().getUnits()) {
-            System.out.println("Unit type:              " + unit.getType());
-            System.out.println("Unit Position:          " + unit.getTile().getPositionI() + " " + unit.getTile().getPositionJ());
-            System.out.println("Unit Power/rangedPower: " + unit.getPower() + " / " + unit.getRangedPower());
-            System.out.println("Unit work counter:      " + unit.getWorkCounter());
-            System.out.println("Unit is sleep:          " + unit.isSleep());
-            System.out.println("Unit remained MP:       " + unit.getRemainMP());
+            System.out.println("Unit No. " + index);
+            System.out.println("type:              " + unit.getType());
+            System.out.println("Position:          " + unit.getTile().getPositionI() + " " + unit.getTile().getPositionJ());
+            System.out.println("Power/rangedPower: " + unit.getPower() + " / " + unit.getRangedPower());
+            System.out.println("Work counter:      " + unit.getWorkCounter());
+            System.out.println("Is sleep:          " + unit.isSleep());
+            System.out.println("Remained MP:       " + unit.getRemainMP());
             System.out.println("=============================");
+            index++;
+        }
+        index--;
+        System.out.println("\nYou can select a unit here by entering it's number or enter 'exit'");
+        while (true) {
+            String input = "";
+            int number;
+            try {
+                input = scanner.nextLine();
+                number = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                if (input.equals("exit"))
+                    break;
+                System.out.println("Please enter a number.");
+                continue;
+            }
+            if (number < 1 || number > index) {
+                System.out.println("Please enter a valid number.");
+                continue;
+            }
+            Unit unit = player.getCivilization().getUnits().get(number - 1);
+            selectedTile = unit.getTile();
+            selectedType = unit.isMilitary() ? SelectedType.MILITARY_UNIT : SelectedType.CIVILIAN_UNIT;
+            break;
         }
         message = Message.NULL;
     }
 
     private void infoCities() {
+        int index = 1;
+        for (City city : player.getCivilization().getCities()) {
+            System.out.println("City No. " + index);
+            if (city.isCapital())
+                System.out.println("   [IS CAPITAL]");
+            System.out.println("name:            " + city.getName());
+            System.out.println("gold:            " + city.getCityIncome());
+            System.out.println("position:        " + city.getPositionI() + " / " + city.getPositionJ());
+            System.out.println("food output:     " + city.getFood());
+            System.out.println("population:      " + city.getPopulation());
+            System.out.println("defencive power: " + city.getDefensivePower());
+            //TODO: elm or science
+            //TODO: bahrevari
+            System.out.println("in production:   " + city.getProduction());
+            System.out.println("time remaining:  " + city.getProductionCounter() + " turns");
+            System.out.println("=========================");
+            index++;
+        }
+        System.out.println("You can select a city by entering it's number. or enter 'exit'");
+        while (true) {
+            String input = "";
+            int number;
+            try {
+                input = scanner.nextLine();
+                number = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                if (input.equals("exit"))
+                    break;
+                System.out.println("Please enter a number.");
+                continue;
+            }
+            if (number < 1 || number > index) {
+                System.out.println("Please enter a valid number.");
+                continue;
+            }
+            City city = player.getCivilization().getCities().get(number - 1);
+            selectedTile = Database.map[city.getPositionI()][city.getPositionJ()];
+            selectedType = SelectedType.CITY;
+            break;
+        }
+        message = Message.NULL;
     }
 
     private void infoDiplomacy() {
@@ -301,7 +369,7 @@ public class GameMenu extends Menu {
         switch (selectedType) {
             case CITY:
                 System.out.println("You can not delete a city");
-                break;
+                return;
             case CIVILIAN_UNIT:
                 player.getCivilization().addGold(selectedTile.getCivilianUnit().getCost() / 10);
                 player.getCivilization().deleteUnit(selectedTile.getCivilianUnit());
@@ -362,6 +430,10 @@ public class GameMenu extends Menu {
     }
 
     private void removeFeature() {
+        if (!selectedType.equals(SelectedType.CIVILIAN_UNIT) || !selectedTile.getCivilianUnit().getType().equals(UnitType.WORKER)) {
+            System.out.println("You can only use workers for this operation.");
+            return;
+        }
         Worker worker = getWorker();
         if (worker == null)
             return;

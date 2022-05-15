@@ -32,13 +32,15 @@ public class GameController {
                     if (gameMenu.getSelectedTile() == null)
                         continue;
 
-                    //select a unit or a city in selected tile:
-                    if (gameMenu.selectUnitOrCity() == Message.NEXT_TURN)
-                        break;
-                    if (gameMenu.getSelectedType() == null)
-                        continue;
+                    if (gameMenu.getSelectedType() == null){
+                        //select a unit or a city in selected tile:
+                        if (gameMenu.selectUnitOrCity() == Message.NEXT_TURN)
+                            break;
+                        if (gameMenu.getSelectedType() == null)
+                            continue;
+                    }
 
-                    System.out.println("Order the selected unit.");
+                    System.out.println("Order the selected unit/city.");
                     while (true) {
                         Message message = gameMenu.runWithMessage();
                         if (message == Message.OK)

@@ -214,4 +214,105 @@ public class City {
     public void setCivilization(Civilization civilization) {
         this.civilization = civilization;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getDefensivePower() {
+        return defensivePower;
+    }
+
+    public void setDefensivePower(int defensivePower) {
+        this.defensivePower = defensivePower;
+    }
+
+    public boolean isCapital() {
+        return isCapital;
+    }
+
+    public void setCapital(boolean capital) {
+        isCapital = capital;
+    }
+
+    public int getFood() {
+        return food;
+    }
+
+    public void setFood(int food) {
+        this.food = food;
+    }
+
+    public Production getProduction() {
+        return production;
+    }
+
+    public void setProduction(Production production) {
+        this.production = production;
+    }
+
+    public int getCitizens() {
+        return citizens;
+    }
+
+    public void setCitizens(int citizens) {
+        this.citizens = citizens;
+    }
+
+    public int getIdleCitizens() {
+        return idleCitizens;
+    }
+
+    public void setIdleCitizens(int idleCitizens) {
+        this.idleCitizens = idleCitizens;
+    }
+
+    public int getPopulation() {
+        return population;
+    }
+
+    public void setPopulation(int population) {
+        this.population = population;
+    }
+
+    public int getPositionI() {
+        return positionI;
+    }
+
+    public int getPositionJ() {
+        return positionJ;
+    }
+
+    public Unit getInProductionUnit() {
+        return inProductionUnit;
+    }
+
+    public void setInProductionUnit(Unit inProductionUnit) {
+        this.inProductionUnit = inProductionUnit;
+    }
+
+    public int getProductionCounter() {
+        return productionCounter;
+    }
+
+    public void setProductionCounter(int productionCounter) {
+        this.productionCounter = productionCounter;
+    }
+
+    public int getCityIncome() {
+        return cityIncome;
+    }
+
+    public void setCityIncome(int cityIncome) {
+        this.cityIncome = cityIncome;
+    }
+
+    public Building getInBuildBuilding() {
+        return inBuildBuilding;
+    }
+
+    public void setInBuildBuilding(Building inBuildBuilding) {
+        this.inBuildBuilding = inBuildBuilding;
+    }
 }
+
