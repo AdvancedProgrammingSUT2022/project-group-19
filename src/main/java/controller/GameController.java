@@ -1,11 +1,15 @@
 package controller;
 
+import com.google.gson.Gson;
 import model.*;
 import model.civilizations.City;
 import model.land.Tile;
 import model.unit.Unit;
 import model.unit.UnitType;
 import view.GameMenu;
+
+import java.io.FileWriter;
+import java.io.Writer;
 
 public class GameController {
     private Player turn;
@@ -59,8 +63,28 @@ public class GameController {
                 restoreMP(player);
                 selectedType = null;
             }
+            //TODO: save the game
+            saveGame();
         }
-        //TODO: save the game
+    }
+
+    private void saveGame() {
+        try {
+            Writer writer = new FileWriter("./data/map.json");
+            new Gson().toJson(Database.map,writer);
+            writer.close();
+
+            writer = new FileWriter("./data/gameMap.json");
+            new Gson().toJson(Database.gameMap,writer);
+            writer.close();
+
+            writer = new FileWriter("./data/players.json");
+            new Gson().toJson(Database.getPlayers(),writer);
+            writer.close();
+        }catch (Exception e){
+            System.out.println("An Error occurred during auto saving the game : " + e.getMessage());
+            return;
+        }
     }
 
     private void restoreMP(Player player) {

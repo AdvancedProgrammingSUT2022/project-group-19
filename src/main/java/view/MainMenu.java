@@ -20,6 +20,7 @@ public class MainMenu extends Menu {
         this.loggedInUser = loggedInUser;
         functions.putAll(basicFunctions);
         functions.put("^user logout$", this::logout);
+        functions.put("^load game$", this::loadGame);
         functions.put("^play game(?<player> (--player|-p)(?<numberPlayer>[1-9][0-9]*) (?<username1>\\S+))+", this::startGame);
     }
 
@@ -63,6 +64,10 @@ public class MainMenu extends Menu {
         System.out.println("logged out.");
         LoginMenu loginMenu = new LoginMenu();
         loginMenu.run();
+    }
+
+    private void loadGame() {
+
     }
 
     //FOR TEST ONLY
