@@ -16,8 +16,6 @@ public class MapController {
         tiles[numOfRows / 2][numOfCols / 2] = new Tile(TerrainType.PLAIN, TerrainType.NULL, numOfRows / 2, numOfCols / 2);
         fillMapByRandomDfs(tiles, numOfRows, numOfCols);
         findNeighbors(tiles, numOfRows, numOfCols);
-        // TODO: 4/25/2022 اضافه کردن رودخانه ها و ریسورس ها
-
         return new GameMap(numOfRows, numOfCols, tiles);
 
     }

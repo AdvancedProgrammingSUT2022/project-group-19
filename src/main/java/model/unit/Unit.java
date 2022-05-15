@@ -74,10 +74,13 @@ public class Unit {
                 }
                 if (getPower() != 0) tile.setMilitaryUnit(null);
                 else tile.setCivilianUnit(null);
+                int j = tile.getPositionJ();
                 tile = nextTile;
+                int newJ = tile.getPositionJ();
                 if (getPower() != 0) tile.setMilitaryUnit(this);
                 else tile.setCivilianUnit(this);
-                setRemainMP(getRemainMP() - getWay().get(0).getMovePoint());
+                setRemainMP(getRemainMP() - nextTile.getMovePoint());
+                if (j == 5 && newJ == 6 || j == 6 && newJ == 5) setRemainMP(0);
                 getWay().remove(0);
 
             } else break;
