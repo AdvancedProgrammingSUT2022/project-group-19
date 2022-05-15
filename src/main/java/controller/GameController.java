@@ -16,21 +16,39 @@ public class GameController {
             for (Player player : Database.getPlayers()) {
                 GameMenu gameMenu = new GameMenu(player);
                 turn = player;
-                while (aUnitNeedsOrder(player)) {
-                    Controller.printMap();
+                boolean loopFlag = true;
+                while (loopFlag) {
+                    Tile selectedTile = null;
+                    if (!gameMenu.getMessage().equals(Message.invalidCommand))
+                        Controller.printMap();
+                    if (!Controller.aUnitNeedsOrder(player)) {
+                        System.out.println("All units are assigned. Please enter: 'next turn'");
+                    } else {
+                        System.out.println("Please select a Tile");
+                    }
                     //select a tile:
-                    System.out.println("Please select a Tile");
-                    Tile selectedTile = gameMenu.run(null, null);
-                    if (selectedTile == null)
+                    if (gameMenu.runWithMessage() == Message.NEXT_TURN)
+                        break;
+                    if (gameMenu.getSelectedTile() == null)
                         continue;
 
                     //select a unit or a city in selected tile:
-                    selectedType = gameMenu.selectUnitOrCity(selectedTile);
-                    if (selectedType == null)
+                    if (gameMenu.selectUnitOrCity() == Message.NEXT_TURN)
+                        break;
+                    if (gameMenu.getSelectedType() == null)
                         continue;
 
-                    while (gameMenu.runWithMessage(selectedTile, selectedType) != Message.OK) {
+                    System.out.println("Order the selected unit.");
+                    while (true) {
+                        Message message = gameMenu.runWithMessage();
+                        if (message == Message.OK)
+                            break;
+                        if ((message == Message.NEXT_TURN))
+                            loopFlag = false;
                     }
+                    gameMenu.setSelectedTile(null);
+                    gameMenu.setSelectedType(null);
+
                 }
                 System.out.println(Color.BLUE_BACKGROUND + Color.BLACK + "============== NEXT TURN =============" + Color.RESET);
                 //At the end of each turn all units must unAssigned:
@@ -41,12 +59,6 @@ public class GameController {
         //TODO: save the game
     }
 
-    private boolean aUnitNeedsOrder(Player player) {
-        for (Unit unit : player.getCivilization().getUnits())
-            if (!unit.isSleep() && (unit.getRemainMP() > 0))
-                return true;
-        return false;
-    }
 
     private void restoreMP(Player player) {
         for (Unit unit : player.getCivilization().getUnits())
@@ -55,4 +67,5 @@ public class GameController {
         for (City city : player.getCivilization().getCities())
             city.cityProduction();
     }
+
 }

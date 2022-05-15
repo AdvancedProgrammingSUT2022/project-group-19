@@ -12,8 +12,8 @@ import java.util.HashMap;
 public class GameMenu extends Menu {
     private final HashMap<String, Function> functions = new HashMap<>();
     private Tile selectedTile = null;
-    private SelectedType selected = null;
-    private Message message = null;
+    private SelectedType selectedType = null;
+    private Message message = Message.NULL;
     private final Player player;
 
     public GameMenu(Player player) {
@@ -56,6 +56,7 @@ public class GameMenu extends Menu {
         this.functions.put("^unit remove route$", this::unitRemoveRoute);
 
         this.functions.put("^next turn$", this::nextTurn);
+        this.functions.put("^next turn --force$", () -> message = Message.NEXT_TURN);
 
         this.functions.put("^unit build (?<improvement>farm|mine|trading post|lumber mill|pasture|camp|plantation|quarry)$", this::unitBuildImprovement);
 
@@ -70,13 +71,20 @@ public class GameMenu extends Menu {
         this.functions.put("^map move down (?<NumberOfMoves>\\d+)$", this::moveDown);
     }
 
+
     private void nextTurn() {
-        for (Unit unit : player.getCivilization().getUnits())
-            unit.setRemainMP(0);
-        message = Message.OK;
+        if (Controller.aUnitNeedsOrder(player)) {
+            System.out.println("Your units needs order.");
+            System.out.println("for additional information enter: 'info units'");
+            System.out.println("for ignore all units enter: 'next turn --force'");
+            message = Message.invalidCommand;
+        } else
+            message = Message.NEXT_TURN;
     }
 
     private void unitRemoveRoute() {
+        if (notSelectedTile())
+            return;
         Worker worker = (Worker) selectedTile.getCivilianUnit();
         if (worker == null || !worker.getType().equals(UnitType.WORKER))
             System.out.println("No worker in this tile");
@@ -87,7 +95,9 @@ public class GameMenu extends Menu {
     }
 
     private void unitBuildImprovement() {
-        message = Message.OK;
+        if (notSelectedTile())
+            return;
+        message = Message.NULL;
         String improvement = matcher.group("improvement");
         Worker worker = (Worker) selectedTile.getCivilianUnit();
         if (worker == null || !worker.getType().equals(UnitType.WORKER))
@@ -135,16 +145,7 @@ public class GameMenu extends Menu {
         }
     }
 
-    public Tile run(Tile selectedTile, SelectedType selectedType) {
-        this.selectedTile = selectedTile;
-        this.selected = selectedType;
-        getCommandOnce(functions);
-        return this.selectedTile;
-    }
-
-    public Message runWithMessage(Tile selectedTile, SelectedType selectedType) {
-        this.selectedTile = selectedTile;
-        this.selected = selectedType;
+    public Message runWithMessage() {
         getCommandOnce(functions);
         return message;
     }
@@ -173,6 +174,15 @@ public class GameMenu extends Menu {
     }
 
     private void infoUnits() {
+        for (Unit unit : player.getCivilization().getUnits()) {
+            System.out.println("Unit type:              " + unit.getType());
+            System.out.println("Unit Position:          " + unit.getTile().getPositionI() + " " + unit.getTile().getPositionJ());
+            System.out.println("Unit Power/rangedPower: " + unit.getPower() + " / " + unit.getRangedPower());
+            System.out.println("Unit work counter:      " + unit.getWorkCounter());
+            System.out.println("Unit is sleep:          " + unit.isSleep());
+            System.out.println("Unit remained MP:       " + unit.getRemainMP());
+            System.out.println("=============================");
+        }
     }
 
     private void infoCities() {
@@ -203,13 +213,15 @@ public class GameMenu extends Menu {
     }
 
     private void unitMove() {
+        if (notSelectedTile())
+            return;
         int x = Integer.parseInt(matcher.group("xPosition"));
         int y = Integer.parseInt(matcher.group("yPosition"));
         if (Controller.isInvalidCoordinate(x, y))
             System.out.println("Please enter a valid coordinate.");
         else {
             message = Message.NULL;
-            switch (selected) {
+            switch (selectedType) {
                 case CITY:
                     System.out.println("You can not move a city.");
                     message = Message.OK;
@@ -226,7 +238,9 @@ public class GameMenu extends Menu {
     }
 
     private void unitSleep() {
-        switch (selected) {
+        if (notSelectedTile())
+            return;
+        switch (selectedType) {
             case CITY:
                 System.out.println("You can not sleep a city.");
                 break;
@@ -241,7 +255,9 @@ public class GameMenu extends Menu {
     }
 
     private void unitWake() {
-        switch (selected) {
+        if (notSelectedTile())
+            return;
+        switch (selectedType) {
             case CITY:
                 System.out.println("You can not wake a city.");
                 break;
@@ -288,6 +304,7 @@ public class GameMenu extends Menu {
     private void unitBuildRailroad() {
     }
 
+
 //    private void unitBuildFarm() {
 //    }
 //
@@ -311,7 +328,6 @@ public class GameMenu extends Menu {
 //
 //    private void unitBuildQuarry() {
 //    }
-
     private Worker getWorker() {
         Unit unit = selectedTile.getCivilianUnit();
         if (unit == null) {
@@ -335,6 +351,8 @@ public class GameMenu extends Menu {
     }
 
     private void unitRepair() {
+        if (notSelectedTile())
+            return;
         Worker worker = (Worker) selectedTile.getCivilianUnit();
         if (worker == null || !worker.getType().equals(UnitType.WORKER))
             System.out.println("No worker in this tile");
@@ -361,22 +379,22 @@ public class GameMenu extends Menu {
     private void moveDown() {
     }
 
-    public SelectedType selectUnitOrCity(Tile tile) {
+    public Message selectUnitOrCity() {
         HashMap<SelectedType, String> selectableMap = new HashMap<>();
         boolean haveCity = false;
         boolean haveUnit = false;
-        if (tile.isCityCenter() && player.getCivilization().getCities().contains(tile.getCity()))
-            selectableMap.put(SelectedType.CITY, "Select City '" + tile.getCity().getName() + "'");
-        if (tile.getMilitaryUnit() != null && player.getCivilization().getUnits().contains(tile.getMilitaryUnit()))
-            selectableMap.put(SelectedType.MILITARY_UNIT, "Select Military Unit " + tile.getMilitaryUnit().getType());
-        if (tile.getCivilianUnit() != null && player.getCivilization().getUnits().contains(tile.getCivilianUnit()))
-            selectableMap.put(SelectedType.CIVILIAN_UNIT, "Select Civilian Unit " + tile.getCivilianUnit().getType());
+        if (GameMenu.this.selectedTile.isCityCenter() && player.getCivilization().getCities().contains(GameMenu.this.selectedTile.getCity()))
+            selectableMap.put(SelectedType.CITY, "Select City '" + GameMenu.this.selectedTile.getCity().getName() + "'");
+        if (GameMenu.this.selectedTile.getMilitaryUnit() != null && player.getCivilization().getUnits().contains(GameMenu.this.selectedTile.getMilitaryUnit()))
+            selectableMap.put(SelectedType.MILITARY_UNIT, "Select Military Unit " + GameMenu.this.selectedTile.getMilitaryUnit().getType());
+        if (GameMenu.this.selectedTile.getCivilianUnit() != null && player.getCivilization().getUnits().contains(GameMenu.this.selectedTile.getCivilianUnit()))
+            selectableMap.put(SelectedType.CIVILIAN_UNIT, "Select Civilian Unit " + GameMenu.this.selectedTile.getCivilianUnit().getType());
 
         if (selectableMap.size() == 0) {
             System.out.println("There is not any selectable unit in this tile.");
-            return null;
+            return Message.noUnit;
         } else if (selectableMap.size() == 1) {
-            SelectedType selectedType = (SelectedType) selectableMap.keySet().toArray()[0];
+            selectedType = (SelectedType) selectableMap.keySet().toArray()[0];
             System.out.println("The " + selectedType.getName() + " is selected.");
             //debug
             if (!selectedType.equals(SelectedType.CITY)) {
@@ -385,18 +403,13 @@ public class GameMenu extends Menu {
                     unit = selectedTile.getCivilianUnit();
                 else
                     unit = selectedTile.getMilitaryUnit();
-                System.out.println("type: " + unit.getType());
-                System.out.println("remain MP: " + unit.getRemainMP());
+                System.out.println("type:         " + unit.getType());
+                System.out.println("is sleep:     " + unit.isSleep());
+                System.out.println("remain MP:    " + unit.getRemainMP());
                 System.out.println("work counter: " + unit.getWorkCounter());
-                System.out.println("=== Tile information ===");
-                System.out.println("tile coordinate: " + selectedTile.getPositionI() + " " + selectedTile.getPositionJ());
-                System.out.println("tile type: " + selectedTile.getType());
-                System.out.println("feature: " + selectedTile.getFeature());
-                System.out.println("resource: " + selectedTile.getResource());
-                System.out.println("improvement: " + selectedTile.getImprovement());
             }
             //
-            return selectedType;
+            return Message.OK;
         } else {
             System.out.println("Which one do you want to select? Please enter it's number:");
             int index = 1;
@@ -417,7 +430,7 @@ public class GameMenu extends Menu {
                     System.out.println("Please enter a valid number. your number is out of range.");
                     continue;
                 }
-                SelectedType selectedType = (SelectedType) selectableMap.keySet().toArray()[choose - 1];
+                selectedType = (SelectedType) selectableMap.keySet().toArray()[choose - 1];
                 System.out.println("You have selected the " + selectedType.getName() + ".");
                 switch (selectedType) {
                     case CITY:
@@ -429,20 +442,44 @@ public class GameMenu extends Menu {
                             unit = selectedTile.getCivilianUnit();
                         else
                             unit = selectedTile.getMilitaryUnit();
-                        System.out.println("type: " + unit.getType());
-                        System.out.println("remain MP: " + unit.getRemainMP());
+                        System.out.println("type:         " + unit.getType());
+                        System.out.println("is sleep:     " + unit.isSleep());
+                        System.out.println("remain MP:    " + unit.getRemainMP());
                         System.out.println("work counter: " + unit.getWorkCounter());
-                        System.out.println("=== Tile information ===");
-                        System.out.println("tile coordinate: " + selectedTile.getPositionI() + " " + selectedTile.getPositionJ());
-                        System.out.println("tile type: " + selectedTile.getType());
-                        System.out.println("feature: " + selectedTile.getFeature());
-                        System.out.println("resource: " + selectedTile.getResource());
-                        System.out.println("improvement: " + selectedTile.getImprovement());
                         break;
                 }
-                return selectedType;
+                return Message.OK;
             }
         }
+    }
+
+    private boolean notSelectedTile() {
+        if (selectedTile == null) {
+            message = Message.invalidCommand;
+            System.out.println("You must select a tile and a city/unit first.");
+            return true;
+        }
+        return false;
+    }
+
+    public Tile getSelectedTile() {
+        return selectedTile;
+    }
+
+    public SelectedType getSelectedType() {
+        return selectedType;
+    }
+
+    public void setSelectedTile(Tile selectedTile) {
+        this.selectedTile = selectedTile;
+    }
+
+    public void setSelectedType(SelectedType selectedType) {
+        this.selectedType = selectedType;
+    }
+
+    public Message getMessage() {
+        return message;
     }
 }
 

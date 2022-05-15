@@ -41,7 +41,7 @@ public class Unit {
         this.civilization = belongTo;
         this.remainMP = this.movePoint;
 
-        civilization.addUnit(this);
+
         this.tile = Database.map[x][y];
         if (this.isMilitary())
             this.tile.setMilitaryUnit(this);
@@ -281,27 +281,21 @@ public class Unit {
 
         if ((this.isMilitary() && destination.getMilitaryUnit() != null) ||
                 (!this.isMilitary() && destination.getCivilianUnit() != null)) {
-            System.out.println("In the destination tile we have a military unit: " + destination.getMilitaryUnit() + ". and a civilian unit: " + destination.getCivilianUnit());
             return Message.destinationIsFull;
         }
-        System.out.println("In tile " + tile.getPositionI() + " " + tile.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
-        System.out.println("In tile " + destination.getPositionI() + " " + destination.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
 
         if (this.isMilitary()) {
             this.tile.setMilitaryUnit(null);
         } else {
             this.tile.setCivilianUnit(null);
         }
-        System.out.println("In tile " + tile.getPositionI() + " " + tile.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
         this.tile = destination;
 
         if (this.isMilitary())
             this.tile.setMilitaryUnit(this);
         else
             this.tile.setCivilianUnit(this);
-        System.out.println("In tile " + tile.getPositionI() + " " + tile.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
 
-//        this.assigned = true;
         return Message.OK;
         //TODO: Decrease in MP
     }

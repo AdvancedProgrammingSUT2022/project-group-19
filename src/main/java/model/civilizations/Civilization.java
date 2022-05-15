@@ -85,4 +85,10 @@ public class Civilization {
         cities.add(city);
     }
 
+    public boolean hasUnit(Unit unit) {
+        for (Unit unitInList : units)
+            if (unit == unitInList)
+                return true;
+        return false;
+    }
 }

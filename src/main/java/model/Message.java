@@ -20,8 +20,11 @@ public enum Message {
     destinationIsFull("Two units in one tile is forbidden."),
     assigned("You can not assign a unit twice in a turn."),
     noRemovableFeature("There is no eny forest, jungle, or marsh in this tile."),
-    ;
+    NEXT_TURN("let's go next turn!"),
+    noUnit("There is not any selectable unit in this tile."),
+    noSelectedTile("You must select a tile first");
     private final String errorMessage;
+
 
     Message(String errorMessage) {
         this.errorMessage = errorMessage;
