@@ -50,6 +50,7 @@ public class Worker extends Unit {
                     super.getTile().removeFeature();
                     destroyingFeature = false;
                 }
+                setRemainMP(getMovePoint());
             }
         }
         return Message.OK;
@@ -62,6 +63,7 @@ public class Worker extends Unit {
             workCounter = 3;
             buildingRoad = true;
         }
+        setRemainMP(0);
         return Message.OK;
     }
 
@@ -73,6 +75,7 @@ public class Worker extends Unit {
             workCounter = 3;
             buildingRailRoad = true;
         }
+        setRemainMP(0);
         return Message.OK;
     }
 
@@ -106,6 +109,7 @@ public class Worker extends Unit {
         savedImprovement = null;
         workCounter = 6;
         inProgressImprovement = improvement;
+        setRemainMP(0);
         return Message.OK;
     }
 
@@ -113,6 +117,7 @@ public class Worker extends Unit {
         super.getTile().setRoad(false);
         super.getTile().setRailRoad(false);
         super.getTile().setRoadPlundered(false);
+        setRemainMP(0);
     }
 
     public Message destroyFeature() {
@@ -136,6 +141,7 @@ public class Worker extends Unit {
             return Message.noRemovableFeature;
 
         destroyingFeature = true;
+        setRemainMP(0);
         return Message.OK;
     }
 
@@ -151,6 +157,7 @@ public class Worker extends Unit {
         } else {
             return Message.invalidCommand;
         }
+        setRemainMP(0);
         return Message.OK;
     }
 }

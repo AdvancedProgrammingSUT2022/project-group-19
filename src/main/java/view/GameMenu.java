@@ -55,6 +55,8 @@ public class GameMenu extends Menu {
         this.functions.put("^unit build railroad$", this::unitBuildRailroad);
         this.functions.put("^unit remove route$", this::unitRemoveRoute);
 
+        this.functions.put("^next turn$", this::nextTurn);
+
         this.functions.put("^unit build (?<improvement>farm|mine|trading post|lumber mill|pasture|camp|plantation|quarry)$", this::unitBuildImprovement);
 
         this.functions.put("^unit remove feature$", this::removeFeature);
@@ -66,6 +68,12 @@ public class GameMenu extends Menu {
         this.functions.put("^map move left (?<NumberOfMoves>\\d+)$", this::moveLeft);
         this.functions.put("^map move up (?<NumberOfMoves>\\d+)$", this::moveUp);
         this.functions.put("^map move down (?<NumberOfMoves>\\d+)$", this::moveDown);
+    }
+
+    private void nextTurn() {
+        for (Unit unit : player.getCivilization().getUnits())
+            unit.setRemainMP(0);
+        message = Message.OK;
     }
 
     private void unitRemoveRoute() {

@@ -4,6 +4,7 @@ import model.*;
 import model.civilizations.City;
 import model.land.Tile;
 import model.unit.Unit;
+import model.unit.UnitType;
 import view.GameMenu;
 
 public class GameController {
@@ -31,9 +32,9 @@ public class GameController {
                     while (gameMenu.runWithMessage(selectedTile, selectedType) != Message.OK) {
                     }
                 }
-                System.out.println(Color.BLUE_BACKGROUND + Color.WHITE + "============== NEXT TURN =============" + Color.RESET);
+                System.out.println(Color.BLUE_BACKGROUND + Color.BLACK + "============== NEXT TURN =============" + Color.RESET);
                 //At the end of each turn all units must unAssigned:
-                unAssignAllUnits(player);
+                restoreMP(player);
                 selectedType = null;
             }
         }
@@ -47,9 +48,10 @@ public class GameController {
         return false;
     }
 
-    private void unAssignAllUnits(Player player) {
+    private void restoreMP(Player player) {
         for (Unit unit : player.getCivilization().getUnits())
-            unit.resetMP();
+            if (!unit.getType().equals(UnitType.WORKER))    //Worker MP must not increase at each turn
+                unit.resetMP();
         for (City city : player.getCivilization().getCities())
             city.cityProduction();
     }
