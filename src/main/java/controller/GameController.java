@@ -61,13 +61,6 @@ public class GameController {
         //TODO: save the game
     }
 
-    private boolean aUnitNeedsOrder(Player player) {
-        for (Unit unit : player.getCivilization().getUnits())
-            if (!unit.isSleep() && (unit.getWay().size() == 0))
-                return true;
-        return false;
-    }
-
     private void restoreMP(Player player) {
         for (Unit unit : player.getCivilization().getUnits())
             if (!unit.getType().equals(UnitType.WORKER))    //Worker MP must not increase at each turn

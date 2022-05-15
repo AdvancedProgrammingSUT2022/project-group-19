@@ -27,7 +27,7 @@ public class Unit {
     private int remainMP;
     //هر تایلی تو خودش مختصات آی و جی ذخیره کرده و مختصات آی و جی یونیتو از همون جا میگیریم
     protected Tile tile;
-    private ArrayList<Tile> way;
+    private ArrayList<Tile> way = new ArrayList<>();
 
     public Unit(UnitType type, Civilization belongTo, int x, int y) {
         this.type = type;
@@ -41,7 +41,7 @@ public class Unit {
         this.civilization = belongTo;
         this.remainMP = this.movePoint;
 
-        civilization.addUnit(this);
+
         this.tile = Database.map[x][y];
         if (this.isMilitary())
             this.tile.setMilitaryUnit(this);
@@ -57,33 +57,31 @@ public class Unit {
 
     // TODO: 4/28/2022 دوستان توابع بخش حرکت داره اینجا زده میشه لطفا از زدن توابع مشابه بپرهیزید !!!!!!!
 
-    public void moveOrder(GameMap gameMap, Unit unit, int destinationI, int destinationJ) {
-
-        ArrayList<Tile> way = computeBestWay(unit.tile, gameMap.getMap()[destinationI][destinationJ], new ArrayList<>(), null);
-        unit.setWay(way);
-    }
-
     //با توجه به موو پوینت مسیر و یونیت امکان مهاجرت یک یونیت به مقصد را بررسی میکند
-    public void move(Unit unit) {
-        while (unit.getRemainMP() > 0) {
-            Tile nextTile = unit.getWay().get(0);
-            if (nextTile.getMovePoint() < unit.getRemainMP()) {
+    public void move() {
+        while (getRemainMP() > 0) {
+            Tile nextTile = getWay().get(0);
+            if (nextTile.getMovePoint() < getRemainMP()) {
                 if (nextTile.getMilitaryUnit() != null && nextTile.getCivilianUnit() != null) break;
 
                 if (nextTile.getMilitaryUnit() != null) {
-                    if (!unit.getCivilization().equals(((Unit) nextTile.getMilitaryUnit()).getCivilization()) || unit.getPower() != 0)
+                    if (!getCivilization().equals((nextTile.getMilitaryUnit()).getCivilization()) || getPower() != 0)
                         break;
                 }
                 if (nextTile.getCivilianUnit() != null) {
-                    if (!unit.getCivilization().equals(((Unit) nextTile.getCivilianUnit()).getCivilization()) || unit.getPower() == 0)
+                    if (!getCivilization().equals((nextTile.getCivilianUnit()).getCivilization()) || getPower() == 0)
                         break;
                 }
-                if (unit.getPower() != 0) unit.tile.setMilitaryUnit(null);
-                else unit.tile.setCivilianUnit(null);
-                unit.tile = nextTile;
-                if (unit.getPower() != 0) unit.tile.setMilitaryUnit(unit);
-                else unit.tile.setCivilianUnit(unit);
-                unit.setRemainMP(unit.getRemainMP() - unit.getWay().get(0).getMovePoint());
+                if (getPower() != 0) tile.setMilitaryUnit(null);
+                else tile.setCivilianUnit(null);
+                int j = tile.getPositionJ();
+                tile = nextTile;
+                int newJ = tile.getPositionJ();
+                if (getPower() != 0) tile.setMilitaryUnit(this);
+                else tile.setCivilianUnit(this);
+                setRemainMP(getRemainMP() - nextTile.getMovePoint());
+                if (j == 5 && newJ == 6 || j == 6 && newJ == 5) setRemainMP(0);
+                getWay().remove(0);
 
             } else break;
         }
@@ -100,7 +98,13 @@ public class Unit {
         for (Tile neighbor : neighbors) {
             counter++;
             int newDistance2 = (destination.getPositionI() - neighbor.getPositionI()) * (destination.getPositionI() - neighbor.getPositionI()) + (destination.getPositionJ() - neighbor.getPositionJ()) * (destination.getPositionJ() - neighbor.getPositionJ());
-            if (newDistance2 < distance2 && neighbor != null && !origin.getIsRiverOnBounds()[counter] && neighbor.getMovePoint() < 10) {
+            if (newDistance2 <= distance2 && neighbor != null && neighbor.getMovePoint() < 10) {
+                ArrayList<Tile> temp = new ArrayList<>();
+                temp.addAll(route);
+                temp.add(neighbor);
+                ArrayList<Tile> test = computeBestWay(neighbor, destination, temp, bestWay);
+                if (bestWay == null || test.size() < bestWay.size()) bestWay = test;
+            }else if (newDistance2 > distance2 && neighbor != null && neighbor.getMovePoint() < 10) {
                 ArrayList<Tile> temp = new ArrayList<>();
                 temp.addAll(route);
                 temp.add(neighbor);
@@ -270,40 +274,12 @@ public class Unit {
         return !(type.equals(UnitType.WORKER) || type.equals(UnitType.SETTLER));
     }
 
-    public Message move(int x, int y) {
+    public Message moveOrder(int x, int y) {
 
-        //TODO: First check if you can move to that point
-
-        Tile destination = Database.map[x][y];
-
-        if (assigned)
-            return Message.assigned;
-
-        if ((this.isMilitary() && destination.getMilitaryUnit() != null) ||
-                (!this.isMilitary() && destination.getCivilianUnit() != null)) {
-            System.out.println("In the destination tile we have a military unit: " + destination.getMilitaryUnit() + ". and a civilian unit: " + destination.getCivilianUnit());
-            return Message.destinationIsFull;
-        }
-        System.out.println("In tile " + tile.getPositionI() + " " + tile.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
-        System.out.println("In tile " + destination.getPositionI() + " " + destination.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
-
-        if (this.isMilitary()) {
-            this.tile.setMilitaryUnit(null);
-        } else {
-            this.tile.setCivilianUnit(null);
-        }
-        System.out.println("In tile " + tile.getPositionI() + " " + tile.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
-        this.tile = destination;
-
-        if (this.isMilitary())
-            this.tile.setMilitaryUnit(this);
-        else
-            this.tile.setCivilianUnit(this);
-        System.out.println("In tile " + tile.getPositionI() + " " + tile.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
-
-//        this.assigned = true;
+        Tile[][] map = Database.gameMap.getMap();
+        ArrayList<Tile> way = computeBestWay(tile, map[x][y], new ArrayList<>(), null);
+        setWay(way);
         return Message.OK;
-        //TODO: Decrease in MP
     }
 
     public void setTile(Tile tile) {
@@ -314,3 +290,30 @@ public class Unit {
         return workCounter;
     }
 }
+
+//کد تابع move طیب
+//    Tile destination = Database.map[x][y];
+//
+//        if ((this.isMilitary() && destination.getMilitaryUnit() != null) ||
+//                (!this.isMilitary() && destination.getCivilianUnit() != null)) {
+//            System.out.println("In the destination tile we have a military unit: " + destination.getMilitaryUnit() + ". and a civilian unit: " + destination.getCivilianUnit());
+//            return Message.destinationIsFull;
+//        }
+//        System.out.println("In tile " + tile.getPositionI() + " " + tile.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
+//        System.out.println("In tile " + destination.getPositionI() + " " + destination.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
+//
+//        if (this.isMilitary()) {
+//            this.tile.setMilitaryUnit(null);
+//        } else {
+//            this.tile.setCivilianUnit(null);
+//        }
+//        System.out.println("In tile " + tile.getPositionI() + " " + tile.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
+//        this.tile = destination;
+//
+//        if (this.isMilitary())
+//            this.tile.setMilitaryUnit(this);
+//        else
+//            this.tile.setCivilianUnit(this);
+//        System.out.println("In tile " + tile.getPositionI() + " " + tile.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
+//
+////        this.assigned = true;
