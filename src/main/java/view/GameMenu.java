@@ -13,7 +13,7 @@ public class GameMenu extends Menu {
     private final HashMap<String, Function> functions = new HashMap<>();
     private Tile selectedTile = null;
     private SelectedType selectedType = null;
-    private Message message = Message.NULL;
+    private Message message = Message.OK;
     private final Player player;
 
     public GameMenu(Player player) {
@@ -50,7 +50,6 @@ public class GameMenu extends Menu {
         this.functions.put("^unit found$", this::unitFound);
         this.functions.put("^unit cancel$", this::unitCancel);
         this.functions.put("^unit delete$", this::unitDelete);
-
         this.functions.put("^unit build road$", this::unitBuildRoad);
         this.functions.put("^unit build railroad$", this::unitBuildRailroad);
         this.functions.put("^unit remove route$", this::unitRemoveRoute);
@@ -183,6 +182,7 @@ public class GameMenu extends Menu {
             System.out.println("Unit remained MP:       " + unit.getRemainMP());
             System.out.println("=============================");
         }
+        message = Message.NULL;
     }
 
     private void infoCities() {
@@ -296,6 +296,25 @@ public class GameMenu extends Menu {
     }
 
     private void unitDelete() {
+        if (notSelectedTile())
+            return;
+        switch (selectedType) {
+            case CITY:
+                System.out.println("You can not delete a city");
+                break;
+            case CIVILIAN_UNIT:
+                player.getCivilization().addGold(selectedTile.getCivilianUnit().getCost() / 10);
+                player.getCivilization().deleteUnit(selectedTile.getCivilianUnit());
+                selectedTile.setCivilianUnit(null);
+                break;
+            case MILITARY_UNIT:
+                player.getCivilization().addGold(selectedTile.getMilitaryUnit().getCost() / 10);
+                player.getCivilization().deleteUnit(selectedTile.getMilitaryUnit());
+                selectedTile.setMilitaryUnit(null);
+                break;
+        }
+        message = Message.OK;
+        System.out.println("unit deleted successfully.");
     }
 
     private void unitBuildRoad() {
@@ -305,7 +324,7 @@ public class GameMenu extends Menu {
     }
 
 
-//    private void unitBuildFarm() {
+    //    private void unitBuildFarm() {
 //    }
 //
 //    private void unitBuildMine() {

@@ -19,7 +19,7 @@ public class GameController {
                 boolean loopFlag = true;
                 while (loopFlag) {
                     Tile selectedTile = null;
-                    if (!gameMenu.getMessage().equals(Message.invalidCommand))
+                    if (!(gameMenu.getMessage().equals(Message.invalidCommand) || gameMenu.getMessage().equals(Message.NULL)))
                         Controller.printMap();
                     if (!Controller.aUnitNeedsOrder(player)) {
                         System.out.println("All units are assigned. Please enter: 'next turn'");

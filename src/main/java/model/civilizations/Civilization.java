@@ -91,4 +91,12 @@ public class Civilization {
                 return true;
         return false;
     }
+
+    public void deleteUnit(Unit unit) {
+        units.remove(unit);
+    }
+
+    public void addGold(int amount) {
+        this.gold += amount;
+    }
 }
