@@ -370,6 +370,24 @@ public class GameMenu extends Menu {
         } else if (selectableMap.size() == 1) {
             SelectedType selectedType = (SelectedType) selectableMap.keySet().toArray()[0];
             System.out.println("The " + selectedType.getName() + " is selected.");
+            //debug
+            if (!selectedType.equals(SelectedType.CITY)) {
+                Unit unit;
+                if (selectedType.equals(SelectedType.CIVILIAN_UNIT))
+                    unit = selectedTile.getCivilianUnit();
+                else
+                    unit = selectedTile.getMilitaryUnit();
+                System.out.println("type: " + unit.getType());
+                System.out.println("remain MP: " + unit.getRemainMP());
+                System.out.println("work counter: " + unit.getWorkCounter());
+                System.out.println("=== Tile information ===");
+                System.out.println("tile coordinate: " + selectedTile.getPositionI() + " " + selectedTile.getPositionJ());
+                System.out.println("tile type: " + selectedTile.getType());
+                System.out.println("feature: " + selectedTile.getFeature());
+                System.out.println("resource: " + selectedTile.getResource());
+                System.out.println("improvement: " + selectedTile.getImprovement());
+            }
+            //
             return selectedType;
         } else {
             System.out.println("Which one do you want to select? Please enter it's number:");
@@ -384,6 +402,7 @@ public class GameMenu extends Menu {
                 try {
                     choose = Integer.parseInt(scanner.nextLine());
                 } catch (NumberFormatException e) {
+                    System.out.println("Please enter a number.");
                     continue;
                 }
                 if (choose < 1 || choose > index) {
@@ -392,6 +411,27 @@ public class GameMenu extends Menu {
                 }
                 SelectedType selectedType = (SelectedType) selectableMap.keySet().toArray()[choose - 1];
                 System.out.println("You have selected the " + selectedType.getName() + ".");
+                switch (selectedType) {
+                    case CITY:
+                        break;
+                    case CIVILIAN_UNIT:
+                    case MILITARY_UNIT:
+                        Unit unit;
+                        if (selectedType.equals(SelectedType.CIVILIAN_UNIT))
+                            unit = selectedTile.getCivilianUnit();
+                        else
+                            unit = selectedTile.getMilitaryUnit();
+                        System.out.println("type: " + unit.getType());
+                        System.out.println("remain MP: " + unit.getRemainMP());
+                        System.out.println("work counter: " + unit.getWorkCounter());
+                        System.out.println("=== Tile information ===");
+                        System.out.println("tile coordinate: " + selectedTile.getPositionI() + " " + selectedTile.getPositionJ());
+                        System.out.println("tile type: " + selectedTile.getType());
+                        System.out.println("feature: " + selectedTile.getFeature());
+                        System.out.println("resource: " + selectedTile.getResource());
+                        System.out.println("improvement: " + selectedTile.getImprovement());
+                        break;
+                }
                 return selectedType;
             }
         }

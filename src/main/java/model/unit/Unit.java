@@ -39,6 +39,7 @@ public class Unit {
         this.requiredResource = type.getRequiredResource();
         this.requiredTechnology = type.getRequiredTechnology();
         this.civilization = belongTo;
+        this.remainMP = this.movePoint;
 
         civilization.addUnit(this);
         this.tile = Database.map[x][y];

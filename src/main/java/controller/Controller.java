@@ -63,7 +63,11 @@ public class Controller {
 
                     if (rowInHex == 0) {
                         String information = getInformation("resource", i, map[rowOfMap]);
-                        String unitName = getInformation("militaryUnit", i + 1, map[rowOfMap]);
+                        String unitName;
+                        if (rowOfMap == 0)
+                            unitName = "       ";
+                        else
+                            unitName = getInformation("militaryUnit", i + 1, map[rowOfMap - 1]);
                         City city = map[rowOfMap][i + 1].getCity();
                         String cityLogo = "";
                         if (city != null) {
@@ -78,7 +82,11 @@ public class Controller {
                         System.out.print("  " + river + "/" + Color.RESET + information + "\\" + cityLogo + unitName + " ");
                     } else if (rowInHex == 1) {
                         String information = getInformation("feature", i, map[rowOfMap]);
-                        String unitName = getInformation("civilianUnit", i + 1, map[rowOfMap]);
+                        String unitName;
+                        if (rowOfMap == 0)
+                            unitName = "       ";
+                        else
+                            unitName = getInformation("civilianUnit", i + 1, map[rowOfMap - 1]);
                         System.out.print(" " + river + "/" + Color.RESET + " " + information + " \\ " + unitName);
                     } else if (rowInHex == 2) {
                         String information = getInformation("landType", i, map[rowOfMap]);
@@ -107,7 +115,7 @@ public class Controller {
                         String information = getInformation("landType", i + 1, map[rowOfMap]);
                         String col = ((i - 1) > 9) ? ((i - 1) + "") : ((i - 1) + " ");
                         if (i == 0) col = "  ";
-                        System.out.print(col + river + "\\" + Color.RESET + "_______/" + (rowOfMap + 1) + " " + information);
+                        System.out.print(col + river + "\\" + Color.RESET + "_______/" + (rowOfMap) + " " + information);
                     }
                 }
                 System.out.println();

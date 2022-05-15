@@ -222,4 +222,6 @@ public class Tile {
     public void deleteCivilianUnit() {
         this.civilianUnit = null;
     }
+
+
 }

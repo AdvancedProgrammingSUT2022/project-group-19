@@ -42,7 +42,7 @@ public class GameController {
 
     private boolean aUnitNeedsOrder(Player player) {
         for (Unit unit : player.getCivilization().getUnits())
-            if (!unit.isSleep() && !unit.isAssigned())
+            if (!unit.isSleep() && (unit.getRemainMP() > 0))
                 return true;
         return false;
     }

@@ -18,7 +18,7 @@ public class Database {
     private static List<Player> players = new ArrayList<>();  //players in game
     private static final String usersPath = "./data/users.json";
     public static MapController mapController = new MapController();
-    public static GameMap gameMap = mapController.generateRandomMap(5, 14);
+    public static GameMap gameMap = mapController.generateRandomMap(6, 14);
     public static Tile[][] map = gameMap.getMap();
 
 //    public Database() {
