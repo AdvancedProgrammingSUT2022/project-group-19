@@ -96,6 +96,7 @@ public class Unit {
         int distance2 = (destination.getPositionI() - origin.getPositionI()) * (destination.getPositionI() - origin.getPositionI()) + (destination.getPositionJ() - origin.getPositionJ()) * (destination.getPositionJ() - origin.getPositionJ());
         int counter = 0;
         for (Tile neighbor : neighbors) {
+            if (neighbor == null) break;
             counter++;
             int newDistance2 = (destination.getPositionI() - neighbor.getPositionI()) * (destination.getPositionI() - neighbor.getPositionI()) + (destination.getPositionJ() - neighbor.getPositionJ()) * (destination.getPositionJ() - neighbor.getPositionJ());
             if (newDistance2 <= distance2 && neighbor != null && neighbor.getMovePoint() < 10) {
