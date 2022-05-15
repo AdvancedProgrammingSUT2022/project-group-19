@@ -40,7 +40,7 @@ public class GameController {
                             continue;
                     }
 
-                    System.out.println("Order the selected unit.");
+                    System.out.println("Order the selected unit/city.");
                     while (true) {
                         Message message = gameMenu.runWithMessage();
                         if (message == Message.OK)
