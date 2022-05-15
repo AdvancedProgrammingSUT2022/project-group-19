@@ -1,9 +1,6 @@
 package controller;
 
-import model.Database;
-import model.Message;
-import model.Player;
-import model.SelectedType;
+import model.*;
 import model.civilizations.City;
 import model.land.Tile;
 import model.unit.Unit;
@@ -34,11 +31,13 @@ public class GameController {
                     while (gameMenu.runWithMessage(selectedTile, selectedType) != Message.OK) {
                     }
                 }
+                System.out.println(Color.BLUE_BACKGROUND + Color.WHITE + "============== NEXT TURN =============" + Color.RESET);
                 //At the end of each turn all units must unAssigned:
                 unAssignAllUnits(player);
                 selectedType = null;
             }
         }
+        //TODO: save the game
     }
 
     private boolean aUnitNeedsOrder(Player player) {
@@ -50,8 +49,8 @@ public class GameController {
 
     private void unAssignAllUnits(Player player) {
         for (Unit unit : player.getCivilization().getUnits())
-            unit.setAssigned(false);
+            unit.resetMP();
         for (City city : player.getCivilization().getCities())
-            city.setAssigned(false);
+            city.cityProduction();
     }
 }

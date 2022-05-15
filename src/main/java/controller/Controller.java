@@ -57,6 +57,10 @@ public class Controller {
         for (int rowOfMap = 0; rowOfMap < 5; rowOfMap++) {
             for (int rowInHex = 0; rowInHex < hex.length; rowInHex++) {
                 for (int i = 0; i < 14; i += 2) {
+                    String river = Color.RESET;
+                    if (i == 6)
+                        river = Color.BLUE_BACKGROUND;
+
                     if (rowInHex == 0) {
                         String information = getInformation("resource", i, map[rowOfMap]);
                         String unitName = getInformation("militaryUnit", i + 1, map[rowOfMap]);
@@ -71,15 +75,15 @@ public class Controller {
                                 cityLogo += Color.RED + "C" + Color.RESET;
                         } else
                             cityLogo = " ";
-                        System.out.print("  /" + information + "\\" + cityLogo + unitName + " ");
+                        System.out.print("  " + river + "/" + Color.RESET + information + "\\" + cityLogo + unitName + " ");
                     } else if (rowInHex == 1) {
                         String information = getInformation("feature", i, map[rowOfMap]);
                         String unitName = getInformation("civilianUnit", i + 1, map[rowOfMap]);
-                        System.out.print(" / " + information + " \\ " + unitName);
+                        System.out.print(" " + river + "/" + Color.RESET + " " + information + " \\ " + unitName);
                     } else if (rowInHex == 2) {
                         String information = getInformation("landType", i, map[rowOfMap]);
                         String col = (i > 9) ? (i + "") : (i + " ");
-                        System.out.print("/" + rowOfMap + " " + information + col + "\\_______");
+                        System.out.print(river + "/" + Color.RESET + rowOfMap + " " + information + col + "\\_______");
                     } else if (rowInHex == 3) {
                         String information = getInformation("resource", i + 1, map[rowOfMap]);
                         String unitName = getInformation("militaryUnit", i, map[rowOfMap]);
@@ -94,16 +98,16 @@ public class Controller {
                                 cityLogo += Color.RED + "C" + Color.RESET;
                         } else
                             cityLogo = " ";
-                        System.out.print("\\" + cityLogo + " " + unitName + "  /" + information);
+                        System.out.print(river + "\\" + Color.RESET + cityLogo + " " + unitName + "  /" + information);
                     } else if (rowInHex == 4) {
                         String information = getInformation("feature", i + 1, map[rowOfMap]);
                         String unitName = getInformation("civilianUnit", i, map[rowOfMap]);
-                        System.out.print(" \\ " + unitName + " / " + information);
+                        System.out.print(" " + river + "\\" + Color.RESET + " " + unitName + " / " + information);
                     } else {
                         String information = getInformation("landType", i + 1, map[rowOfMap]);
                         String col = ((i - 1) > 9) ? ((i - 1) + "") : ((i - 1) + " ");
                         if (i == 0) col = "  ";
-                        System.out.print(col + "\\_______/" + (rowOfMap + 1) + " " + information);
+                        System.out.print(col + river + "\\" + Color.RESET + "_______/" + (rowOfMap + 1) + " " + information);
                     }
                 }
                 System.out.println();

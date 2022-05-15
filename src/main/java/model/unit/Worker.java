@@ -8,7 +8,7 @@ import model.technology.Technology;
 import java.util.Arrays;
 
 public class Worker extends Unit {
-    private int workCounter;
+//    private int workCounter;
     private int savedCounter;
     private Improvement savedImprovement = null;
     private Improvement inProgressImprovement = null;
@@ -120,8 +120,10 @@ public class Worker extends Unit {
             return Message.busy;
         TerrainType feature;
         try {
+            System.out.println(super.getTile());
             feature = super.getTile().getFeature();
         } catch (NullPointerException e) {
+            System.out.println("Exception:");
             return Message.noRemovableFeature;
         }
         if (feature.equals(TerrainType.FOREST))
