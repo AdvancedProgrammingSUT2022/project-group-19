@@ -65,11 +65,11 @@ public class Unit {
                 if (nextTile.getMilitaryUnit() != null && nextTile.getCivilianUnit() != null) break;
 
                 if (nextTile.getMilitaryUnit() != null) {
-                    if (!getCivilization().equals(((Unit) nextTile.getMilitaryUnit()).getCivilization()) || getPower() != 0)
+                    if (!getCivilization().equals((nextTile.getMilitaryUnit()).getCivilization()) || getPower() != 0)
                         break;
                 }
                 if (nextTile.getCivilianUnit() != null) {
-                    if (!getCivilization().equals(((Unit) nextTile.getCivilianUnit()).getCivilization()) || getPower() == 0)
+                    if (!getCivilization().equals((nextTile.getCivilianUnit()).getCivilization()) || getPower() == 0)
                         break;
                 }
                 if (getPower() != 0) tile.setMilitaryUnit(null);
