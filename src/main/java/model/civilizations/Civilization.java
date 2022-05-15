@@ -85,4 +85,18 @@ public class Civilization {
         cities.add(city);
     }
 
+    public boolean hasUnit(Unit unit) {
+        for (Unit unitInList : units)
+            if (unit == unitInList)
+                return true;
+        return false;
+    }
+
+    public void deleteUnit(Unit unit) {
+        units.remove(unit);
+    }
+
+    public void addGold(int amount) {
+        this.gold += amount;
+    }
 }

@@ -196,6 +196,13 @@ public class Controller {
     public static boolean isInvalidCoordinate(int x, int y) {
         return (x < 0 || x > GameMap.getNumOfRows() - 1 || y < 0 || y > GameMap.getNumOfCols() - 1);
     }
+
+    public static boolean aUnitNeedsOrder(Player player) {
+        for (Unit unit : player.getCivilization().getUnits())
+            if (!unit.isSleep() && (unit.getWay().size() == 0))
+                return true;
+        return false;
+    }
 }
 
 //  /       \
@@ -204,3 +211,6 @@ public class Controller {
 //\           /
 // \         /
 //  \_______/
+
+
+

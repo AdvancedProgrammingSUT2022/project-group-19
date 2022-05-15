@@ -27,7 +27,7 @@ public class Unit {
     private int remainMP;
     //هر تایلی تو خودش مختصات آی و جی ذخیره کرده و مختصات آی و جی یونیتو از همون جا میگیریم
     protected Tile tile;
-    private ArrayList<Tile> way;
+    private ArrayList<Tile> way = new ArrayList<>();
 
     public Unit(UnitType type, Civilization belongTo, int x, int y) {
         this.type = type;
@@ -41,7 +41,7 @@ public class Unit {
         this.civilization = belongTo;
         this.remainMP = this.movePoint;
 
-        civilization.addUnit(this);
+
         this.tile = Database.map[x][y];
         if (this.isMilitary())
             this.tile.setMilitaryUnit(this);

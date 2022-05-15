@@ -24,8 +24,10 @@ public class Player {
         while (tile.getCivilianUnit() != null) {
             tile = Database.map[2][y += 4];
         }
-        new Unit(UnitType.SCOUT, civilization, 2, y);
-        new Worker(new Unit(UnitType.WORKER, civilization, 2, y));
+        Unit unit = new Unit(UnitType.SCOUT, civilization, 2, y);
+        civilization.addUnit(unit);
+        Worker worker = new Worker(new Unit(UnitType.WORKER, civilization, 2, y));
+        civilization.addUnit(worker);
         City city = new City(civilization, 2, y);
     }
 
