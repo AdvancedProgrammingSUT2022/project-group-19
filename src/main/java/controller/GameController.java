@@ -16,22 +16,29 @@ public class GameController {
             for (Player player : Database.getPlayers()) {
                 GameMenu gameMenu = new GameMenu(player);
                 turn = player;
-                while (aUnitNeedsOrder(player)) {
-                    Controller.printMap();
-                    //select a tile:
-                    System.out.println("Please select a Tile");
-                    Tile selectedTile = gameMenu.run(null, null);
-                    if (selectedTile == null)
-                        continue;
+                while (true) {
+                    if (aUnitNeedsOrder(player)) {
+                        Controller.printMap();
+                        //select a tile:
+                        System.out.println("Please select a Tile");
+                        Tile selectedTile = gameMenu.run(null, null);
+                        if (selectedTile == null)
+                            continue;
 
-                    //select a unit or a city in selected tile:
-                    selectedType = gameMenu.selectUnitOrCity(selectedTile);
-                    if (selectedType == null)
-                        continue;
-
-                    while (gameMenu.runWithMessage(selectedTile, selectedType) != Message.OK) {
+                        //select a unit or a city in selected tile:
+                        selectedType = gameMenu.selectUnitOrCity(selectedTile);
+                        if (selectedType == null)
+                            continue;
                     }
+                    // TODO: 5/15/2022 بعد از اضافه شدن بخش تکنولوژی باید اگر تکنولوژی ای در حال مطالعه نبود آن هم سلکت شود، همچنین پروداکشن
+                    else {
+                        break;
+                    }
+                    //while (gameMenu.runWithMessage(selectedTile, selectedType) != Message.OK) {
+                    //}
                 }
+                //حرکت یونیت ها اینجا انجام میشود
+                moveAllUnits(player);
                 System.out.println(Color.BLUE_BACKGROUND + Color.BLACK + "============== NEXT TURN =============" + Color.RESET);
                 //At the end of each turn all units must unAssigned:
                 restoreMP(player);
@@ -43,7 +50,7 @@ public class GameController {
 
     private boolean aUnitNeedsOrder(Player player) {
         for (Unit unit : player.getCivilization().getUnits())
-            if (!unit.isSleep() && (unit.getRemainMP() > 0))
+            if (!unit.isSleep() && (unit.getWay().size() == 0))
                 return true;
         return false;
     }
@@ -54,5 +61,11 @@ public class GameController {
                 unit.resetMP();
         for (City city : player.getCivilization().getCities())
             city.cityProduction();
+    }
+
+    private void moveAllUnits(Player player) {
+        for (Unit unit : player.getCivilization().getUnits()) {
+            unit.move();
+        }
     }
 }
