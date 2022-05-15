@@ -73,7 +73,8 @@ public class GameController {
 
     private void moveAllUnits(Player player) {
         for (Unit unit : player.getCivilization().getUnits()) {
-            unit.move();
+            if (unit.getWay() == null || unit.getWay().size() == 0) continue;
+                unit.move();
         }
     }
 }
