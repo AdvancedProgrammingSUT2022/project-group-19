@@ -83,16 +83,22 @@ public class Tile implements Serializable {
 //        this.inSight = inSight;
 //    }
 
-    public List<Tile> getNeighbors() {
-        List<Tile> neighbors = new ArrayList<>();
+
+    public Tile[] getNeighborOnBounds() {
+        return neighborOnBounds;
+    }
+
+    public ArrayList<Tile> getNeighbors() {
+        ArrayList<Tile> neighbors = new ArrayList<>();
         if (positionJ % 2 == 0) {   //if the tile is in even column
 
             for (int i = positionI - 1; i <= positionI; i++)
-                for (int j = positionJ - 1; j <= positionJ + 1; j++)
+                for (int j = positionJ - 1; j <= positionJ + 1; j++) {
                     try {
                         neighbors.add(Database.map[i][j]);
                     } catch (Exception ignored) {
                     }
+                }
 
             try {
                 neighbors.add(Database.map[positionI + 1][positionJ]);
@@ -115,10 +121,6 @@ public class Tile implements Serializable {
 
         }
         return neighbors;
-    }
-
-    public Tile[] getNeighborOnBounds() {
-        return neighborOnBounds;
     }
 
     public int getPositionI() {
@@ -172,7 +174,7 @@ public class Tile implements Serializable {
     public Unit getCivilianUnit() {
         return civilianUnit;
     }
-    
+
     public void setCivilianUnit(Unit civilianUnit) {
         this.civilianUnit = civilianUnit;
     }
@@ -261,5 +263,7 @@ public class Tile implements Serializable {
         this.civilianUnit = null;
     }
 
-
+    public void deleteMilitaryUnit(){
+        this.militaryUnit = null;
+    }
 }

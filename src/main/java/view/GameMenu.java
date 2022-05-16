@@ -515,27 +515,123 @@ public class GameMenu extends Menu {
     }
 
     private void unitAlert() {
+        switch (selectedType) {
+            case CITY:
+                System.out.println("You can not set alert for city.");
+                break;
+            case CIVILIAN_UNIT:
+                System.out.println("You can not set alert for civilian unit.");
+                break;
+            case MILITARY_UNIT:
+                selectedTile.getMilitaryUnit().readyAndAlter();
+                break;
+        }
+        message = Message.OK;
     }
 
     private void unitFortify() {
+        switch (selectedType) {
+            case CITY:
+                System.out.println("You can not fortify a city.");
+                break;
+            case CIVILIAN_UNIT:
+                System.out.println("You can not fortify civilian unit.");
+                break;
+            case MILITARY_UNIT:
+                selectedTile.getMilitaryUnit().reinforcement();
+                break;
+        }
+        message = Message.OK;
     }
 
     private void unitFortifyHeal() {
+        switch (selectedType) {
+            case CITY:
+                System.out.println("You can not fortify a city.");
+                break;
+            case CIVILIAN_UNIT:
+                System.out.println("You can not fortify civilian unit.");
+                break;
+            case MILITARY_UNIT:
+                selectedTile.getMilitaryUnit().fullReinforcement();
+                break;
+        }
+        message = Message.OK;
     }
 
     private void unitGarrison() {
+        switch (selectedType) {
+            case CITY:
+                System.out.println("You can not do it for a city");
+                break;
+            case CIVILIAN_UNIT:
+                System.out.println("You can not do it for civilian unit.");
+                break;
+            case MILITARY_UNIT:
+                selectedTile.getMilitaryUnit().garrison();
+                break;
+        }
+        message = Message.OK;
     }
 
     private void unitSetup() {
+        switch (selectedType) {
+            case CITY:
+                System.out.println("You can not do it for a city");
+                break;
+            case CIVILIAN_UNIT:
+                System.out.println("You can not do it for civilian unit.");
+                break;
+            case MILITARY_UNIT:
+                selectedTile.getMilitaryUnit().garrison();
+                break;
+        }
+        message = Message.OK;
     }
 
     private void unitAttack() {
+        switch (selectedType) {
+            case CITY:
+                System.out.println("You can not do it for a city");
+                break;
+            case CIVILIAN_UNIT:
+                System.out.println("You can not do it for civilian unit.");
+                break;
+            case MILITARY_UNIT:
+                selectedTile.getMilitaryUnit().attack();
+                break;
+        }
+        message = Message.OK;
     }
 
-    private void unitFound() {
+    private void unitFound() { // todo
+        switch (selectedType) {
+            case CITY:
+                System.out.println("You can not do it for a city");
+                break;
+            case CIVILIAN_UNIT:
+                System.out.println("You can not do it for civilian unit.");
+                break;
+            case MILITARY_UNIT:
+                selectedTile.getMilitaryUnit().garrison();
+                break;
+        }
+        message = Message.OK;
     }
 
     private void unitCancel() {
+        switch (selectedType) {
+            case CITY:
+                System.out.println("You can not do it for a city");
+                break;
+            case CIVILIAN_UNIT:
+                selectedTile.getCivilianUnit().cancel();
+                break;
+            case MILITARY_UNIT:
+                selectedTile.getMilitaryUnit().cancel();
+                break;
+        }
+        message = Message.OK;
     }
 
     private void unitDelete() {

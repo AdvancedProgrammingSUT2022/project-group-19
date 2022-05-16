@@ -15,7 +15,10 @@ import java.util.ArrayList;
 public class Unit implements Serializable {
     private final UnitType type;
     private final int cost;
-    private final int power;
+    private final int power; // قدرت نظامی
+    private int currentPower; // قدرت نظامی موجود
+    private final int defensivePower; // قدرت دفاعی
+    private int currentDefensivePower; // قدرت دفاعی موجود
     private final int rangedPower;
     private final int range;
     private final int movePoint;
@@ -34,15 +37,16 @@ public class Unit implements Serializable {
         this.type = type;
         this.cost = type.getCost();
         this.power = type.getPower();
+        this.defensivePower = 10;
+        this.currentDefensivePower = power;
         this.rangedPower = type.getRangedPower();
         this.range = type.getRange();
         this.movePoint = type.getMovePoint();
         this.requiredResource = type.getRequiredResource();
         this.requiredTechnology = type.getRequiredTechnology();
         this.civilization = belongTo;
+        civilization.addUnit(this);
         this.remainMP = this.movePoint;
-
-
         this.tile = Database.map[x][y];
         if (this.isMilitary())
             this.tile.setMilitaryUnit(this);
@@ -57,6 +61,12 @@ public class Unit implements Serializable {
     }
 
     // TODO: 4/28/2022 دوستان توابع بخش حرکت داره اینجا زده میشه لطفا از زدن توابع مشابه بپرهیزید !!!!!!!
+
+    public void moveOrder(GameMap gameMap, Unit unit, int destinationI, int destinationJ) {
+
+        ArrayList<Tile> way = computeBestWay(unit.tile, gameMap.getMap()[destinationI][destinationJ], new ArrayList<>(), null);
+        unit.setWay(way);
+    }
 
     //با توجه به موو پوینت مسیر و یونیت امکان مهاجرت یک یونیت به مقصد را بررسی میکند
     public void move() {
@@ -132,13 +142,51 @@ public class Unit implements Serializable {
     }
 
     public void readyAndAlter() {
+        setSleep(true);
+        ArrayList<Tile> tiles = getTile().getNeighbors();
+        for (Tile tile : tiles) {
+            if (tile.getMilitaryUnit() != null) {
+                while (!isAssigned()) {
+                    //TODO assign a task to military unit :)
+                }
+                break;
+            }
+        }
+    }
+
+    public void garrison() {
+        setSleep(true);
+        Tile tiles[] = tile.getNeighborOnBounds();
+        for(Tile tile : tiles){
+            if(getCivilization().equals(getTile().getCity().getCivilization())){
+                currentPower = power * 120/100;
+                break;
+            }
+        }
     }
 
     public void reinforcement() {
+        setSleep(true);
+        currentDefensivePower = defensivePower * 120/100;
     }
 
     public void fullReinforcement() {
+        setSleep(true);
+        if(currentDefensivePower < defensivePower)
+            currentDefensivePower = defensivePower;
     }
+
+    public void deleteUnit() {
+        if(this.isMilitary())
+            getTile().deleteMilitaryUnit();
+        else
+            getTile().deleteCivilianUnit();
+    }
+
+    public void cancel() {
+        setAssigned(false);
+    }
+
 
     public void settle() {
     }
@@ -163,15 +211,7 @@ public class Unit implements Serializable {
 
     }
 
-    public void cancel() {
-
-    }
-
-    public void removeUnit() {
-
-    }
-
-    public void Attack(Tile land) {
+    public void attack() {
         //This method can be combined with move method
     }
 
@@ -180,10 +220,6 @@ public class Unit implements Serializable {
     }
 
     public void giveBattleReward() {
-
-    }
-
-    public void fortify() {
 
     }
 
