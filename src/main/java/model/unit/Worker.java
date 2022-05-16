@@ -65,12 +65,16 @@ public class Worker extends Unit implements Serializable {
     }
 
     public Message buildRoad() {
-        if (super.workCounter != 0)
+        if (super.workCounter != 0) {
+            System.out.println("busy");
             return Message.busy;
-        if (super.getCivilization().getReachedTechs().contains(Technology.THE_WHEEL)) {
-            super.workCounter = 3;
-            buildingRoad = true;
         }
+        if (!super.getCivilization().getReachedTechs().contains(Technology.THE_WHEEL)) {
+            System.out.println("no tech :(");
+            return Message.noTechnology;
+        }
+        super.workCounter = 3;
+        buildingRoad = true;
         super.getCivilization().log("Started building road in tile " + super.getTile().getPositionI() + "/" + super.getTile().getPositionJ());
         setRemainMP(0);
         return Message.OK;

@@ -57,6 +57,7 @@ public class GameMenu extends Menu {
         this.functions.put("^unit attack$", this::unitAttack);
         this.functions.put("^unit found$", this::unitFound);
         this.functions.put("^unit cancel$", this::unitCancel);
+
         this.functions.put("^unit delete$", this::unitDelete);
         this.functions.put("^unit build road$", this::unitBuildRoad);
         this.functions.put("^unit build railroad$", this::unitBuildRailroad);
@@ -151,7 +152,7 @@ public class GameMenu extends Menu {
     }
 
     private void nextTurnWithNumber() {
-        nextTurnCounter = 2*Integer.parseInt(matcher.group("number")) - 1;
+        nextTurnCounter = 2 * Integer.parseInt(matcher.group("number")) - 1;
         message = Message.NEXT_TURN;
     }
 
@@ -671,6 +672,10 @@ public class GameMenu extends Menu {
     }
 
     private void unitBuildRoad() {
+        Worker worker = getWorker();
+        if (worker == null) return;
+        worker.buildRoad();
+        message = Message.OK;
     }
 
     private void unitBuildRailroad() {
@@ -701,14 +706,21 @@ public class GameMenu extends Menu {
 //    private void unitBuildQuarry() {
 //    }
     private Worker getWorker() {
+        if (selectedTile == null) {
+            System.out.println("select a tile first");
+            message = Message.invalidCommand;
+            return null;
+        }
         Unit unit = selectedTile.getCivilianUnit();
         if (unit == null) {
             System.out.println("there is no unit in this tile.");
+            message = Message.invalidCommand;
             return null;
         }
         Worker worker = new Worker(unit);
         if (!worker.getType().equals(UnitType.WORKER)) {
             System.out.println("there is no worker unit in this tile.");
+            message = Message.invalidCommand;
             return null;
         }
         return worker;
@@ -759,12 +771,12 @@ public class GameMenu extends Menu {
         HashMap<SelectedType, String> selectableMap = new HashMap<>();
         boolean haveCity = false;
         boolean haveUnit = false;
-        if (GameMenu.this.selectedTile.isCityCenter() && player.getCivilization().getCities().contains(GameMenu.this.selectedTile.getCity()))
-            selectableMap.put(SelectedType.CITY, "Select City '" + GameMenu.this.selectedTile.getCity().getName() + "'");
-        if (GameMenu.this.selectedTile.getMilitaryUnit() != null && player.getCivilization().getUnits().contains(GameMenu.this.selectedTile.getMilitaryUnit()))
-            selectableMap.put(SelectedType.MILITARY_UNIT, "Select Military Unit " + GameMenu.this.selectedTile.getMilitaryUnit().getType());
-        if (GameMenu.this.selectedTile.getCivilianUnit() != null && player.getCivilization().getUnits().contains(GameMenu.this.selectedTile.getCivilianUnit()))
-            selectableMap.put(SelectedType.CIVILIAN_UNIT, "Select Civilian Unit " + GameMenu.this.selectedTile.getCivilianUnit().getType());
+        if (this.selectedTile.isCityCenter() && player.getCivilization().getCities().contains(this.selectedTile.getCity()))
+            selectableMap.put(SelectedType.CITY, "Select City '" + this.selectedTile.getCity().getName() + "'");
+        if (this.selectedTile.getMilitaryUnit() != null && player.getCivilization().getUnits().contains(this.selectedTile.getMilitaryUnit()))
+            selectableMap.put(SelectedType.MILITARY_UNIT, "Select Military Unit " + this.selectedTile.getMilitaryUnit().getType());
+        if (this.selectedTile.getCivilianUnit() != null && player.getCivilization().getUnits().contains(this.selectedTile.getCivilianUnit()))
+            selectableMap.put(SelectedType.CIVILIAN_UNIT, "Select Civilian Unit " + this.selectedTile.getCivilianUnit().getType());
 
         if (selectableMap.size() == 0) {
             System.out.println("There is not any selectable unit in this tile.");
