@@ -5,6 +5,8 @@ import model.building.Building;
 import model.resource.ResourceType;
 import model.technology.Technology;
 import model.unit.Unit;
+import model.unit.UnitType;
+import model.unit.Worker;
 
 import java.io.Serializable;
 import java.util.*;
@@ -55,7 +57,7 @@ public class Civilization implements Serializable {
             technologyCounter--;
             if (technologyCounter == 0) {
                 reachedTechs.add(inStudyTech);
-                notification.add(turnCounter + "- You have reached the technology " + inStudyTech);
+                log("You have reached the technology " + inStudyTech);
                 inStudyTech = null;
                 if (pausedInStudyTechs.size() != 0) {
                     Map.Entry<Technology, Integer> entry = pausedInStudyTechs.entrySet().iterator().next();
@@ -63,6 +65,17 @@ public class Civilization implements Serializable {
                     technologyCounter = entry.getValue();
                     pausedInStudyTechs.remove(entry.getKey());
                 }
+            }
+        }
+
+
+        //workers:
+        for (int i = 0; i < units.size(); i++) {
+            if(units.get(i).getType().equals(UnitType.WORKER)){
+                System.out.println(units.get(i).getWorkCounter());
+                Worker worker = (Worker) units.get(i);
+                System.out.println(worker.getWorkCounter());
+                worker.work();
             }
         }
 
@@ -166,13 +179,13 @@ public class Civilization implements Serializable {
                 inStudyTech = technology;
                 technologyCounter = pausedInStudyTechs.get(technology);
                 pausedInStudyTechs.remove(technology);
-                notification.add(turnCounter + "- You have started researching about the technology " + inStudyTech);
+                log("You have started researching about the technology " + inStudyTech);
                 return;
             }
         }
         inStudyTech = technology;
         technologyCounter = counter;
-        notification.add(turnCounter + "- You have started researching about the technology " + inStudyTech);
+        log("You have started researching about the technology " + inStudyTech);
     }
 
     public int getTurnCounter() {
@@ -196,5 +209,21 @@ public class Civilization implements Serializable {
         }
         result.removeAll(getReachedTechs());
         return result;
+    }
+
+    public List<Unit> getMilitaryUnits() {
+        List<Unit> result = new ArrayList<>();
+        for (Unit unit : units)
+            if (unit.isMilitary())
+                result.add(unit);
+        return result;
+    }
+
+    public List<String> getNotification() {
+        return notification;
+    }
+
+    public void log(String notificationSting) {
+        notification.add("turn: " + turnCounter + "- " + notificationSting);
     }
 }

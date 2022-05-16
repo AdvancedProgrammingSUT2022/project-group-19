@@ -16,13 +16,20 @@ public class GameController {
     SelectedType selectedType = null;
 
     public void gameLoop() {
+        int nextTurnCounter = 0;
         while (true) {
             for (Player player : Database.getPlayers()) {
                 player.getCivilization().eachTurn();
                 GameMenu gameMenu = new GameMenu(player);
+                if (nextTurnCounter > 0) {
+                    nextTurnCounter--;
+                    gameMenu.setMessage(Message.NEXT_TURN);
+                }
                 boolean loopFlag = true;
                 while (loopFlag) {
                     updateFogOfWar(player);
+                    if (gameMenu.getMessage().equals(Message.NEXT_TURN))
+                        break;
                     saveGame();
                     if (!(gameMenu.getMessage().equals(Message.invalidCommand) || gameMenu.getMessage().equals(Message.NULL)))
                         Controller.printMap(player);
@@ -55,8 +62,11 @@ public class GameController {
                     }
                     gameMenu.setSelectedTile(null);
                     gameMenu.setSelectedType(null);
-
                 }
+                if (nextTurnCounter == 0)
+                    nextTurnCounter = gameMenu.getNextTurnCounter();
+                else
+                    gameMenu.setNextTurnCounter(0);
                 //حرکت یونیت ها اینجا انجام میشود
                 moveAllUnits(player);
                 System.out.println(Color.BLUE_BACKGROUND + Color.BLACK + "============== NEXT TURN =============" + Color.RESET);
@@ -66,7 +76,6 @@ public class GameController {
             }
         }
     }
-
 
 
     /*
