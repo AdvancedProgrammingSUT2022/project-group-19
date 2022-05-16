@@ -370,6 +370,12 @@ public class GameMenu extends Menu {
     }
 
     private void infoCities() {
+        System.out.println("=============================================");
+        System.out.println("   Cities info and economic overview menu");
+        System.out.println("=============================================");
+        System.out.println("Gold:             " + player.getCivilization().getGold());
+        System.out.println("Science:          " + player.getCivilization().getCupOfScience());
+        System.out.println("Total population: " + player.getCivilization().getPopulation());
         int index = 1;
         for (City city : player.getCivilization().getCities()) {
             System.out.println("City No. " + index);
@@ -381,8 +387,6 @@ public class GameMenu extends Menu {
             System.out.println("food output:     " + city.getFood());
             System.out.println("population:      " + city.getPopulation());
             System.out.println("defencive power: " + city.getDefensivePower());
-            //TODO: elm or science
-            //TODO: bahrevari
             System.out.println("in production:   " + city.getProduction());
             System.out.println("time remaining:  " + city.getProductionCounter() + " turns");
             System.out.println("=========================");
@@ -414,12 +418,26 @@ public class GameMenu extends Menu {
     }
 
     private void infoDiplomacy() {
+        System.out.println("============================");
+        System.out.println("      Diplomacy menu");
+        System.out.println("============================");
+        System.out.println("total gold: " + player.getCivilization().getGold());
+        System.out.println("Diplomatic relations will be available in next phase");
     }
 
     private void infoVictory() {
     }
 
     private void infoDemographics() {
+        System.out.println("=============================");
+        System.out.println("      Demographic menu");
+        System.out.println("=============================");
+        Civilization civil = player.getCivilization();
+        System.out.println("Your civilization has " + civil.getCities().size() + " cities.");
+        System.out.println("With total population " + civil.getPopulation() + " person.");
+        System.out.println("You have " + civil.getGold() + " Gold in total.");
+//        System.out.println("You have " + civil.getUnits().removeAll(this.isMiltary()));
+        //TODO: baghiash
     }
 
     private void infoNotifications() {
