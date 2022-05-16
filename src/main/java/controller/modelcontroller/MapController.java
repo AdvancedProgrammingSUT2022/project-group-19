@@ -31,9 +31,9 @@ public class MapController {
             for (int i = 1; i < length - 1; i++) {
                 for (int j = 1; j < width - 1; j++) {
                     if (tiles[i - 1][j] != null || tiles[i + 1][j] != null || tiles[i][j - 1] != null || tiles[i][j + 1] != null) {
-                        if (random.nextInt() % 3 == 0 && tiles[i][j] == null ) {
+                        if (random.nextInt() % 3 == 0 && tiles[i][j] == null) {
                             TerrainType terrainType = chooseRandomTerrain();
-                            tiles[i][j] = new Tile(terrainType, chooseRandomFeature(terrainType), i, j);
+                            tiles[i][j] = new Tile(terrainType, chooseRandomFeature(terrainType, i), i, j);
                             tiles[i][j].setResource(generateRandomResource(tiles[i][j].getType()));
                             filledGround++;
                         }
@@ -76,11 +76,12 @@ public class MapController {
         return TerrainType.PLAIN;
     }
 
-    public TerrainType chooseRandomFeature(TerrainType terrain) {
+    public TerrainType chooseRandomFeature(TerrainType terrain, int i) {
         Random random = new Random();
         TerrainType[] possibleFeatures = terrain.getPossibleFeatures();
         for (TerrainType feature : possibleFeatures) {
-            if (random.nextInt() % possibleFeatures.length == 0) {
+            if ((i == 5 || i == 6) && random.nextInt() % 2 == 0) return TerrainType.JOLGE;
+            else if (random.nextInt() % possibleFeatures.length == 0) {
                 return feature;
             }
         }
@@ -90,8 +91,7 @@ public class MapController {
     private ResourceType generateRandomResource(TerrainType terrain) {
         Random random = new Random();
         ResourceType[] possibleResources = terrain.getPossibleResources();
-        if (terrain.equals(TerrainType.OCEAN))
-            return null;
+        if (terrain.equals(TerrainType.OCEAN)) return null;
         for (ResourceType Resource : possibleResources) {
             if (random.nextInt() % possibleResources.length == 0) {
                 return Resource;
@@ -99,7 +99,6 @@ public class MapController {
         }
         return ResourceType.NULL;
     }
-
 
 
     public void findNeighbors(Tile[][] tiles, int length, int width) {
