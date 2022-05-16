@@ -14,6 +14,7 @@ public class LoginMenu extends Menu {
     public LoginMenu() {
         Database.readSavedUsers();
         functions.putAll(basicFunctions);
+        functions.put("start", this::autoLogin);
         functions.put("user login(?<args>(?=.+(-u|--username) (\\S+))(?=.+(-p|--password) (\\S+)).+)", this::login);
         functions.put("user create(?<args>(?=.+(-u|--username) (\\S+))(?=.+(-p|--password) (\\S+))(?=.+(-n|--nickname) (\\S+)).+)", this::addUser);
     }

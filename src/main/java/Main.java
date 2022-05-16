@@ -25,12 +25,12 @@ public class Main {
         //get the information from file in the beginning:
         Database.readSavedUsers();
 
-//        //enter the menu:
-//        LoginMenu loginMenu = new LoginMenu();
-//        loginMenu.run();
+        //enter the menu:
+        LoginMenu loginMenu = new LoginMenu();
+        loginMenu.run();
 
         //FOR TEST ONLY
-        LoginMenu loginMenu = new LoginMenu();
-        loginMenu.autoLogin();
+//        LoginMenu loginMenu = new LoginMenu();
+//        loginMenu.autoLogin();
     }
 }
