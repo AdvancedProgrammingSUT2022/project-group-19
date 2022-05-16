@@ -2,6 +2,7 @@ package controller;
 
 import model.*;
 import model.civilizations.City;
+import model.land.TerrainType;
 import model.land.Tile;
 import model.unit.Unit;
 import model.unit.UnitType;
@@ -82,6 +83,13 @@ public class GameController {
                 int x1 = neighbor1.getPositionI();
                 int y1 = neighbor1.getPositionJ();
                 player.fogOfWar[x1][y1] = 2;
+
+                //If neighbor1 is a Blocker land type, we can not see behind it:
+                TerrainType type = neighbor1.getType();
+                if (type.equals(TerrainType.FOREST) || type.equals(TerrainType.JUNGLE) ||
+                        type.equals(TerrainType.MOUNTAIN) || type.equals(TerrainType.HILL))
+                    continue;
+
                 for (Tile neighbor2 : neighbor1.getNeighbors()) {
                     //It's neighbors of neighbors:
                     int x2 = neighbor2.getPositionI();
