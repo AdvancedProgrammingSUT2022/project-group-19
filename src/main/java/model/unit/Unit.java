@@ -299,31 +299,32 @@ public class Unit implements Serializable {
     public int getWorkCounter() {
         return workCounter;
     }
-}
+    public Message freeMove(int x, int y) {
+        Tile destination = Database.map[x][y];
 
-//کد تابع move طیب
-//    Tile destination = Database.map[x][y];
-//
-//        if ((this.isMilitary() && destination.getMilitaryUnit() != null) ||
-//                (!this.isMilitary() && destination.getCivilianUnit() != null)) {
-//            System.out.println("In the destination tile we have a military unit: " + destination.getMilitaryUnit() + ". and a civilian unit: " + destination.getCivilianUnit());
-//            return Message.destinationIsFull;
-//        }
-//        System.out.println("In tile " + tile.getPositionI() + " " + tile.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
-//        System.out.println("In tile " + destination.getPositionI() + " " + destination.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
-//
-//        if (this.isMilitary()) {
-//            this.tile.setMilitaryUnit(null);
-//        } else {
-//            this.tile.setCivilianUnit(null);
-//        }
-//        System.out.println("In tile " + tile.getPositionI() + " " + tile.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
-//        this.tile = destination;
-//
-//        if (this.isMilitary())
-//            this.tile.setMilitaryUnit(this);
-//        else
-//            this.tile.setCivilianUnit(this);
-//        System.out.println("In tile " + tile.getPositionI() + " " + tile.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
-//
-////        this.assigned = true;
+        if ((this.isMilitary() && destination.getMilitaryUnit() != null) ||
+                (!this.isMilitary() && destination.getCivilianUnit() != null)) {
+            System.out.println("In the destination tile we have a military unit: " + destination.getMilitaryUnit() + ". and a civilian unit: " + destination.getCivilianUnit());
+            return Message.destinationIsFull;
+        }
+        System.out.println("In tile " + tile.getPositionI() + " " + tile.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
+        System.out.println("In tile " + destination.getPositionI() + " " + destination.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
+
+        if (this.isMilitary()) {
+            this.tile.setMilitaryUnit(null);
+        } else {
+            this.tile.setCivilianUnit(null);
+        }
+        System.out.println("In tile " + tile.getPositionI() + " " + tile.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
+        this.tile = destination;
+
+        if (this.isMilitary())
+            this.tile.setMilitaryUnit(this);
+        else
+            this.tile.setCivilianUnit(this);
+        System.out.println("In tile " + tile.getPositionI() + " " + tile.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
+
+//        this.assigned = true;
+        return Message.OK;
+    }
+}
