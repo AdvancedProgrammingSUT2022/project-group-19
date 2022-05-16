@@ -45,7 +45,7 @@ public class Unit implements Serializable {
         this.requiredResource = type.getRequiredResource();
         this.requiredTechnology = type.getRequiredTechnology();
         this.civilization = belongTo;
-        civilization.addUnit(this);
+
         this.remainMP = this.movePoint;
         this.tile = Database.map[x][y];
         if (this.isMilitary())

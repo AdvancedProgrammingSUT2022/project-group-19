@@ -15,7 +15,8 @@ public class Settler extends Unit implements Serializable {
         int y = super.tile.getPositionJ();
         City city = new City(super.getCivilization(), x, y);
         super.getCivilization().addCity(city);
-        //TODO: settler self destruction
+        super.getCivilization().log("City founded successfully in tile " + super.getTile().getPositionI() + "/" + super.getTile().getPositionJ());
+        this.deleteUnit();
     }
 
     public void cityExpansion() {
