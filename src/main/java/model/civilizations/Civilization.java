@@ -116,6 +116,14 @@ public class Civilization implements Serializable {
         return resources;
     }
 
+    public int getHappinessIndex() {
+        return happinessIndex;
+    }
+
+    public void setHappinessIndex(int happinessIndex) {
+        this.happinessIndex = happinessIndex;
+    }
+
     public void addCity(City city) {
         cities.add(city);
     }
