@@ -13,6 +13,7 @@ public class GameMap implements Serializable {
         GameMap.numOfCols = numOfCols;
         GameMap.numOfRows = numOfRows;
         this.map = map;
+
     }
 
     public Tile[][] getMap() {

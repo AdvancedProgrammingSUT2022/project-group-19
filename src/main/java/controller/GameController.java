@@ -1,7 +1,5 @@
 package controller;
 
-import com.google.gson.Gson;
-import controller.modelcontroller.MapController;
 import model.*;
 import model.civilizations.City;
 import model.land.Tile;
@@ -10,9 +8,7 @@ import model.unit.UnitType;
 import view.GameMenu;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class GameController {
     SelectedType selectedType = null;
@@ -23,9 +19,10 @@ public class GameController {
                 GameMenu gameMenu = new GameMenu(player);
                 boolean loopFlag = true;
                 while (loopFlag) {
+                    updateFogOfWar(player);
                     saveGame();
                     if (!(gameMenu.getMessage().equals(Message.invalidCommand) || gameMenu.getMessage().equals(Message.NULL)))
-                        Controller.printMap();
+                        Controller.printMap(player);
                     if (!Controller.aUnitNeedsOrder(player)) {
                         System.out.println("All units are assigned. Please enter: 'next turn'");
                     } else {
@@ -67,6 +64,58 @@ public class GameController {
         }
     }
 
+    /*
+      update the visibility of the map each turn
+      the fogOfWar field may be:
+      0 = hidden    /   1 = not hidden   /   2 = visible
+     */
+    private void updateFogOfWar(Player player) {
+
+        //fog of war - Units:
+        for (Unit unit : player.getCivilization().getUnits()) {
+            int x = unit.getTile().getPositionI();
+            int y = unit.getTile().getPositionJ();
+
+            for (int i = 0; i < Database.numOfRows; i++)
+                for (int j = 0; j < Database.numOfCols; j++)
+                    if (player.fogOfWar[i][j] == 2)
+                        player.fogOfWar[i][j] = 1;
+
+            for (int i = x - 2; i <= x + 1; i++) {
+                for (int j = y - 2; j <= y + 2; j++) {
+                    if (i == x - 2 && (j == y - 2 || j == y + 2))
+                        continue;
+                    try {
+                        player.fogOfWar[i][j] = 2;
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+            try {
+                player.fogOfWar[x + 2][y] = 2;
+            } catch (Exception ignored) {
+            }
+        }
+
+
+        //fog of war - cities:
+        for (int i = 0; i < Database.numOfRows; i++) {
+            for (int j = 0; j < Database.numOfCols; j++) {
+                Tile tile = Database.map[i][j];
+                if (tile.getCity() != null && tile.getCity().getCivilization().equals(player.getCivilization())) {
+                    player.fogOfWar[i][j] = 2;
+                    for (Tile neighbor : tile.getNeighborOnBounds()) {
+                        if (neighbor != null) {
+                            int x = neighbor.getPositionI();
+                            int y = neighbor.getPositionJ();
+                            player.fogOfWar[x][y] = 2;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     //Save the entire game data to a file. You can resume the game from Main menu by entering 'load game'.
     private void saveGame() {
         try {
@@ -81,7 +130,7 @@ public class GameController {
             fileStream.close();
 
         } catch (Exception e) {
-            System.out.println("An Error occurred during auto saving the game : " );
+            System.out.println("An Error occurred during auto saving the game : ");
             System.out.println(Arrays.toString(e.getStackTrace()));
         }
     }

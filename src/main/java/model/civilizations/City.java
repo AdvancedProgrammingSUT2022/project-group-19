@@ -1,5 +1,6 @@
 package model.civilizations;
 
+import controller.modelcontroller.MapController;
 import model.Database;
 import model.Message;
 import model.building.Building;
@@ -41,33 +42,38 @@ public class City implements Serializable {
         positionI = x;
         positionJ = y;
 
-        //add surrounded tiles to the city:
-        Tile tile;
-        for (int i = -1; i <= 1; i++) {
-            try {
-                tile = Database.map[x + 1][y + i];
-            } catch (Exception e) {
+        Database.map[x][y].setCity(this);
+        for (Tile neighborTile : Database.map[x][y].getNeighborOnBounds()) {
+            if (neighborTile == null)
                 continue;
-            }
-            if (tile.getCity() == null)
-                tile.setCity(this);
+            neighborTile.setCity(this);
         }
-        for (int i = -1; i <= 1; i++) {
-            try {
-                tile = Database.map[x][y + i];
-            } catch (Exception e) {
-                continue;
-            }
-            if (tile.getCity() == null)
-                tile.setCity(this);
-        }
-        try {
-            tile = Database.map[x - 1][y];
-            if (tile.getCity() == null) {
-                tile.setCity(this);
-            }
-        } catch (Exception ignored) {
-        }
+//        Tile tile;
+//        for (int i = -1; i <= 1; i++) {
+//            try {
+//                tile = Database.map[x + 1][y + i];
+//            } catch (Exception e) {
+//                continue;
+//            }
+//            if (tile.getCity() == null)
+//                tile.setCity(this);
+//        }
+//        for (int i = -1; i <= 1; i++) {
+//            try {
+//                tile = Database.map[x][y + i];
+//            } catch (Exception e) {
+//                continue;
+//            }
+//            if (tile.getCity() == null)
+//                tile.setCity(this);
+//        }
+//        try {
+//            tile = Database.map[x - 1][y];
+//            if (tile.getCity() == null) {
+//                tile.setCity(this);
+//            }
+//        } catch (Exception ignored) {
+//        }
     }
 
     //This methode must be run every turn of the game

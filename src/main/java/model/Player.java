@@ -12,6 +12,8 @@ import java.io.Serializable;
 public class Player implements Serializable {
     private final User user;
     private Civilization civilization;
+    //fogOfWar status:  0 = hidden    /   1 = not hidden   /   2 = visible
+    public int[][] fogOfWar = new int[Database.numOfRows][Database.numOfCols];
 
     public Player(User user) {
         this.user = user;

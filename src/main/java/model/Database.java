@@ -13,13 +13,15 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 
-public class Database implements Serializable{
+public class Database implements Serializable {
     private static List<User> users = new ArrayList<>(); //all registered users
     private static List<Player> players = new ArrayList<>();  //players in game
     private static final String saveGamePath = "./data/game.dat";
     private static final String usersPath = "./data/users.json";
     public static MapController mapController = new MapController();
-    public static GameMap gameMap = mapController.generateRandomMap(6, 14);
+    public static final int numOfRows = 6;
+    public static final int numOfCols = 14;
+    public static GameMap gameMap = mapController.generateRandomMap(numOfRows, numOfCols);
     public static Tile[][] map = gameMap.getMap();
 
 //    public Database() {
