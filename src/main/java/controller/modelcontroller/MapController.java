@@ -15,7 +15,8 @@ public class MapController {
 
     public GameMap generateRandomMap(int numOfRows, int numOfCols) {
         Tile[][] tiles = new Tile[numOfRows][numOfCols];
-        tiles[numOfRows / 2][numOfCols / 2] = new Tile(TerrainType.PLAIN, TerrainType.NULL, numOfRows / 2, numOfCols / 2);
+        tiles[1][1] = new Tile(TerrainType.PLAIN, TerrainType.NULL, 1, 1);
+
         fillMapByRandomDfs(tiles, numOfRows, numOfCols);
         findNeighbors(tiles, numOfRows, numOfCols);
         return new GameMap(numOfRows, numOfCols, tiles);
@@ -30,7 +31,7 @@ public class MapController {
             for (int i = 1; i < length - 1; i++) {
                 for (int j = 1; j < width - 1; j++) {
                     if (tiles[i - 1][j] != null || tiles[i + 1][j] != null || tiles[i][j - 1] != null || tiles[i][j + 1] != null) {
-                        if (tiles[i][j] == null && random.nextInt() % 3 == 0) {
+                        if (random.nextInt() % 3 == 0 && tiles[i][j] == null ) {
                             TerrainType terrainType = chooseRandomTerrain();
                             tiles[i][j] = new Tile(terrainType, chooseRandomFeature(terrainType), i, j);
                             tiles[i][j].setResource(generateRandomResource(tiles[i][j].getType()));
