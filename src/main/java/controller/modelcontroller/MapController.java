@@ -102,9 +102,9 @@ public class MapController {
             for (int j = 0; j < width; j++) {
                 int neighborsNum = 0;
                 Tile[] neighbors = new Tile[6];
-                if (j % 2 == 0) {
-                    if (j > 0) {
-                        neighbors[0] = tiles[i][j - 1];
+                if (i % 2 == 0) {
+                    if (i > 0) {
+                        neighbors[0] = tiles[i-1][j];
                         neighborsNum++;
                     } else {
                         neighbors[0] = null;
@@ -115,51 +115,51 @@ public class MapController {
                     } else {
                         neighbors[1] = null;
                     }
-                    if (i > 0) {
-                        neighbors[2] = tiles[i - 1][j];
+                    if (j > 0) {
+                        neighbors[2] = tiles[i][j-1];
                         neighborsNum++;
                     } else {
                         neighbors[2] = null;
                     }
-                    if (j < width - 1) {
-                        neighbors[3] = tiles[i][j + 1];
+                    if (i < length - 1) {
+                        neighbors[3] = tiles[i+1][j];
                         neighborsNum++;
                     } else {
                         neighbors[3] = null;
                     }
-                    if (i < length - 1) {
-                        neighbors[4] = tiles[i + 1][j];
+                    if (j < width - 1) {
+                        neighbors[4] = tiles[i][j+1];
                         neighborsNum++;
                     } else {
                         neighbors[4] = null;
                     }
-                    if (j > 0 && i < length - 1) {
-                        neighbors[5] = tiles[i + 1][j - 1];
+                    if (j < width - 1 && i > 0) {
+                        neighbors[5] = tiles[i - 1][j + 1];
                         neighborsNum++;
                     } else {
                         neighbors[5] = null;
                     }
                 } else {
-                    if (j > 0) {
-                        neighbors[0] = tiles[i][j - 1];
+                    if (i > 0) {
+                        neighbors[0] = tiles[i - 1][j];
                         neighborsNum++;
                     } else {
                         neighbors[0] = null;
                     }
-                    if (i > 0) {
-                        neighbors[1] = tiles[i - 1][j];
+                    if (j > 0) {
+                        neighbors[1] = tiles[i][j - 1];
                         neighborsNum++;
                     } else {
                         neighbors[1] = null;
                     }
-                    if (j < width - 1 && i > 0) {
-                        neighbors[2] = tiles[i - 1][j + 1];
+                    if (j > 0 && i < length - 1) {
+                        neighbors[2] = tiles[i + 1][j - 1];
                         neighborsNum++;
                     } else {
                         neighbors[2] = null;
                     }
-                    if (j < width - 1) {
-                        neighbors[3] = tiles[i][j + 1];
+                    if (i < length - 1) {
+                        neighbors[3] = tiles[i+1][j];
                         neighborsNum++;
                     } else {
                         neighbors[3] = null;
@@ -170,8 +170,8 @@ public class MapController {
                     } else {
                         neighbors[4] = null;
                     }
-                    if (i < length - 1) {
-                        neighbors[5] = tiles[i + 1][j];
+                    if (j < width - 1) {
+                        neighbors[5] = tiles[i][j + 1];
                         neighborsNum++;
                     } else {
                         neighbors[5] = null;
