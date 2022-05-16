@@ -1,5 +1,6 @@
 package controller.modelcontroller;
 
+import model.Database;
 import model.GameMap;
 import model.land.TerrainType;
 import model.land.Tile;
@@ -8,9 +9,10 @@ import model.resource.ResourceType;
 import java.util.Random;
 
 public class MapController {
-    public void printMap(GameMap gameMap){
+    public void printMap(GameMap gameMap) {
 
     }
+
     public GameMap generateRandomMap(int numOfRows, int numOfCols) {
         Tile[][] tiles = new Tile[numOfRows][numOfCols];
         tiles[numOfRows / 2][numOfCols / 2] = new Tile(TerrainType.PLAIN, TerrainType.NULL, numOfRows / 2, numOfCols / 2);
@@ -97,6 +99,8 @@ public class MapController {
         return ResourceType.NULL;
     }
 
+
+
     public void findNeighbors(Tile[][] tiles, int length, int width) {
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < width; j++) {
@@ -104,7 +108,7 @@ public class MapController {
                 Tile[] neighbors = new Tile[6];
                 if (i % 2 == 0) {
                     if (i > 0) {
-                        neighbors[0] = tiles[i-1][j];
+                        neighbors[0] = tiles[i - 1][j];
                         neighborsNum++;
                     } else {
                         neighbors[0] = null;
@@ -116,19 +120,19 @@ public class MapController {
                         neighbors[1] = null;
                     }
                     if (j > 0) {
-                        neighbors[2] = tiles[i][j-1];
+                        neighbors[2] = tiles[i][j - 1];
                         neighborsNum++;
                     } else {
                         neighbors[2] = null;
                     }
                     if (i < length - 1) {
-                        neighbors[3] = tiles[i+1][j];
+                        neighbors[3] = tiles[i + 1][j];
                         neighborsNum++;
                     } else {
                         neighbors[3] = null;
                     }
                     if (j < width - 1) {
-                        neighbors[4] = tiles[i][j+1];
+                        neighbors[4] = tiles[i][j + 1];
                         neighborsNum++;
                     } else {
                         neighbors[4] = null;
@@ -159,7 +163,7 @@ public class MapController {
                         neighbors[2] = null;
                     }
                     if (i < length - 1) {
-                        neighbors[3] = tiles[i+1][j];
+                        neighbors[3] = tiles[i + 1][j];
                         neighborsNum++;
                     } else {
                         neighbors[3] = null;

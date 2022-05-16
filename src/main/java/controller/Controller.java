@@ -71,10 +71,15 @@ public class Controller {
                             unitName = "       ";
                         else
                             unitName = getInformation("militaryUnit", colOfMap + 1, map[rowOfMap - 1]);
-                        City city = map[rowOfMap][colOfMap + 1].getCity();
+
+                        City city;
+                        if (rowOfMap == 0)
+                            city = null;
+                        else
+                            city = map[rowOfMap - 1][colOfMap + 1].getCity();
                         String cityLogo = "";
                         if (city != null) {
-                            if (map[rowOfMap][colOfMap + 1].isCityCenter())
+                            if (map[rowOfMap - 1][colOfMap + 1].isCityCenter())
                                 cityLogo = Color.YELLOW_BACKGROUND;
                             if (city.getCivilization().equals(Database.getPlayers().get(0).getCivilization()))
                                 cityLogo += Color.BLUE + "C" + Color.RESET;
@@ -82,7 +87,7 @@ public class Controller {
                                 cityLogo += Color.RED + "C" + Color.RESET;
                         } else
                             cityLogo = " ";
-                        if (player.fogOfWar[rowOfMap][colOfMap + 1] == 0) {
+                        if (rowOfMap != 0 && player.fogOfWar[rowOfMap - 1][colOfMap + 1] == 0) {
                             cityLogo = " ";
                             unitName = "       ";
                         }
@@ -231,11 +236,6 @@ public class Controller {
         return false;
     }
 
-    public static List<Tile> getNeighbors(int x, int y){
-        List<Tile> neighbors = new ArrayList<>();
-
-        return neighbors;
-    }
 }
 
 //  /       \

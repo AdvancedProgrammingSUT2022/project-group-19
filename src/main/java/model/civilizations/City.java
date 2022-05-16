@@ -43,11 +43,9 @@ public class City implements Serializable {
         positionJ = y;
 
         Database.map[x][y].setCity(this);
-        for (Tile neighborTile : Database.map[x][y].getNeighborOnBounds()) {
-            if (neighborTile == null)
-                continue;
+        for (Tile neighborTile : Database.map[x][y].getNeighbors())
             neighborTile.setCity(this);
-        }
+
 //        Tile tile;
 //        for (int i = -1; i <= 1; i++) {
 //            try {

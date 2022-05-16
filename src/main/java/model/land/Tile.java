@@ -1,5 +1,6 @@
 package model.land;
 
+import model.Database;
 import model.Improvement;
 import model.Ruin;
 import model.civilizations.City;
@@ -7,6 +8,8 @@ import model.resource.ResourceType;
 import model.unit.Unit;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Tile implements Serializable {
     private int food;
@@ -80,6 +83,39 @@ public class Tile implements Serializable {
 //        this.inSight = inSight;
 //    }
 
+    public List<Tile> getNeighbors() {
+        List<Tile> neighbors = new ArrayList<>();
+        if (positionJ % 2 == 0) {   //if the tile is in even column
+
+            for (int i = positionI - 1; i <= positionI; i++)
+                for (int j = positionJ - 1; j <= positionJ + 1; j++)
+                    try {
+                        neighbors.add(Database.map[i][j]);
+                    } catch (Exception ignored) {
+                    }
+
+            try {
+                neighbors.add(Database.map[positionI + 1][positionJ]);
+            } catch (Exception ignored) {
+            }
+
+        } else {    //if the tile is in odd column
+
+            for (int i = positionI; i <= positionI + 1; i++)
+                for (int j = positionJ - 1; j <= positionJ + 1; j++)
+                    try {
+                        neighbors.add(Database.map[i][j]);
+                    } catch (Exception ignored) {
+                    }
+
+            try {
+                neighbors.add(Database.map[positionI - 1][positionJ]);
+            } catch (Exception ignored) {
+            }
+
+        }
+        return neighbors;
+    }
 
     public Tile[] getNeighborOnBounds() {
         return neighborOnBounds;

@@ -73,29 +73,48 @@ public class GameController {
 
         //fog of war - Units:
         for (Unit unit : player.getCivilization().getUnits()) {
+            //Itself:
             int x = unit.getTile().getPositionI();
             int y = unit.getTile().getPositionJ();
-
-            for (int i = 0; i < Database.numOfRows; i++)
-                for (int j = 0; j < Database.numOfCols; j++)
-                    if (player.fogOfWar[i][j] == 2)
-                        player.fogOfWar[i][j] = 1;
-
-            for (int i = x - 2; i <= x + 1; i++) {
-                for (int j = y - 2; j <= y + 2; j++) {
-                    if (i == x - 2 && (j == y - 2 || j == y + 2))
-                        continue;
-                    try {
-                        player.fogOfWar[i][j] = 2;
-                    } catch (Exception ignored) {
-                    }
+            player.fogOfWar[x][y] = 2;
+            for (Tile neighbor1 : unit.getTile().getNeighbors()) {
+                //It's neighbors:
+                int x1 = neighbor1.getPositionI();
+                int y1 = neighbor1.getPositionJ();
+                player.fogOfWar[x1][y1] = 2;
+                for (Tile neighbor2 : neighbor1.getNeighbors()) {
+                    //It's neighbors of neighbors:
+                    int x2 = neighbor2.getPositionI();
+                    int y2 = neighbor2.getPositionJ();
+                    player.fogOfWar[x2][y2] = 2;
                 }
             }
-            try {
-                player.fogOfWar[x + 2][y] = 2;
-            } catch (Exception ignored) {
-            }
         }
+
+//        for (Unit unit : player.getCivilization().getUnits()) {
+//            int x = unit.getTile().getPositionI();
+//            int y = unit.getTile().getPositionJ();
+//
+//            for (int i = 0; i < Database.numOfRows; i++)
+//                for (int j = 0; j < Database.numOfCols; j++)
+//                    if (player.fogOfWar[i][j] == 2)
+//                        player.fogOfWar[i][j] = 1;
+//
+//            for (int i = x - 2; i <= x + 1; i++) {
+//                for (int j = y - 2; j <= y + 2; j++) {
+//                    if (i == x - 2 && (j == y - 2 || j == y + 2))
+//                        continue;
+//                    try {
+//                        player.fogOfWar[i][j] = 2;
+//                    } catch (Exception ignored) {
+//                    }
+//                }
+//            }
+//            try {
+//                player.fogOfWar[x + 2][y] = 2;
+//            } catch (Exception ignored) {
+//            }
+//        }
 
 
         //fog of war - cities:
@@ -104,12 +123,10 @@ public class GameController {
                 Tile tile = Database.map[i][j];
                 if (tile.getCity() != null && tile.getCity().getCivilization().equals(player.getCivilization())) {
                     player.fogOfWar[i][j] = 2;
-                    for (Tile neighbor : tile.getNeighborOnBounds()) {
-                        if (neighbor != null) {
-                            int x = neighbor.getPositionI();
-                            int y = neighbor.getPositionJ();
-                            player.fogOfWar[x][y] = 2;
-                        }
+                    for (Tile neighbor : tile.getNeighbors()) {
+                        int x = neighbor.getPositionI();
+                        int y = neighbor.getPositionJ();
+                        player.fogOfWar[x][y] = 2;
                     }
                 }
             }

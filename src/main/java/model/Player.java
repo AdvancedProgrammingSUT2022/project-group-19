@@ -24,15 +24,16 @@ public class Player implements Serializable {
 
         //insert the unit in the map:
         int y = 4;
-        Tile tile = Database.map[2][y];
+        int x = 2;
+        Tile tile = Database.map[x][y];
         while (tile.getCivilianUnit() != null) {
-            tile = Database.map[2][y += 4];
+            tile = Database.map[x -= 1][y += 5];
         }
-        Unit unit = new Unit(UnitType.SCOUT, civilization, 2, y);
+        Unit unit = new Unit(UnitType.SCOUT, civilization, x, y);
         civilization.addUnit(unit);
-        Worker worker = new Worker(new Unit(UnitType.WORKER, civilization, 2, y));
+        Worker worker = new Worker(new Unit(UnitType.WORKER, civilization, x, y));
         civilization.addUnit(worker);
-        City city = new City(civilization, 2, y);
+        City city = new City(civilization, x, y);
     }
 
     public void setCivilization(Civilization civilization) {
