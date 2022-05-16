@@ -81,6 +81,30 @@ public class GameMenu extends Menu {
         this.functions.put("^kill all other units$", this::killEnemyUnits);
         this.functions.put("^increase move point (?<amount>\\d+)$", this::increaseMovePoint);
         this.functions.put("^get all techs$", this::getAllTechs);
+        this.functions.put("^increase happiness$", this::increaseHappiness);
+        this.functions.put("^increase cup of science (?<amount>\\d+)$", this::increaseCupOfScience);
+        this.functions.put("^make the world visible$", this::removeFogsOfWar);
+    }
+
+    private void removeFogsOfWar() {
+
+        int[][] fogsMap = player.fogOfWar;
+        int length = Database.numOfRows;
+        int width = Database.numOfCols;
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < width; j++) {
+                fogsMap[i][j] = 1;
+            }
+        }
+    }
+
+    private void increaseCupOfScience() {
+        int amount = Integer.parseInt(matcher.group("amount"));
+        player.getCivilization().addCupOfScience(amount);
+    }
+
+    private void increaseHappiness() {
+        player.getCivilization().setHappinessIndex(10);
     }
 
     private void getAllTechs() {
