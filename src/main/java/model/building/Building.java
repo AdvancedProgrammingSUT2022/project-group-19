@@ -2,6 +2,8 @@ package model.building;
 
 import model.technology.Technology;
 
+import java.util.ArrayList;
+
 public enum Building {
     //Ancient Era Buildings
     BARRACKS(80, 1, Technology.BRONZE_WORKING),
@@ -77,6 +79,14 @@ public enum Building {
 
     public void setIsAvailableTechnologyRequired(boolean isAvailableTechnologyRequired) {
         this.isAvailableTechnologyRequired = isAvailableTechnologyRequired;
+    }
+
+    public static ArrayList<Building> getAllNeeds(Technology technology) {
+        ArrayList<Building> list = new ArrayList<>();
+        for (Building building : Building.values())
+            if (building.getRequiredTechnology() != null && building.getRequiredTechnology().equals(technology))
+                list.add(building);
+        return list;
     }
 
 }

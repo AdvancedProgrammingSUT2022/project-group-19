@@ -17,11 +17,10 @@ public class City implements Serializable {
     private boolean isCapital;
     private int food;
     private Production production;
-    private int citizens;
-    private int idleCitizens;
-    private int population;
-    private ArrayList<Tile> tiles;
-    private ArrayList<Building> buildings;
+    private int population = 1;
+    private int idleCitizens = population;
+    private ArrayList<Tile> tiles = new ArrayList<>();
+    private ArrayList<Building> buildings = new ArrayList<>();
     private Unit inProductionUnit = null;
     private Unit savedUnit = null;
     private int productionCounter;
@@ -256,14 +255,6 @@ public class City implements Serializable {
         this.production = production;
     }
 
-    public int getCitizens() {
-        return citizens;
-    }
-
-    public void setCitizens(int citizens) {
-        this.citizens = citizens;
-    }
-
     public int getIdleCitizens() {
         return idleCitizens;
     }
@@ -318,6 +309,18 @@ public class City implements Serializable {
 
     public void setInBuildBuilding(Building inBuildBuilding) {
         this.inBuildBuilding = inBuildBuilding;
+    }
+
+    public ArrayList<Building> getBuildings() {
+        return buildings;
+    }
+
+    public void removeBuilding(Building building) {
+        this.buildings.remove(building);
+    }
+
+    public void addBuilding(Building building) {
+        this.buildings.add(building);
     }
 }
 

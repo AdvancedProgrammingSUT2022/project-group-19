@@ -58,8 +58,8 @@ public enum Technology {
     COMBUSTION(2200, new Technology[]{REPLACEABLE_PARTS, RAILROAD, DYNAMITE}),
     TELEGRAPH(2200, new Technology[]{ELECTRICITY});
 
-    private int cost;
-    private Technology[] prerequisiteTechs;
+    private final int cost;
+    private final Technology[] prerequisiteTechs;
 
     Technology(int cost, Technology[] prerequisiteTechs) {
         this.cost = cost;
@@ -73,4 +73,5 @@ public enum Technology {
     public Technology[] getPrerequisiteTechs() {
         return prerequisiteTechs;
     }
+
 }
