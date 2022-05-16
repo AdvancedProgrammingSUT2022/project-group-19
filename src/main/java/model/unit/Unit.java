@@ -281,6 +281,7 @@ public class Unit implements Serializable {
         Tile[][] map = Database.gameMap.getMap();
         ArrayList<Tile> way = computeBestWay(tile, map[x][y], new ArrayList<>(), null);
         setWay(way);
+        move();
         return Message.OK;
     }
 

@@ -139,7 +139,7 @@ public class MapController {
                     } else {
                         neighbors[5] = null;
                     }
-                    return;
+                    continue;
                 } else {
                     if (j > 0) {
                         neighbors[0] = tiles[i][j - 1];
