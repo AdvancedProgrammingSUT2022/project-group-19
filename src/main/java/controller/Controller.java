@@ -7,7 +7,9 @@ import model.land.Tile;
 import model.resource.ResourceType;
 import model.unit.Unit;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class Controller {
@@ -43,7 +45,7 @@ public class Controller {
         return Message.loginOK;
     }
 
-    static public void printMap() {
+    static public void printMap(Player player) {
         String areaColor = Color.RESET;
         Tile[][] map = Database.map;
         String[] hex = {
@@ -56,14 +58,28 @@ public class Controller {
         };
         for (int rowOfMap = 0; rowOfMap < 5; rowOfMap++) {
             for (int rowInHex = 0; rowInHex < hex.length; rowInHex++) {
-                for (int i = 0; i < 14; i += 2) {
+                for (int colOfMap = 0; colOfMap < 14; colOfMap += 2) {
+
+                    String river = Color.RESET;
+                    if (colOfMap == 6)
+                        river = Color.BLUE_BACKGROUND;
+
                     if (rowInHex == 0) {
-                        String information = getInformation("resource", i, map[rowOfMap]);
-                        String unitName = getInformation("militaryUnit", i + 1, map[rowOfMap]);
-                        City city = map[rowOfMap][i + 1].getCity();
+                        String information = getInformation("resource", colOfMap, map[rowOfMap]);
+                        String unitName;
+                        if (rowOfMap == 0)
+                            unitName = "       ";
+                        else
+                            unitName = getInformation("militaryUnit", colOfMap + 1, map[rowOfMap - 1]);
+
+                        City city;
+                        if (rowOfMap == 0)
+                            city = null;
+                        else
+                            city = map[rowOfMap - 1][colOfMap + 1].getCity();
                         String cityLogo = "";
                         if (city != null) {
-                            if (map[rowOfMap][i + 1].isCityCenter())
+                            if (map[rowOfMap - 1][colOfMap + 1].isCityCenter())
                                 cityLogo = Color.YELLOW_BACKGROUND;
                             if (city.getCivilization().equals(Database.getPlayers().get(0).getCivilization()))
                                 cityLogo += Color.BLUE + "C" + Color.RESET;
@@ -71,22 +87,38 @@ public class Controller {
                                 cityLogo += Color.RED + "C" + Color.RESET;
                         } else
                             cityLogo = " ";
-                        System.out.print("  /" + information + "\\" + cityLogo + unitName + " ");
+                        if (rowOfMap != 0 && player.fogOfWar[rowOfMap - 1][colOfMap + 1] != 2) {
+                            cityLogo = " ";
+                            unitName = "       ";
+                        }
+                        if (player.fogOfWar[rowOfMap][colOfMap] == 0)
+                            information = "       ";
+                        System.out.print("  " + river + "/" + Color.RESET + information + "\\" + cityLogo + unitName + " ");
                     } else if (rowInHex == 1) {
-                        String information = getInformation("feature", i, map[rowOfMap]);
-                        String unitName = getInformation("civilianUnit", i + 1, map[rowOfMap]);
-                        System.out.print(" / " + information + " \\ " + unitName);
+                        String information = getInformation("feature", colOfMap, map[rowOfMap]);
+                        String unitName;
+                        if (rowOfMap == 0)
+                            unitName = "       ";
+                        else
+                            unitName = getInformation("civilianUnit", colOfMap + 1, map[rowOfMap - 1]);
+                        if (player.fogOfWar[rowOfMap][colOfMap] == 0)
+                            information = "       ";
+                        if (player.fogOfWar[rowOfMap][colOfMap + 1] != 2)
+                            unitName = "       ";
+                        System.out.print(" " + river + "/" + Color.RESET + " " + information + " \\ " + unitName);
                     } else if (rowInHex == 2) {
-                        String information = getInformation("landType", i, map[rowOfMap]);
-                        String col = (i > 9) ? (i + "") : (i + " ");
-                        System.out.print("/" + rowOfMap + " " + information + col + "\\_______");
+                        String information = getInformation("landType", colOfMap, map[rowOfMap]);
+                        String col = (colOfMap > 9) ? (colOfMap + "") : (colOfMap + " ");
+                        if (player.fogOfWar[rowOfMap][colOfMap] == 0)
+                            information = "       ";
+                        System.out.print(river + "/" + Color.RESET + rowOfMap + " " + information + col + "\\_______");
                     } else if (rowInHex == 3) {
-                        String information = getInformation("resource", i + 1, map[rowOfMap]);
-                        String unitName = getInformation("militaryUnit", i, map[rowOfMap]);
-                        City city = map[rowOfMap][i].getCity();
+                        String information = getInformation("resource", colOfMap + 1, map[rowOfMap]);
+                        String unitName = getInformation("militaryUnit", colOfMap, map[rowOfMap]);
+                        City city = map[rowOfMap][colOfMap].getCity();
                         String cityLogo = "";
                         if (city != null) {
-                            if (map[rowOfMap][i].isCityCenter())
+                            if (map[rowOfMap][colOfMap].isCityCenter())
                                 cityLogo = Color.YELLOW_BACKGROUND;
                             if (city.getCivilization().equals(Database.getPlayers().get(0).getCivilization()))
                                 cityLogo += Color.BLUE + "C" + Color.RESET;
@@ -94,16 +126,28 @@ public class Controller {
                                 cityLogo += Color.RED + "C" + Color.RESET;
                         } else
                             cityLogo = " ";
-                        System.out.print("\\" + cityLogo + " " + unitName + "  /" + information);
+                        if (player.fogOfWar[rowOfMap][colOfMap + 1] == 0)
+                            information = "       ";
+                        if (player.fogOfWar[rowOfMap][colOfMap] != 2) {
+                            cityLogo = " ";
+                            unitName = "       ";
+                        }
+                        System.out.print(river + "\\" + Color.RESET + cityLogo + " " + unitName + "  /" + information);
                     } else if (rowInHex == 4) {
-                        String information = getInformation("feature", i + 1, map[rowOfMap]);
-                        String unitName = getInformation("civilianUnit", i, map[rowOfMap]);
-                        System.out.print(" \\ " + unitName + " / " + information);
+                        String information = getInformation("feature", colOfMap + 1, map[rowOfMap]);
+                        String unitName = getInformation("civilianUnit", colOfMap, map[rowOfMap]);
+                        if (player.fogOfWar[rowOfMap][colOfMap + 1] == 0)
+                            information = "       ";
+                        if (player.fogOfWar[rowOfMap][colOfMap] != 2)
+                            unitName = "       ";
+                        System.out.print(" " + river + "\\" + Color.RESET + " " + unitName + " / " + information);
                     } else {
-                        String information = getInformation("landType", i + 1, map[rowOfMap]);
-                        String col = ((i - 1) > 9) ? ((i - 1) + "") : ((i - 1) + " ");
-                        if (i == 0) col = "  ";
-                        System.out.print(col + "\\_______/" + (rowOfMap + 1) + " " + information);
+                        String information = getInformation("landType", colOfMap + 1, map[rowOfMap]);
+                        String col = ((colOfMap - 1) > 9) ? ((colOfMap - 1) + "") : ((colOfMap - 1) + " ");
+                        if (colOfMap == 0) col = "  ";
+                        if (player.fogOfWar[rowOfMap][colOfMap + 1] == 0)
+                            information = "       ";
+                        System.out.print(col + river + "\\" + Color.RESET + "_______/" + (rowOfMap) + " " + information);
                     }
                 }
                 System.out.println();
@@ -184,6 +228,14 @@ public class Controller {
     public static boolean isInvalidCoordinate(int x, int y) {
         return (x < 0 || x > GameMap.getNumOfRows() - 1 || y < 0 || y > GameMap.getNumOfCols() - 1);
     }
+
+    public static boolean aUnitNeedsOrder(Player player) {
+        for (Unit unit : player.getCivilization().getUnits())
+            if (!unit.isSleep() && (unit.getWay() == null || unit.getWay().size() == 0) && unit.getRemainMP() > 0)
+                return true;
+        return false;
+    }
+
 }
 
 //  /       \
@@ -192,3 +244,6 @@ public class Controller {
 //\           /
 // \         /
 //  \_______/
+
+
+

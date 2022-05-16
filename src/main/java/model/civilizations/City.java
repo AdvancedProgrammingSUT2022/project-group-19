@@ -1,5 +1,6 @@
 package model.civilizations;
 
+import controller.modelcontroller.MapController;
 import model.Database;
 import model.Message;
 import model.building.Building;
@@ -7,19 +8,19 @@ import model.land.Tile;
 import model.unit.Unit;
 import model.unit.UnitType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class City {
+public class City implements Serializable {
     private String name = "Unnamed City";
     private int defensivePower;
     private boolean isCapital;
     private int food;
     private Production production;
-    private int citizens;
-    private int idleCitizens;
-    private int population;
-    private ArrayList<Tile> tiles;
-    private ArrayList<Building> buildings;
+    private int population = 1;
+    private int idleCitizens = population;
+    private ArrayList<Tile> tiles = new ArrayList<>();
+    private ArrayList<Building> buildings = new ArrayList<>();
     private Unit inProductionUnit = null;
     private Unit savedUnit = null;
     private int productionCounter;
@@ -40,33 +41,36 @@ public class City {
         positionI = x;
         positionJ = y;
 
-        //add surrounded tiles to the city:
-        Tile tile;
-        for (int i = -1; i <= 1; i++) {
-            try {
-                tile = Database.map[x + 1][y + i];
-            } catch (Exception e) {
-                continue;
-            }
-            if (tile.getCity() == null)
-                tile.setCity(this);
-        }
-        for (int i = -1; i <= 1; i++) {
-            try {
-                tile = Database.map[x][y + i];
-            } catch (Exception e) {
-                continue;
-            }
-            if (tile.getCity() == null)
-                tile.setCity(this);
-        }
-        try {
-            tile = Database.map[x - 1][y];
-            if (tile.getCity() == null) {
-                tile.setCity(this);
-            }
-        } catch (Exception ignored) {
-        }
+        Database.map[x][y].setCity(this);
+        for (Tile neighborTile : Database.map[x][y].getNeighbors())
+            neighborTile.setCity(this);
+
+//        Tile tile;
+//        for (int i = -1; i <= 1; i++) {
+//            try {
+//                tile = Database.map[x + 1][y + i];
+//            } catch (Exception e) {
+//                continue;
+//            }
+//            if (tile.getCity() == null)
+//                tile.setCity(this);
+//        }
+//        for (int i = -1; i <= 1; i++) {
+//            try {
+//                tile = Database.map[x][y + i];
+//            } catch (Exception e) {
+//                continue;
+//            }
+//            if (tile.getCity() == null)
+//                tile.setCity(this);
+//        }
+//        try {
+//            tile = Database.map[x - 1][y];
+//            if (tile.getCity() == null) {
+//                tile.setCity(this);
+//            }
+//        } catch (Exception ignored) {
+//        }
     }
 
     //This methode must be run every turn of the game
@@ -214,4 +218,109 @@ public class City {
     public void setCivilization(Civilization civilization) {
         this.civilization = civilization;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getDefensivePower() {
+        return defensivePower;
+    }
+
+    public void setDefensivePower(int defensivePower) {
+        this.defensivePower = defensivePower;
+    }
+
+    public boolean isCapital() {
+        return isCapital;
+    }
+
+    public void setCapital(boolean capital) {
+        isCapital = capital;
+    }
+
+    public int getFood() {
+        return food;
+    }
+
+    public void setFood(int food) {
+        this.food = food;
+    }
+
+    public Production getProduction() {
+        return production;
+    }
+
+    public void setProduction(Production production) {
+        this.production = production;
+    }
+
+    public int getIdleCitizens() {
+        return idleCitizens;
+    }
+
+    public void setIdleCitizens(int idleCitizens) {
+        this.idleCitizens = idleCitizens;
+    }
+
+    public int getPopulation() {
+        return population;
+    }
+
+    public void setPopulation(int population) {
+        this.population = population;
+    }
+
+    public int getPositionI() {
+        return positionI;
+    }
+
+    public int getPositionJ() {
+        return positionJ;
+    }
+
+    public Unit getInProductionUnit() {
+        return inProductionUnit;
+    }
+
+    public void setInProductionUnit(Unit inProductionUnit) {
+        this.inProductionUnit = inProductionUnit;
+    }
+
+    public int getProductionCounter() {
+        return productionCounter;
+    }
+
+    public void setProductionCounter(int productionCounter) {
+        this.productionCounter = productionCounter;
+    }
+
+    public int getCityIncome() {
+        return cityIncome;
+    }
+
+    public void setCityIncome(int cityIncome) {
+        this.cityIncome = cityIncome;
+    }
+
+    public Building getInBuildBuilding() {
+        return inBuildBuilding;
+    }
+
+    public void setInBuildBuilding(Building inBuildBuilding) {
+        this.inBuildBuilding = inBuildBuilding;
+    }
+
+    public ArrayList<Building> getBuildings() {
+        return buildings;
+    }
+
+    public void removeBuilding(Building building) {
+        this.buildings.remove(building);
+    }
+
+    public void addBuilding(Building building) {
+        this.buildings.add(building);
+    }
 }
+

@@ -1,12 +1,13 @@
 package view;
 
 import controller.GameController;
-import model.Database;
-import model.Function;
-import model.Player;
-import model.User;
+import model.*;
+import model.land.Tile;
 
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -20,6 +21,7 @@ public class MainMenu extends Menu {
         this.loggedInUser = loggedInUser;
         functions.putAll(basicFunctions);
         functions.put("^user logout$", this::logout);
+        functions.put("^load game$", this::loadGame);
         functions.put("^play game(?<player> (--player|-p)(?<numberPlayer>[1-9][0-9]*) (?<username1>\\S+))+", this::startGame);
     }
 
@@ -65,8 +67,28 @@ public class MainMenu extends Menu {
         loginMenu.run();
     }
 
+    private void loadGame() {
+        try {
+            FileInputStream fileStream = new FileInputStream(Database.getSaveGamePath());
+            ObjectInputStream objectStream = new ObjectInputStream(fileStream);
+
+            Database.setPlayers((List<Player>) objectStream.readObject());
+            Database.gameMap = (GameMap) objectStream.readObject();
+            Database.map = (Tile[][]) objectStream.readObject();
+
+            fileStream.close();
+            objectStream.close();
+        } catch (Exception e) {
+            System.out.println("Can not load game :(");
+            System.out.println("Error : " + Arrays.toString(e.getStackTrace()));
+            return;
+        }
+        GameController gameController = new GameController();
+        gameController.gameLoop();
+    }
+
     //FOR TEST ONLY
-    public void autoStartGame(){
+    public void autoStartGame() {
         command = "play game -p1 ali -p2 sajad";
         System.out.println(command);
         startGame();

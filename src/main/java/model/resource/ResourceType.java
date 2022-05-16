@@ -8,8 +8,9 @@ public enum ResourceType {
     //   It does not matter where the resources may be found
     //   What matters is what resources each land may have
     //   So In LandType class we implement that
-
+    NULL(0, 0, 0, null, null),
     //Bounce resources:
+
     BANANA(1, 0, 0, Improvement.FARMING, null),
     COW(1, 0, 0, Improvement.PASTURE, null),
     GAZELLE(1, 0, 0, Improvement.CAMP, null),
@@ -81,5 +82,12 @@ public enum ResourceType {
 
     public Technology getRequiredTechnology() {
         return requiredTechnology;
+    }
+
+    public static ResourceType getRequire(Technology technology) {
+        for (ResourceType resourceType : ResourceType.values())
+            if (resourceType.getRequiredTechnology() != null && resourceType.getRequiredTechnology().equals(technology))
+                return resourceType;
+        return null;
     }
 }

@@ -1,5 +1,8 @@
 package model.technology;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum Technology {
     //Ancient Era
     AGRICULTURE(20, null),
@@ -58,9 +61,9 @@ public enum Technology {
     COMBUSTION(2200, new Technology[]{REPLACEABLE_PARTS, RAILROAD, DYNAMITE}),
     TELEGRAPH(2200, new Technology[]{ELECTRICITY});
 
-    private int cost;
-    private Technology[] prerequisiteTechs;
-
+    private final int cost;
+    private final Technology[] prerequisiteTechs;
+    public static final List<Technology> VALUES = List.of(values());
     Technology(int cost, Technology[] prerequisiteTechs) {
         this.cost = cost;
         this.prerequisiteTechs = prerequisiteTechs;
@@ -73,4 +76,5 @@ public enum Technology {
     public Technology[] getPrerequisiteTechs() {
         return prerequisiteTechs;
     }
+
 }

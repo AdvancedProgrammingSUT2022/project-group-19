@@ -3,7 +3,9 @@ package model.unit;
 import model.civilizations.City;
 import model.civilizations.Civilization;
 
-public class Settler extends Unit {
+import java.io.Serializable;
+
+public class Settler extends Unit implements Serializable {
     public Settler(Unit unit) {
         super(UnitType.SETTLER, unit.getCivilization(), unit.getTile().getPositionI(), unit.getTile().getPositionJ());
     }
