@@ -7,9 +7,10 @@ import model.land.Tile;
 import model.unit.Unit;
 import model.unit.UnitType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class City {
+public class City implements Serializable {
     private String name = "Unnamed City";
     private int defensivePower;
     private boolean isCapital;

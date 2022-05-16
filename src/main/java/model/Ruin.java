@@ -3,9 +3,10 @@ package model;
 import model.technology.Technology;
 import model.unit.Unit;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Ruin {
+public class Ruin implements Serializable {
     ArrayList<Technology> technologies;
     Unit settler = null;
     Unit worker = null;

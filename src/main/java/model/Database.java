@@ -13,9 +13,10 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 
-public class Database {
+public class Database implements Serializable{
     private static List<User> users = new ArrayList<>(); //all registered users
     private static List<Player> players = new ArrayList<>();  //players in game
+    private static final String saveGamePath = "./data/game.dat";
     private static final String usersPath = "./data/users.json";
     public static MapController mapController = new MapController();
     public static GameMap gameMap = mapController.generateRandomMap(6, 14);
@@ -93,6 +94,10 @@ public class Database {
 
     public static void setPlayers(List<Player> players) {
         Database.players = players;
+    }
+
+    public static String getSaveGamePath() {
+        return saveGamePath;
     }
 }
 

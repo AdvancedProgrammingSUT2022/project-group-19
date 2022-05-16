@@ -1,6 +1,7 @@
 package controller;
 
 import com.google.gson.Gson;
+import controller.modelcontroller.MapController;
 import model.*;
 import model.civilizations.City;
 import model.land.Tile;
@@ -8,21 +9,21 @@ import model.unit.Unit;
 import model.unit.UnitType;
 import view.GameMenu;
 
-import java.io.FileWriter;
-import java.io.Writer;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class GameController {
-    private Player turn;
     SelectedType selectedType = null;
 
     public void gameLoop() {
         while (true) {
             for (Player player : Database.getPlayers()) {
                 GameMenu gameMenu = new GameMenu(player);
-                turn = player;
                 boolean loopFlag = true;
                 while (loopFlag) {
-                    Tile selectedTile = null;
+                    saveGame();
                     if (!(gameMenu.getMessage().equals(Message.invalidCommand) || gameMenu.getMessage().equals(Message.NULL)))
                         Controller.printMap();
                     if (!Controller.aUnitNeedsOrder(player)) {
@@ -36,7 +37,7 @@ public class GameController {
                     if (gameMenu.getSelectedTile() == null)
                         continue;
 
-                    if (gameMenu.getSelectedType() == null){
+                    if (gameMenu.getSelectedType() == null) {
                         //select a unit or a city in selected tile:
                         if (gameMenu.selectUnitOrCity() == Message.NEXT_TURN)
                             break;
@@ -63,27 +64,25 @@ public class GameController {
                 restoreMP(player);
                 selectedType = null;
             }
-            //TODO: save the game
-            saveGame();
         }
     }
 
+    //Save the entire game data to a file. You can resume the game from Main menu by entering 'load game'.
     private void saveGame() {
         try {
-            Writer writer = new FileWriter("./data/map.json");
-            new Gson().toJson(Database.map,writer);
-            writer.close();
+            FileOutputStream fileStream = new FileOutputStream(Database.getSaveGamePath());
+            ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
 
-            writer = new FileWriter("./data/gameMap.json");
-            new Gson().toJson(Database.gameMap,writer);
-            writer.close();
+            objectStream.writeObject(Database.getPlayers());
+            objectStream.writeObject(Database.gameMap);
+            objectStream.writeObject(Database.map);
 
-            writer = new FileWriter("./data/players.json");
-            new Gson().toJson(Database.getPlayers(),writer);
-            writer.close();
-        }catch (Exception e){
-            System.out.println("An Error occurred during auto saving the game : " + e.getMessage());
-            return;
+            objectStream.close();
+            fileStream.close();
+
+        } catch (Exception e) {
+            System.out.println("An Error occurred during auto saving the game : " );
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
     }
 
@@ -98,7 +97,7 @@ public class GameController {
     private void moveAllUnits(Player player) {
         for (Unit unit : player.getCivilization().getUnits()) {
             if (unit.getWay() == null || unit.getWay().size() == 0) continue;
-                unit.move();
+            unit.move();
         }
     }
 }

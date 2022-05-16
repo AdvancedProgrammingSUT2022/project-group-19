@@ -5,9 +5,10 @@ import model.Message;
 import model.land.TerrainType;
 import model.technology.Technology;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Worker extends Unit {
+public class Worker extends Unit implements Serializable {
 //    private int workCounter;
     private int savedCounter;
     private Improvement savedImprovement = null;

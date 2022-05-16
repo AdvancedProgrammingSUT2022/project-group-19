@@ -1,6 +1,8 @@
 package model.technology;
 
-public class InStudyTechs {
+import java.io.Serializable;
+
+public class InStudyTechs implements Serializable {
     private Technology technology;
     private int remainingCups;
     //a civilization can work on only one tech at a time

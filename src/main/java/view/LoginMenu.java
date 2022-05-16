@@ -59,6 +59,7 @@ public class LoginMenu extends Menu {
         if (message.equals(Message.loginOK)) {
             User loggedInUser = Database.getUser("ali");
             MainMenu mainMenu = new MainMenu(loggedInUser);
+//            mainMenu.run();
             mainMenu.autoStartGame();
         }
     }

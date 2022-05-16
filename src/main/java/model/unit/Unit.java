@@ -9,9 +9,10 @@ import model.land.Tile;
 import model.technology.Technology;
 import model.resource.ResourceType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Unit {
+public class Unit implements Serializable {
     private final UnitType type;
     private final int cost;
     private final int power;

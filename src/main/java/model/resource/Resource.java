@@ -3,7 +3,9 @@ package model.resource;
 import model.Improvement;
 import model.technology.Technology;
 
-public class Resource {
+import java.io.Serializable;
+
+public class Resource implements Serializable {
     private int food;
     private int gold;
     private int production;

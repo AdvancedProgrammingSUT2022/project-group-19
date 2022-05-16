@@ -6,7 +6,9 @@ import model.civilizations.City;
 import model.resource.ResourceType;
 import model.unit.Unit;
 
-public class Tile {
+import java.io.Serializable;
+
+public class Tile implements Serializable {
     private int food;
     private int production;
     private int gold;

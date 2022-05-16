@@ -2,7 +2,9 @@ package model;
 
 import model.land.Tile;
 
-public class GameMap {
+import java.io.Serializable;
+
+public class GameMap implements Serializable {
     private static int numOfCols;
     private static int numOfRows;
     private Tile[][] map;
