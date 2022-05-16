@@ -87,7 +87,7 @@ public class Controller {
                                 cityLogo += Color.RED + "C" + Color.RESET;
                         } else
                             cityLogo = " ";
-                        if (rowOfMap != 0 && player.fogOfWar[rowOfMap - 1][colOfMap + 1] == 0) {
+                        if (rowOfMap != 0 && player.fogOfWar[rowOfMap - 1][colOfMap + 1] != 2) {
                             cityLogo = " ";
                             unitName = "       ";
                         }
@@ -103,7 +103,7 @@ public class Controller {
                             unitName = getInformation("civilianUnit", colOfMap + 1, map[rowOfMap - 1]);
                         if (player.fogOfWar[rowOfMap][colOfMap] == 0)
                             information = "       ";
-                        if (player.fogOfWar[rowOfMap][colOfMap + 1] == 0)
+                        if (player.fogOfWar[rowOfMap][colOfMap + 1] != 2)
                             unitName = "       ";
                         System.out.print(" " + river + "/" + Color.RESET + " " + information + " \\ " + unitName);
                     } else if (rowInHex == 2) {
@@ -128,7 +128,7 @@ public class Controller {
                             cityLogo = " ";
                         if (player.fogOfWar[rowOfMap][colOfMap + 1] == 0)
                             information = "       ";
-                        if (player.fogOfWar[rowOfMap][colOfMap] == 0) {
+                        if (player.fogOfWar[rowOfMap][colOfMap] != 2) {
                             cityLogo = " ";
                             unitName = "       ";
                         }
@@ -138,7 +138,7 @@ public class Controller {
                         String unitName = getInformation("civilianUnit", colOfMap, map[rowOfMap]);
                         if (player.fogOfWar[rowOfMap][colOfMap + 1] == 0)
                             information = "       ";
-                        if (player.fogOfWar[rowOfMap][colOfMap] == 0)
+                        if (player.fogOfWar[rowOfMap][colOfMap] != 2)
                             unitName = "       ";
                         System.out.print(" " + river + "\\" + Color.RESET + " " + unitName + " / " + information);
                     } else {

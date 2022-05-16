@@ -72,6 +72,13 @@ public class GameController {
      */
     private void updateFogOfWar(Player player) {
 
+        //In the beginning reset all fogOfWar(s) of value 2
+        for (int i = 0; i < Database.numOfRows; i++)
+            for (int j = 0; j < Database.numOfCols; j++)
+                if (player.fogOfWar[i][j] == 2)
+                    player.fogOfWar[i][j] = 1;
+
+
         //fog of war - Units:
         for (Unit unit : player.getCivilization().getUnits()) {
             //Itself:

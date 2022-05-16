@@ -39,6 +39,8 @@ public class GameMenu extends Menu {
         this.functions.put("^select tile (?<xPosition>[-]?\\d+) (?<yPosition>[-]?\\d+)$", this::selectTile);
         this.functions.put("^unselect$", () -> message = Message.OK);
         this.functions.put("^unit move to (?<xPosition>[-]?\\d+) (?<yPosition>[-]?\\d+)$", this::unitMove);
+        this.functions.put("^unit free move to (?<xPosition>[-]?\\d+) (?<yPosition>[-]?\\d+)$", this::unitFreeMove);
+
 
         this.functions.put("^unit sleep$", this::unitSleep);
         this.functions.put("^unit wake$", this::unitWake);
@@ -69,6 +71,31 @@ public class GameMenu extends Menu {
         this.functions.put("^map move left (?<NumberOfMoves>\\d+)$", this::moveLeft);
         this.functions.put("^map move up (?<NumberOfMoves>\\d+)$", this::moveUp);
         this.functions.put("^map move down (?<NumberOfMoves>\\d+)$", this::moveDown);
+    }
+
+    private void unitFreeMove() {
+        if (notSelectedTile())
+            return;
+        int x = Integer.parseInt(matcher.group("xPosition"));
+        int y = Integer.parseInt(matcher.group("yPosition"));
+        if (Controller.isInvalidCoordinate(x, y))
+            System.out.println("Please enter a valid coordinate.");
+        else {
+            message = Message.NULL;
+            switch (selectedType) {
+                case CITY:
+                    System.out.println("You can not move a city.");
+                    message = Message.OK;
+                    break;
+                case CIVILIAN_UNIT:
+                    message = selectedTile.getCivilianUnit().freeMove(x, y);
+                    break;
+                case MILITARY_UNIT:
+                    message = selectedTile.getMilitaryUnit().freeMove(x, y);
+                    break;
+            }
+            System.out.println(message.getErrorMessage());
+        }
     }
 
 
