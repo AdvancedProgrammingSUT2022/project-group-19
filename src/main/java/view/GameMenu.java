@@ -10,7 +10,6 @@ import model.resource.ResourceType;
 import model.technology.Technology;
 import model.unit.Unit;
 import model.unit.UnitType;
-import model.unit.Worker;
 
 import java.util.*;
 
@@ -159,7 +158,7 @@ public class GameMenu extends Menu {
     private void unitRemoveRoute() {
         if (notSelectedTile())
             return;
-        Worker worker = (Worker) selectedTile.getCivilianUnit();
+        Unit worker = selectedTile.getCivilianUnit();
         if (worker == null || !worker.getType().equals(UnitType.WORKER))
             System.out.println("No worker in this tile");
         else {
@@ -173,7 +172,7 @@ public class GameMenu extends Menu {
             return;
         message = Message.NULL;
         String improvement = matcher.group("improvement");
-        Worker worker = (Worker) selectedTile.getCivilianUnit();
+        Unit worker = selectedTile.getCivilianUnit();
         if (worker == null || !worker.getType().equals(UnitType.WORKER))
             System.out.println("No worker in this tile");
         else {
@@ -203,6 +202,7 @@ public class GameMenu extends Menu {
                     message = worker.buildImprovement(Improvement.STONE_MINE);
                     break;
             }
+            System.out.println(message.getErrorMessage());
         }
     }
 
@@ -672,13 +672,17 @@ public class GameMenu extends Menu {
     }
 
     private void unitBuildRoad() {
-        Worker worker = getWorker();
+        Unit worker = getWorker();
         if (worker == null) return;
         worker.buildRoad();
         message = Message.OK;
     }
 
     private void unitBuildRailroad() {
+        Unit worker = getWorker();
+        if (worker == null) return;
+        worker.buildRailRoad();
+        message = Message.OK;
     }
 
 
@@ -705,7 +709,7 @@ public class GameMenu extends Menu {
 //
 //    private void unitBuildQuarry() {
 //    }
-    private Worker getWorker() {
+    private Unit getWorker() {
         if (selectedTile == null) {
             System.out.println("select a tile first");
             message = Message.invalidCommand;
@@ -717,13 +721,12 @@ public class GameMenu extends Menu {
             message = Message.invalidCommand;
             return null;
         }
-        Worker worker = new Worker(unit);
-        if (!worker.getType().equals(UnitType.WORKER)) {
+        if (!unit.getType().equals(UnitType.WORKER)) {
             System.out.println("there is no worker unit in this tile.");
             message = Message.invalidCommand;
             return null;
         }
-        return worker;
+        return unit;
     }
 
     private void removeFeature() {
@@ -731,7 +734,7 @@ public class GameMenu extends Menu {
             System.out.println("You can only use workers for this operation.");
             return;
         }
-        Worker worker = getWorker();
+        Unit worker = getWorker();
         if (worker == null)
             return;
         message = worker.destroyFeature();
@@ -741,7 +744,7 @@ public class GameMenu extends Menu {
     private void unitRepair() {
         if (notSelectedTile())
             return;
-        Worker worker = (Worker) selectedTile.getCivilianUnit();
+        Unit worker = selectedTile.getCivilianUnit();
         if (worker == null || !worker.getType().equals(UnitType.WORKER))
             System.out.println("No worker in this tile");
         else

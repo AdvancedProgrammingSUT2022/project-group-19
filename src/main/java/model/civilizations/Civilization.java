@@ -6,7 +6,6 @@ import model.resource.ResourceType;
 import model.technology.Technology;
 import model.unit.Unit;
 import model.unit.UnitType;
-import model.unit.Worker;
 
 import java.io.Serializable;
 import java.util.*;
@@ -72,10 +71,7 @@ public class Civilization implements Serializable {
         //workers:
         for (int i = 0; i < units.size(); i++) {
             if(units.get(i).getType().equals(UnitType.WORKER)){
-                System.out.println(units.get(i).getWorkCounter());
-                Worker worker = (Worker) units.get(i);
-                System.out.println(worker.getWorkCounter());
-                worker.work();
+                units.get(i).work();
             }
         }
 

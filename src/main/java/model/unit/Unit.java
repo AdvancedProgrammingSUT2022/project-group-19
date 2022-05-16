@@ -2,15 +2,18 @@ package model.unit;
 
 import model.Database;
 import model.GameMap;
+import model.Improvement;
 import model.Message;
 import model.civilizations.City;
 import model.civilizations.Civilization;
+import model.land.TerrainType;
 import model.land.Tile;
 import model.technology.Technology;
 import model.resource.ResourceType;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Unit implements Serializable {
     private final UnitType type;
@@ -33,6 +36,18 @@ public class Unit implements Serializable {
     protected Tile tile;
     private ArrayList<Tile> way = new ArrayList<>();
 
+
+    //////worker fields:
+    private int savedCounter;
+    private Improvement savedImprovement = null;
+    private Improvement inProgressImprovement = null;
+    private boolean buildingRoad = false;
+    private boolean buildingRailRoad = false;
+    private boolean repairingImprovements = false;
+    private boolean repairingRoads = false;
+    private boolean destroyingFeature = false;
+
+
     public Unit(UnitType type, Civilization belongTo, int x, int y) {
         this.type = type;
         this.cost = type.getCost();
@@ -52,6 +67,8 @@ public class Unit implements Serializable {
             this.tile.setMilitaryUnit(this);
         else
             this.tile.setCivilianUnit(this);
+
+        civilization.addUnit(this);
     }
 
     //must be called each turn
@@ -361,6 +378,165 @@ public class Unit implements Serializable {
         System.out.println("In tile " + tile.getPositionI() + " " + tile.getPositionJ() + " we have a military unit: " + this.tile.getMilitaryUnit() + ". and a civilian unit: " + this.tile.getCivilianUnit());
 
 //        this.assigned = true;
+        return Message.OK;
+    }
+
+
+
+
+    ////////////worker methods:
+    //This method must be run every turn in the game
+    public Message work() {
+        if (workCounter > 0) {
+            System.out.println("i am working...");
+            workCounter--;
+            if (workCounter == 0) {
+                if (inProgressImprovement != null) {
+                    this.getTile().setImprovement(inProgressImprovement);
+                    this.getCivilization().log("Improvement " + inProgressImprovement + " build successfully");
+                    inProgressImprovement = null;
+                } else if (buildingRoad) {
+                    this.getTile().setRoad(true);
+                    this.getCivilization().log("Road build successfully in tile " + this.getTile().getPositionI() + "/" + this.getTile().getPositionJ());
+                    buildingRoad = false;
+                } else if (buildingRailRoad) {
+                    this.getTile().setRailRoad(true);
+                    this.getCivilization().log("RailRoad build successfully in tile " + this.getTile().getPositionI() + "/" + this.getTile().getPositionJ());
+                    buildingRailRoad = false;
+                } else if (repairingImprovements) {
+                    this.getTile().getImprovement().setPlundered(false);
+                    this.getCivilization().log("Improvement repaired successfully in tile " + this.getTile().getPositionI() + "/" + this.getTile().getPositionJ());
+                    repairingImprovements = false;
+                } else if (repairingRoads) {
+                    this.getTile().setRoadPlundered(false);
+                    this.getCivilization().log("Road repaired successfully in tile " + this.getTile().getPositionI() + "/" + this.getTile().getPositionJ());
+                    repairingRoads = false;
+                } else if (destroyingFeature) {
+                    this.getCivilization().log("Feature " + this.getTile().getFeature() + " removed successfully in tile " + this.getTile().getPositionI() + "/" + this.getTile().getPositionJ());
+                    this.getTile().removeFeature();
+                    destroyingFeature = false;
+                }
+                setRemainMP(getMovePoint());
+            }
+        }
+        return Message.OK;
+    }
+
+    public Message buildRoad() {
+        if (workCounter != 0) {
+            System.out.println("busy");
+            return Message.busy;
+        }
+        if (!this.getCivilization().getReachedTechs().contains(Technology.THE_WHEEL)) {
+            System.out.println("no tech :(");
+            return Message.noTechnology;
+        }
+        workCounter = 3;
+        buildingRoad = true;
+        this.getCivilization().log("Started building road in tile " + this.getTile().getPositionI() + "/" + this.getTile().getPositionJ());
+        setRemainMP(0);
+        return Message.OK;
+    }
+
+    public Message buildRailRoad() {
+        if (workCounter != 0)
+            return Message.busy;
+        if (this.getCivilization().getReachedTechs().contains(Technology.RAILROAD)) {
+            workCounter = 3;
+            buildingRailRoad = true;
+        }
+        this.getCivilization().log("Started building railroad in tile " + this.getTile().getPositionI() + "/" + this.getTile().getPositionJ());
+        setRemainMP(0);
+        return Message.OK;
+    }
+
+    public void pauseImprovement() {
+        if (workCounter == 0)
+            return;
+        savedCounter = workCounter;
+        workCounter = 0;
+        savedImprovement = inProgressImprovement;
+        this.getCivilization().log("Paused building improvement in tile " + this.getTile().getPositionI() + "/" + this.getTile().getPositionJ());
+    }
+
+    public void resumeImprovement() {
+        if (savedImprovement == null)
+            return;
+        workCounter = savedCounter;
+        savedCounter = 0;
+        inProgressImprovement = savedImprovement;
+        this.getCivilization().log("Resumed building improvement in tile " + this.getTile().getPositionI() + "/" + this.getTile().getPositionJ());
+    }
+
+    public Message buildImprovement(Improvement improvement) {
+        System.out.println("imp");
+        if (workCounter != 0)
+            return Message.busy;
+        if (!this.getCivilization().getCities().contains(this.getTile().getCity()))
+            return Message.improvementCityError;
+        TerrainType landType = this.getTile().getType();
+        TerrainType[] allowedLands = improvement.getFoundOn();
+        if (!Arrays.asList(allowedLands).contains(landType))
+            return Message.improvementLandError;
+        if (!this.getCivilization().getReachedTechs().contains(improvement.getRequiredTechnology()))
+            return Message.noTechnology;
+        System.out.println("started building...");
+        savedImprovement = null;
+        workCounter = 6;
+        inProgressImprovement = improvement;
+        setRemainMP(0);
+        this.getCivilization().log("Started building improvement in tile " + this.getTile().getPositionI() + "/" + this.getTile().getPositionJ());
+        return Message.OK;
+    }
+
+    public void destroyRoad() {
+        this.getTile().setRoad(false);
+        this.getTile().setRailRoad(false);
+        this.getTile().setRoadPlundered(false);
+        setRemainMP(0);
+        this.getCivilization().log("Road destroyed in tile " + this.getTile().getPositionI() + "/" + this.getTile().getPositionJ());
+    }
+
+    public Message destroyFeature() {
+        if (workCounter != 0)
+            return Message.busy;
+        TerrainType feature;
+        try {
+            System.out.println(this.getTile());
+            feature = this.getTile().getFeature();
+        } catch (NullPointerException e) {
+            System.out.println("Exception:");
+            return Message.noRemovableFeature;
+        }
+        if (feature.equals(TerrainType.FOREST))
+            workCounter = 4;
+        else if (feature.equals(TerrainType.JUNGLE))
+            workCounter = 7;
+        else if (feature.equals(TerrainType.MARSH))
+            workCounter = 6;
+        else
+            return Message.noRemovableFeature;
+
+        destroyingFeature = true;
+        setRemainMP(0);
+        this.getCivilization().log("Started removing feature in tile " + this.getTile().getPositionI() + "/" + this.getTile().getPositionJ());
+        return Message.OK;
+    }
+
+    public Message repair() {
+        if (workCounter != 0)
+            return Message.busy;
+        if (this.tile.getImprovement().isPlundered()) {
+            workCounter = 3;
+            repairingImprovements = true;
+        } else if (this.tile.isRoadPlundered()) {
+            workCounter = 3;
+            repairingRoads = true;
+        } else {
+            return Message.invalidCommand;
+        }
+        this.getCivilization().log("started repairing improvement in tile " + this.getTile().getPositionI() + "/" + this.getTile().getPositionJ());
+        setRemainMP(0);
         return Message.OK;
     }
 }

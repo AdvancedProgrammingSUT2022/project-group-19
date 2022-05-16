@@ -5,7 +5,7 @@ import model.civilizations.Civilization;
 import model.land.Tile;
 import model.unit.Unit;
 import model.unit.UnitType;
-import model.unit.Worker;
+
 
 import java.io.Serializable;
 
@@ -29,10 +29,9 @@ public class Player implements Serializable {
         while (tile.getCivilianUnit() != null) {
             tile = Database.map[x -= 1][y += 5];
         }
-        Unit unit = new Unit(UnitType.SCOUT, civilization, x, y);
-        civilization.addUnit(unit);
-        Worker worker = new Worker(new Unit(UnitType.WORKER, civilization, x, y));
-        civilization.addUnit(worker);
+        new Unit(UnitType.SCOUT, civilization, x, y);
+        new Unit(UnitType.WORKER, civilization, x, y);
+
         City city = new City(civilization, x, y);
         city.setCapital(true);
     }
