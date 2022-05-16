@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import model.building.Building;
 import model.civilizations.City;
 import model.land.TerrainType;
 import model.land.Tile;
@@ -17,6 +18,7 @@ public class GameController {
     public void gameLoop() {
         while (true) {
             for (Player player : Database.getPlayers()) {
+                player.getCivilization().eachTurn();
                 GameMenu gameMenu = new GameMenu(player);
                 boolean loopFlag = true;
                 while (loopFlag) {
@@ -64,6 +66,8 @@ public class GameController {
             }
         }
     }
+
+
 
     /*
       update the visibility of the map each turn

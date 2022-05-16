@@ -83,4 +83,11 @@ public enum ResourceType {
     public Technology getRequiredTechnology() {
         return requiredTechnology;
     }
+
+    public static ResourceType getRequire(Technology technology) {
+        for (ResourceType resourceType : ResourceType.values())
+            if (resourceType.getRequiredTechnology() != null && resourceType.getRequiredTechnology().equals(technology))
+                return resourceType;
+        return null;
+    }
 }

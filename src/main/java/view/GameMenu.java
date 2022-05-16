@@ -2,16 +2,20 @@ package view;
 
 import controller.Controller;
 import model.*;
+import model.building.Building;
 import model.civilizations.City;
 import model.civilizations.Civilization;
 import model.land.Tile;
+import model.resource.ResourceType;
 import model.technology.Technology;
 import model.unit.Unit;
 import model.unit.UnitType;
 import model.unit.Worker;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class GameMenu extends Menu {
     private final HashMap<String, Function> functions = new HashMap<>();
@@ -236,6 +240,94 @@ public class GameMenu extends Menu {
     }
 
     private void infoResearch() {
+        if (player.getCivilization().getCities().size() == 0) {
+            System.out.println("Please found your first city to access this menu.");
+            return;
+        }
+        System.out.println("========================================");
+        System.out.println("============ Research info =============");
+        System.out.println("========================================");
+        System.out.println("Your curren Science: " + player.getCivilization().getCupOfScience() + " cups");
+        System.out.println("Current Technology in research: " + player.getCivilization().getInStudyTech());
+        System.out.println();
+        System.out.println("1- Print technology tree.");
+        System.out.println("2- Select a technology for research");
+        System.out.println("3- print Reached Technologies of your civilization.");
+        System.out.println("4- Research contract with other civilizations click here. [next Phase]");
+        System.out.println();
+        System.out.println("Enter a number or enter 'exit'.");
+        while (true) {
+            String input = scanner.nextLine();
+            int number;
+            try {
+                number = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                if (input.equals("exit"))
+                    break;
+                System.out.println("Please enter a number or enter 'exit'.");
+                continue;
+            }
+            if (number < 1 || number > 4) {
+                System.out.println("Please enter a valid number.");
+                continue;
+            }
+            switch (number) {
+                case 1:
+                    System.out.println("All technologies in the game:");
+                    System.out.println("Technology name         cost     have       Prerequisites");
+                    for (Technology technology : Technology.values())
+                        System.out.format("%-20s   %4d        %s         %s\n", technology, technology.getCost(),
+                                (player.getCivilization().getReachedTechs().contains(technology) ? "✓" : " "),
+                                Arrays.toString(technology.getPrerequisiteTechs()));
+                    break;
+                case 2:
+                    System.out.println("Last technology reached: " + player.getCivilization().getReachedTechs().get(player.getCivilization().getReachedTechs().size() - 1));
+                    System.out.println("These technologies are available. Select a technology to start researching about it.");
+                    System.out.println("   Technology name          time(turn)       Buildings                        resource");
+                    int index = 1;
+                    for (Technology technology : player.getCivilization().getAvailableForStudyTechs()) {
+                        System.out.format(index + "- %-20s     %4d              %-30s    %-10s\n", technology, technology.getCost() / player.getCivilization().getCupOfScience() + 2,
+                                Arrays.toString(new ArrayList[]{Building.getAllNeeds(technology)}), ResourceType.getRequire(technology));
+                        index++;
+                    }
+                    index--;
+
+                    while (true) {
+                        input = scanner.nextLine();
+                        try {
+                            number = Integer.parseInt(input);
+                        } catch (NumberFormatException e) {
+                            if (input.equals("exit"))
+                                break;
+                            System.out.println("Please enter a number or enter 'exit'.");
+                            continue;
+                        }
+                        if (number < 1 || number > index) {
+                            System.out.println("Please enter a valid number.");
+                            continue;
+                        }
+                        Technology tech = player.getCivilization().getAvailableForStudyTechs().get(number - 1);
+                        player.getCivilization().studyTech(tech, tech.getCost() / player.getCivilization().getCupOfScience() + 2);
+                        System.out.println("You selected " + tech + " for researching successfully.");
+                        break;
+                    }
+                    System.out.println("returned to research menu.");
+                    break;
+                case 3:
+                    List<Technology> techs = player.getCivilization().getReachedTechs();
+                    System.out.println("You have reached " + techs.size() + " technology.");
+                    for (Technology technology : techs)
+                        System.out.println(technology);
+                    System.out.println("=============");
+                    break;
+                case 4:
+                    System.out.println("This feature is coming in next phase.");
+                    break;
+            }
+
+        }
+
+
     }
 
     private void infoUnits() {
@@ -405,27 +497,123 @@ public class GameMenu extends Menu {
     }
 
     private void unitAlert() {
+        switch (selectedType) {
+            case CITY:
+                System.out.println("You can not set alert for city.");
+                break;
+            case CIVILIAN_UNIT:
+                System.out.println("You can not set alert for civilian unit.");
+                break;
+            case MILITARY_UNIT:
+                selectedTile.getMilitaryUnit().readyAndAlter();
+                break;
+        }
+        message = Message.OK;
     }
 
     private void unitFortify() {
+        switch (selectedType) {
+            case CITY:
+                System.out.println("You can not fortify a city.");
+                break;
+            case CIVILIAN_UNIT:
+                System.out.println("You can not fortify civilian unit.");
+                break;
+            case MILITARY_UNIT:
+                selectedTile.getMilitaryUnit().reinforcement();
+                break;
+        }
+        message = Message.OK;
     }
 
     private void unitFortifyHeal() {
+        switch (selectedType) {
+            case CITY:
+                System.out.println("You can not fortify a city.");
+                break;
+            case CIVILIAN_UNIT:
+                System.out.println("You can not fortify civilian unit.");
+                break;
+            case MILITARY_UNIT:
+                selectedTile.getMilitaryUnit().fullReinforcement();
+                break;
+        }
+        message = Message.OK;
     }
 
     private void unitGarrison() {
+        switch (selectedType) {
+            case CITY:
+                System.out.println("You can not do it for a city");
+                break;
+            case CIVILIAN_UNIT:
+                System.out.println("You can not do it for civilian unit.");
+                break;
+            case MILITARY_UNIT:
+                selectedTile.getMilitaryUnit().garrison();
+                break;
+        }
+        message = Message.OK;
     }
 
     private void unitSetup() {
+        switch (selectedType) {
+            case CITY:
+                System.out.println("You can not do it for a city");
+                break;
+            case CIVILIAN_UNIT:
+                System.out.println("You can not do it for civilian unit.");
+                break;
+            case MILITARY_UNIT:
+                selectedTile.getMilitaryUnit().garrison();
+                break;
+        }
+        message = Message.OK;
     }
 
     private void unitAttack() {
+        switch (selectedType) {
+            case CITY:
+                System.out.println("You can not do it for a city");
+                break;
+            case CIVILIAN_UNIT:
+                System.out.println("You can not do it for civilian unit.");
+                break;
+            case MILITARY_UNIT:
+                selectedTile.getMilitaryUnit().attack();
+                break;
+        }
+        message = Message.OK;
     }
 
-    private void unitFound() {
+    private void unitFound() { // todo
+        switch (selectedType) {
+            case CITY:
+                System.out.println("You can not do it for a city");
+                break;
+            case CIVILIAN_UNIT:
+                System.out.println("You can not do it for civilian unit.");
+                break;
+            case MILITARY_UNIT:
+                selectedTile.getMilitaryUnit().garrison();
+                break;
+        }
+        message = Message.OK;
     }
 
     private void unitCancel() {
+        switch (selectedType) {
+            case CITY:
+                System.out.println("You can not do it for a city");
+                break;
+            case CIVILIAN_UNIT:
+                selectedTile.getCivilianUnit().cancel();
+                break;
+            case MILITARY_UNIT:
+                selectedTile.getMilitaryUnit().cancel();
+                break;
+        }
+        message = Message.OK;
     }
 
     private void unitDelete() {

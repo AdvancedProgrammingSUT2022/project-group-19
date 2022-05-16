@@ -34,6 +34,7 @@ public class Player implements Serializable {
         Worker worker = new Worker(new Unit(UnitType.WORKER, civilization, x, y));
         civilization.addUnit(worker);
         City city = new City(civilization, x, y);
+        city.setCapital(true);
     }
 
     public void setCivilization(Civilization civilization) {
@@ -47,4 +48,5 @@ public class Player implements Serializable {
     public Civilization getCivilization() {
         return civilization;
     }
+
 }
