@@ -1,10 +1,12 @@
 package model.land;
 
+import model.Database;
 import model.Improvement;
 import model.Ruin;
 import model.civilizations.City;
 import model.resource.ResourceType;
 import model.unit.Unit;
+import java.util.ArrayList;
 
 public class Tile {
     private int food;
@@ -81,6 +83,41 @@ public class Tile {
 
     public Tile[] getNeighborOnBounds() {
         return neighborOnBounds;
+    }
+
+    public ArrayList<Tile> getNeighbors() {
+        ArrayList<Tile> neighbors = new ArrayList<>();
+        if (positionJ % 2 == 0) {   //if the tile is in even column
+
+            for (int i = positionI - 1; i <= positionI; i++)
+                for (int j = positionJ - 1; j <= positionJ + 1; j++) {
+                    try {
+                        neighbors.add(Database.map[i][j]);
+                    } catch (Exception ignored) {
+                    }
+                }
+
+            try {
+                neighbors.add(Database.map[positionI + 1][positionJ]);
+            } catch (Exception ignored) {
+            }
+
+        } else {    //if the tile is in odd column
+
+            for (int i = positionI; i <= positionI + 1; i++)
+                for (int j = positionJ - 1; j <= positionJ + 1; j++)
+                    try {
+                        neighbors.add(Database.map[i][j]);
+                    } catch (Exception ignored) {
+                    }
+
+            try {
+                neighbors.add(Database.map[positionI - 1][positionJ]);
+            } catch (Exception ignored) {
+            }
+
+        }
+        return neighbors;
     }
 
     public int getPositionI() {
@@ -221,5 +258,9 @@ public class Tile {
 
     public void deleteCivilianUnit() {
         this.civilianUnit = null;
+    }
+
+    public void deleteMilitaryUnit(){
+        this.militaryUnit = null;
     }
 }

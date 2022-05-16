@@ -7,7 +7,7 @@ import model.User;
 
 import java.util.HashMap;
 
-public class ProfileMenu extends MainMenu {
+public class  ProfileMenu extends MainMenu {
 
     private final HashMap<String, Function> functions = new HashMap<>();
 
