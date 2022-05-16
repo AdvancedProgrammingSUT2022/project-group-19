@@ -60,31 +60,29 @@ public class Unit implements Serializable {
 
     //با توجه به موو پوینت مسیر و یونیت امکان مهاجرت یک یونیت به مقصد را بررسی میکند
     public void move() {
-        while (getRemainMP() > 0) {
+        while (getWay().size() > 0 && getRemainMP() > 0) {
             Tile nextTile = getWay().get(0);
-            if (nextTile.getMovePoint() < getRemainMP()) {
-                if (nextTile.getMilitaryUnit() != null && nextTile.getCivilianUnit() != null) break;
+            if (nextTile.getMilitaryUnit() != null && nextTile.getCivilianUnit() != null) break;
 
-                if (nextTile.getMilitaryUnit() != null) {
-                    if (!getCivilization().equals((nextTile.getMilitaryUnit()).getCivilization()) || getPower() != 0)
-                        break;
-                }
-                if (nextTile.getCivilianUnit() != null) {
-                    if (!getCivilization().equals((nextTile.getCivilianUnit()).getCivilization()) || getPower() == 0)
-                        break;
-                }
-                if (getPower() != 0) tile.setMilitaryUnit(null);
-                else tile.setCivilianUnit(null);
-                int j = tile.getPositionJ();
-                tile = nextTile;
-                int newJ = tile.getPositionJ();
-                if (getPower() != 0) tile.setMilitaryUnit(this);
-                else tile.setCivilianUnit(this);
-                setRemainMP(getRemainMP() - nextTile.getMovePoint());
-                if (j == 5 && newJ == 6 || j == 6 && newJ == 5) setRemainMP(0);
-                getWay().remove(0);
-
-            } else break;
+            if (nextTile.getMilitaryUnit() != null) {
+                if (!getCivilization().equals((nextTile.getMilitaryUnit()).getCivilization()) || getPower() != 0)
+                    break;
+            }
+            if (nextTile.getCivilianUnit() != null) {
+                if (!getCivilization().equals((nextTile.getCivilianUnit()).getCivilization()) || getPower() == 0)
+                    break;
+            }
+            if (getPower() != 0) tile.setMilitaryUnit(null);
+            else tile.setCivilianUnit(null);
+            int j = tile.getPositionJ();
+            tile = nextTile;
+            int newJ = tile.getPositionJ();
+            if (getPower() != 0) tile.setMilitaryUnit(this);
+            else tile.setCivilianUnit(this);
+            setRemainMP(getRemainMP() - nextTile.getMovePoint());
+            if (j == 5 && newJ == 6 || j == 6 && newJ == 5) setRemainMP(0);
+            getWay().remove(0);
+            if (getRemainMP() < 0) setRemainMP(0);
         }
 
     }
@@ -99,20 +97,23 @@ public class Unit implements Serializable {
         for (Tile neighbor : neighbors) {
             if (neighbor == null) break;
             counter++;
+            int movePointOfIt = neighbor.getMovePoint();
             int newDistance2 = (destination.getPositionI() - neighbor.getPositionI()) * (destination.getPositionI() - neighbor.getPositionI()) + (destination.getPositionJ() - neighbor.getPositionJ()) * (destination.getPositionJ() - neighbor.getPositionJ());
-            if (newDistance2 <= distance2 && neighbor != null && neighbor.getMovePoint() < 10) {
+            if (newDistance2 < (distance2) && movePointOfIt < 10) {
                 ArrayList<Tile> temp = new ArrayList<>();
                 temp.addAll(route);
                 temp.add(neighbor);
                 ArrayList<Tile> test = computeBestWay(neighbor, destination, temp, bestWay);
-                if (bestWay == null || test.size() < bestWay.size()) bestWay = test;
-            } else if (newDistance2 > distance2 && neighbor != null && neighbor.getMovePoint() < 10) {
-                ArrayList<Tile> temp = new ArrayList<>();
-                temp.addAll(route);
-                temp.add(neighbor);
-                ArrayList<Tile> test = computeBestWay(neighbor, destination, temp, bestWay);
+                //System.out.println(test.size());
                 if (bestWay == null || test.size() < bestWay.size()) bestWay = test;
             }
+//            else if (newDistance2 > distance2 && neighbor != null && neighbor.getMovePoint() < 10) {
+//                ArrayList<Tile> temp = new ArrayList<>();
+//                temp.addAll(route);
+//                temp.add(neighbor);
+//                ArrayList<Tile> test = computeBestWay(neighbor, destination, temp, bestWay);
+//                if (bestWay == null || test.size() < bestWay.size()) bestWay = test;
+//            }
         }
         return bestWay;
     }
@@ -280,6 +281,12 @@ public class Unit implements Serializable {
         //دستور حرکت
         Tile[][] map = Database.gameMap.getMap();
         ArrayList<Tile> way = computeBestWay(tile, map[x][y], new ArrayList<>(), null);
+        if (way == null) {
+            return Message.noWay;
+        }
+        if (getRemainMP() == 0) {
+            return Message.assigned;
+        }
         setWay(way);
         move();
         return Message.OK;
@@ -292,9 +299,6 @@ public class Unit implements Serializable {
     public int getWorkCounter() {
         return workCounter;
     }
-
-
-    //کد تابع move طیب
     public Message freeMove(int x, int y) {
         Tile destination = Database.map[x][y];
 

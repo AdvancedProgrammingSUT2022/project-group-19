@@ -22,7 +22,8 @@ public enum Message {
     noRemovableFeature("There is no eny forest, jungle, or marsh in this tile."),
     NEXT_TURN("let's go next turn!"),
     noUnit("There is not any selectable unit in this tile."),
-    noSelectedTile("You must select a tile first");
+    noSelectedTile("You must select a tile first"),
+    noWay("This tile is not reachable");
     private final String errorMessage;
 
 

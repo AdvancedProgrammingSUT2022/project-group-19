@@ -4,6 +4,7 @@ import controller.Controller;
 import model.*;
 import model.building.Building;
 import model.civilizations.City;
+import model.civilizations.Civilization;
 import model.land.Tile;
 import model.resource.ResourceType;
 import model.technology.Technology;
@@ -77,6 +78,14 @@ public class GameMenu extends Menu {
         this.functions.put("^map move left (?<NumberOfMoves>\\d+)$", this::moveLeft);
         this.functions.put("^map move up (?<NumberOfMoves>\\d+)$", this::moveUp);
         this.functions.put("^map move down (?<NumberOfMoves>\\d+)$", this::moveDown);
+        this.functions.put("^increase gold (?<NumberOfGolds>\\d+)$", this::increaseGold);
+        this.functions.put("^kill all other units$", this::killEnemyUnits);
+        this.functions.put("^increase move point (?<amount>\\d+)$", this::increaseMovePoint);
+        this.functions.put("^get all techs$", this::getAllTechs);
+    }
+
+    private void getAllTechs() {
+        player.getCivilization().setReachedTechs(Technology.VALUES);
     }
 
     private void unitFreeMove() {
@@ -101,6 +110,33 @@ public class GameMenu extends Menu {
                     break;
             }
             System.out.println(message.getErrorMessage());
+        }
+    }
+
+    private void increaseGold() {
+        int goldsNum = Integer.parseInt(matcher.group("NumberOfGolds"));
+        player.getCivilization().increaseGold(goldsNum);
+    }
+
+    private void killEnemyUnits() {
+        for (Player player1 : Database.getPlayers()) {
+            if (player1.equals(player)) continue;
+            Civilization civilization = player1.getCivilization();
+            for (Unit unit : civilization.getUnits()) {
+                if (unit.getPower() == 0) {
+                    unit.getTile().setCivilianUnit(null);
+                } else {
+                    unit.getTile().setMilitaryUnit(null);
+                }
+                civilization.getUnits().remove(unit);
+            }
+        }
+    }
+
+    private void increaseMovePoint() {
+        int amount = Integer.parseInt(matcher.group("amount"));
+        for (Unit unit : player.getCivilization().getUnits()) {
+            unit.setRemainMP(unit.getRemainMP() + amount);
         }
     }
 

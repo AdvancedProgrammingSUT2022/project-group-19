@@ -172,7 +172,7 @@ public class Tile implements Serializable {
     public Unit getCivilianUnit() {
         return civilianUnit;
     }
-
+    
     public void setCivilianUnit(Unit civilianUnit) {
         this.civilianUnit = civilianUnit;
     }
