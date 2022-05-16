@@ -139,7 +139,6 @@ public class MapController {
                     } else {
                         neighbors[5] = null;
                     }
-                    continue;
                 } else {
                     if (j > 0) {
                         neighbors[0] = tiles[i][j - 1];
@@ -179,6 +178,7 @@ public class MapController {
                     }
                 }
                 tiles[i][j].setNeighborOnBounds(neighbors);
+                //System.out.println(neighborsNum);
             }
         }
     }
